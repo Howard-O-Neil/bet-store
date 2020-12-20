@@ -1,4 +1,5 @@
 import React from "react";
+import Wallet from "./Wallet";
 
 import styles from "../../styles/Profile.module.scss";
 import InfoProfile from "./InfoProfile";
@@ -25,7 +26,7 @@ export default function Profile() {
                 </div>
                 <div className = {styles.InfoProfileContainer}>
                     {scene === INFORMATION_SCENE && <InfoProfile/> }
-                    {scene === WALLET_SCENE && <div></div>}
+                    {scene === WALLET_SCENE && <Wallet/>}
                     {scene === STOREMANAGER_SCENE && <div></div>}
                     {scene === SUPPORT_SCENE && <div></div>}                    
                 </div>
