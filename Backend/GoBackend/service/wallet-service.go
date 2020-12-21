@@ -82,16 +82,8 @@ func (c *WalletDataService) SpendWallet() error {
 }
 
 func (c *WalletDataService) PayWallet(profileid bson.ObjectId, enti entity.HookEntity) error {
-
-	// update := bson.M{
-	// 	"transfer": bson.M{"$push": bson.M{"trans": enti}},
-	// }
-
-	fmt.Println(profileid)
 	pushQuery := bson.M{"transfer.trans": enti}
-
 	err := c.collection.Update(bson.M{"profileid": profileid}, bson.M{"$push": pushQuery, "$inc": bson.M{"currentwallet": enti.Amount}})
-
 	if err != nil {
 		fmt.Println(err.Error())
 		return err

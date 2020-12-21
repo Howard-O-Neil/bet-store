@@ -14,6 +14,7 @@ import {
 import { profileReducer } from "./reducers/profileReducer";
 import {accountReducer} from "./reducers/accountReducer"
 import { notifyReducer } from "./reducers/notifyReducer";
+import { walletReducer } from "./reducers/walletReducer";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -24,7 +25,8 @@ const reducer = combineReducers({
   categoryDetails: categoryDetailsReducer,
   profile:profileReducer,
   account:accountReducer,
-  notify:notifyReducer
+  notify:notifyReducer,
+  wallet:walletReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 

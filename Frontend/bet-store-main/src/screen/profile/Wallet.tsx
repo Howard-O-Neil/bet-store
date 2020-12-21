@@ -1,6 +1,7 @@
 import React, { createRef, EventHandler, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { InfoWallet } from '../../actions/walletAction';
 import { AppState } from '../../store';
 import styles from '../../styles/Wallet.module.scss'
 
@@ -12,6 +13,7 @@ interface QRMomoStruct {
 
 const Wallet: React.FC = () => {
 
+    const wallet = useSelector((state:AppState) => state.wallet)
     const profile = useSelector((state:AppState) => state.profile)
 
     const [srcQR, setsrcQR] = useState<QRMomoStruct>({IsCreated:false,src:""})
@@ -20,10 +22,17 @@ const Wallet: React.FC = () => {
 
     const HandleCreateMomo = (evt:React.FormEvent):void=>{
         evt.preventDefault();
+        //console.log("1234567");
+        ////dispatch(InfoWallet());
         let linkStruct = `https://momofree.apimienphi.com/api/QRCode?phone=0979647421&amount=${refInputMonney.current.value}&note=${profile.Payload.username}`;
         setsrcQR({IsCreated:true, src:linkStruct});
     }
 
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(InfoWallet());
+    }, [profile.IsFetching,dispatch])
     return (
         <div className={styles.WalletContainer}>
             <div className={styles.InfoWallet}>
@@ -35,7 +44,7 @@ const Wallet: React.FC = () => {
                         <i className="fas fa-wallet"></i>
                         <div>
                             <strong>
-                                100.000đ
+                                {wallet.Payload.currentwallet}
                             </strong>
                             Số tiền hiện có
                         </div>
@@ -44,7 +53,7 @@ const Wallet: React.FC = () => {
                         <i className="fas fa-university"></i>
                         <div>
                             <strong>
-                                100.000đ
+                                {wallet.Payload.sumpaid}
                             </strong>
                             Số tiền đã nạp
                         </div>
@@ -66,7 +75,7 @@ const Wallet: React.FC = () => {
                                 </div>
                                 <div className={styles.Value}>
                                     <h6>
-                                        <span>0914.68.45.68</span>
+                                        <span>0979.647.421</span>
                                     </h6>
                                 </div>
                             </div>
