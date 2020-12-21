@@ -99,11 +99,15 @@ func SignupHandle(ctx *gin.Context) {
 	}
 	account.Profile.AccountID = account.ID
 	account.Profile.Username = account.Username
-	_, err = Profileservice.AddProfile(account.Profile)
+	idProfile, err := Profileservice.AddProfile(account.Profile)
 
 	if err != nil {
 		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusConflict, err.Error()))
 	} else {
+		_, err = Walletservice.NewWalletforProfile(idProfile)
+		if err != nil {
+			fmt.Println("[AccountSignup] Create wallet fail: " + err.Error())
+		}
 		ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"msg": "Account created"}))
 	}
 
