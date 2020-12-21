@@ -2,18 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Container, Image } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import style from "../styles/Category.module.scss";
+
 const Category = ({ category }) => {
   return (
-    <div className={style.category_items}>
-      <a href="" title={category.name}>
+    <div>
+      <Link to={category.fullPath} title={category.name}>
         <img
           src="https://static.chotot.com/storage/chapy-pro/newcats/v8/1000.png"
           alt="alt"
         />
-        <br />
-        <span>{category.name}</span>
-      </a>
+      </Link>
+      <br />
+      <span>{category.name}</span>
     </div>
     /*<Container className={style.category} fluid>
       <Link to={`/category/${category._id}`}>

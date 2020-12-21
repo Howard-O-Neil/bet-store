@@ -11,7 +11,16 @@ const router = express.Router();
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const categories = await Category.find({});
+    const parent = req.query.parent
+      ? {
+          parent: {
+            $regex: req.query.parent,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const categories = await Category.find({ ...parent });
     res.status(200).json(categories);
   })
 );

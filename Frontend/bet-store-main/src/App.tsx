@@ -31,6 +31,8 @@ import Profile from "./screen/profile/profile";
 import NotifyContainer from "./components/NotifyContainer";
 import { useDispatch } from "react-redux";
 import { AddNotify } from "./actions/notifyAction";
+import CategoryListScreen from "./screen/CategoryListScreen";
+import CategoryViewScreen from "./screen/CategoryViewScreen";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,7 +65,7 @@ function App() {
             component={ProductListScreen}
             exact
           ></Route>
-
+          <Route path="/categoryList" component={CategoryListScreen}></Route>
           <Route
             path="/profile/product/new"
             component={AddProductScreen}
@@ -72,6 +74,7 @@ function App() {
             path="/profile/product/:id/edit"
             component={ProductEditScreen}
           ></Route>
+          <Route path="/:category" component={CategoryViewScreen}></Route>
           <Route path="/profile" component={Profile} exact></Route>
         </Switch>
         <Provider

@@ -8,13 +8,13 @@ import {
   CATEGORY_DETAILS_FAIL,
 } from "../constants/categoryConstants";
 
-export const listCategories = () => async (dispatch) => {
+export const listCategories = (body = "") => async (dispatch) => {
   try {
     dispatch({
       type: CATEGORY_LIST_REQUEST,
     });
-
-    const { data } = await axios.get("/node/api/categories");
+    console.log(body);
+    const { data } = await axios.get("/node/api/categories", { params: body });
 
     dispatch({
       type: CATEGORY_LIST_SUCCESS,

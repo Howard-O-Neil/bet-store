@@ -41,14 +41,30 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find(req.body).populate("category");
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const category = req.query.category
+    ? {
+        category: {
+          $regex: req.query.category,
+          $options: "i",
+        },
+      }
+    : {};
+  const products = await Product.find({ ...keyword, ...category });
 
   res.json(products);
 });
 
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id).populate("category");
-
+  console.log("go to here");
   if (product) {
     res.json(product);
   } else {
