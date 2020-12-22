@@ -16,9 +16,19 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_RESET,
+  SORT_BY_ALPHABET,
+  SORT_BY_PRICE,
+  FILTER_BY_PRICE,
+  FILTER_BY_VALUE,
+  LOAD_NEW_PAGE,
+  LOAD_EXACT_PAGE,
+  LOAD_DATA_INTO_FILTER,
 } from "../constants/productConstants";
 
-export const productListReducer = (state = { products: [] }, action) => {
+export const productListReducer = (
+  state = { products: [], filteredProducts: [], appliedFilters: [] },
+  action
+) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
@@ -26,6 +36,24 @@ export const productListReducer = (state = { products: [] }, action) => {
       return { loading: false, products: action.payload };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
+    case SORT_BY_ALPHABET:
+      return {
+        ...action.payload,
+      };
+    case SORT_BY_PRICE:
+      return { ...action.payload };
+    case FILTER_BY_PRICE:
+      return { ...action.payload };
+    case FILTER_BY_VALUE:
+      return { ...action.payload };
+    case LOAD_NEW_PAGE:
+      return {
+        ...action.payload,
+      };
+    case LOAD_EXACT_PAGE:
+      return { ...action.payload };
+    case LOAD_DATA_INTO_FILTER:
+      return { ...action.payload };
     default:
       return state;
   }
@@ -85,6 +113,37 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_UPDATE_RESET:
       return { product: {} };
+    default:
+      return state;
+  }
+};
+
+export const productFilterReducer = (
+  state = {
+    filteredProducts: {},
+    appliedFilters: {},
+  },
+  action
+) => {
+  switch (action.type) {
+    case SORT_BY_ALPHABET:
+      return {
+        ...action.payload,
+      };
+    case SORT_BY_PRICE:
+      return { ...action.payload };
+    case FILTER_BY_PRICE:
+      return { ...action.payload };
+    case FILTER_BY_VALUE:
+      return { ...action.payload };
+    case LOAD_NEW_PAGE:
+      return {
+        ...action.payload,
+      };
+    case LOAD_EXACT_PAGE:
+      return { ...action.payload };
+    case LOAD_DATA_INTO_FILTER:
+      return { ...action.payload };
     default:
       return state;
   }
