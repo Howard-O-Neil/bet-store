@@ -168,3 +168,9 @@ Caused by: java.lang.IllegalArgumentException: invalid hexadecimal representatio
 [2020-12-19 12:59:30] [main] INFO  com.helper.LogUtils  - 
 ========== Service Restarted ==========
 
+[2020-12-22 15:32:56] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-22 16:17:25] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+

@@ -257,10 +257,10 @@ $white-smoke: #E8E8E8;
       }
 
       .messageImgContent {
-        background-color: #9ADAFF;
-        border-radius: 5px;
-        padding: 5px;
+        background-color: transparent;
+        border: 0.5px solid black;
         max-width: 80%;
+        padding: 1px;
         cursor: pointer;
         img {
           
@@ -270,7 +270,6 @@ $white-smoke: #E8E8E8;
       .messageFileContent {
         background-color: #9ADAFF;
         border-radius: 5px;
-        padding: 5px;
         max-width: 80%;
         cursor: pointer;
       }
@@ -294,10 +293,10 @@ $white-smoke: #E8E8E8;
       }
 
       .messageImgContent {
-        background-color: #E3E3E3;
-        border-radius: 5px;
-        padding: 5px;
+        background-color: transparent;
+        border: 0.5px solid black;
         max-width: 80%;
+        padding: 1px;
         cursor: pointer;
         img {
           
@@ -307,7 +306,6 @@ $white-smoke: #E8E8E8;
       .messageFileContent {
         background-color: #E3E3E3;
         border-radius: 5px;
-        padding: 5px;
         max-width: 80%;
         cursor: pointer;
       }

@@ -1,5 +1,5 @@
 import { EmojiData, Picker } from "emoji-mart";
-import React, { ReactEventHandler, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearGif, getMessageThunk, switchToConversation } from "../actions/chatBoxAction";
 import {
@@ -8,21 +8,15 @@ import {
   CHAT_HANDLER,
   Message,
   MessageControl,
+  MESSAGE_VIEW,
 } from "../reducers/chatBoxReducer";
 import "emoji-mart/css/emoji-mart.css";
 import style from "../styles/ChatBox.module.scss";
-import { ChatApiUtils } from "./ChatApiUtils";
-import { fromPxToOffset, getTextWidth, removeAllChild, toDomNode } from "./Utils";
-import { JsxElement } from "typescript";
 import SocketManager from "./SocketManager";
 import { CDN_SERVER_PREFIX, CHAT_KEY } from "./ChatBox";
 import Axios, { AxiosRequestConfig } from "axios";
 import { GifPicker, gifWidthDisplay, giphyFetch } from "./GifPicker";
-import ReactDOM from "react-dom";
-import { Gif, renderGif } from "@giphy/js-components";
-import { IGif } from "@giphy/js-types";
-import { GiphyFetch } from "@giphy/js-fetch-api";
-import { useAsync } from "react-async-hook";
+import { getMeta } from "./Utils";
 
 const TEXT_EDITOR_MAX_ROW = 5;
 const INPUT_TEXT_HANDLER_DELAY = 5;
@@ -269,42 +263,37 @@ const ChatMessage = React.memo(() => {
   }
 
   const messageListHandle = () => {
+    const scrollScale = 1.5;
 
-    //#region scroll top handle when load message
-    if (messageControlState.messageList.length - prevMessageSize >= 10) {
-      let node_t = messageBody.current as HTMLDivElement;
-
-      for (let i = messageControlState.messageList.length - 1; i >= messageControlState.messageList.length - 15; i--) {
-        switch(messageControlState.messageList[i].fileContentType) {
-          case CONTENT_NONE: {
-            node_t.scrollTop += 44;
-            break;
-          }
-          case CONTENT_IMAGE: case CONTENT_GIF: {
-            node_t.scrollTop += 286;
-            break;
-          }
-        }
-      }
-    }
-    //#endregion
-
+    let node_t = messageBody.current as HTMLDivElement;
     let result: JSX.Element[] = [];
+
     for (let i = messageControlState.messageList.length - 1; i >= 0; i--) {
       let x = messageControlState.messageList[i];
       result.push((
-        <ChatMessageBox
-          id={x.id}
-          senderId={x.senderId}
-          receiverId={x.receiverId}
-          textContent={x.textContent}
-          fileContent={x.fileContent}
-          fileContentType={x.fileContentType}
-        ></ChatMessageBox>
+        <div onLoad={e => {
+          let x = e.target as HTMLDivElement;
+
+          if (messageControlState.messageList.length <= 15) 
+            return
+          
+          if (i > prevMessageSize) {
+            if (x != null)
+              node_t.scrollTop += x.offsetHeight * scrollScale;
+            //
+          } else prevMessageSize = messageControlState.messageList.length;
+        }}>
+          <ChatMessageBox
+            id={x.id}
+            senderId={x.senderId}
+            receiverId={x.receiverId}
+            textContent={x.textContent}
+            fileContent={x.fileContent}
+            fileContentType={x.fileContentType}
+          ></ChatMessageBox>
+        </div>
       ));
     }
-    prevMessageSize = messageControlState.messageList.length;
-    
     return result;
   }
 
@@ -380,9 +369,11 @@ const ChatMessage = React.memo(() => {
     if (view.currentReceiver == "")
       return;
 
-    getReceiverInfo().then(x => {
-      setSenderInfo(x);
-    });
+    if (view.viewId == MESSAGE_VIEW) {
+      getReceiverInfo().then(x => {
+        setSenderInfo(x);
+      });
+    }
     
     document.addEventListener("mousedown", handleClickOutside);      
     prevMessageSize = 0;
@@ -404,7 +395,7 @@ const ChatMessage = React.memo(() => {
 
     if (messageControlState.messageList.length == 15 || messageControlState.appendMessage) {
       let node_t = messageBody.current as HTMLDivElement;
-      node_t.scrollTop = node_t.scrollHeight;  
+      node_t.scrollTop = node_t.scrollHeight;
     }
   }, [messageControlState])
 
@@ -534,11 +525,16 @@ const ChatMessageBox: React.FC<Message> = (message) => {
   const accountState = useSelector(
     (state: { chatAccountInfo: ChatAccountInfo }) => state.chatAccountInfo
   );
+  const [toggle, setToggle] = useState<boolean>(false);
+  const imgDisplay = useRef<JSX.Element>();
 
   const longTextHandle = (text: string) => {
-    const maxCharacter = 30;
-    if (text.length >= maxCharacter) {
-      return text.substring(0, maxCharacter - 1) + "...";
+    const maxCharacter = 25;
+    let content = text.substr(0, text.lastIndexOf('.') - 1);
+    let extension = text.substr(text.lastIndexOf('.') + 1, text.length - 1);
+
+    if (content.length >= maxCharacter) {
+      return content.substring(0, maxCharacter - 1) + "..." + `[${extension}]` ;
     }
     return text;
   };
@@ -560,18 +556,38 @@ const ChatMessageBox: React.FC<Message> = (message) => {
         <div className={style.messageImgContent} onClick={() => {
           let win = window.open(`${CDN_SERVER_PREFIX}${message.fileContent}`, '_blank');
           win.focus();
-        }}>
-          <img src={`${CDN_SERVER_PREFIX}${message.fileContent}?width=${imageThumbnailMessageWidth}&height=${imageThumbnailMessageHeight}`} 
-            width={imageThumbnailMessageWidth.toString()}
-            height={imageThumbnailMessageHeight.toString()}
-            alt={CONTENT_IMAGE}>
-            
-          </img>
+        }}> 
+          {(() => {
+            let fullSizeUrl = `${CDN_SERVER_PREFIX}${message.fileContent}`;
+            let displayWidth = imageThumbnailMessageWidth;
+            let displayHeight = imageThumbnailMessageHeight;
+
+            getMeta(fullSizeUrl, (width: number, height: number) => {
+              if (height < displayHeight) {
+                displayHeight = height * (displayWidth / width);
+              } else if (width < displayWidth) {
+                displayWidth = displayHeight * (width / height);
+              }
+              imgDisplay.current = (
+                <img src={`${fullSizeUrl}?width=${displayWidth}&height=${displayHeight}`} alt={CONTENT_IMAGE}>
+                </img>
+              )
+              setToggle(!toggle);
+            });
+
+            if (imgDisplay.current == null) {
+              return (
+                <div style={{height:`${imageThumbnailMessageHeight}px`}}> Image is loading...</div>
+              )
+            } else {
+              return imgDisplay.current;
+            }
+          })()}
         </div>
       );
     } else if (message.fileContentType == CONTENT_FILE) {
       return (
-        <div className={style.messageFileContent} onClick={() => {
+        <div className={style.messageTxtContent} style={{cursor:"pointer"}} onClick={() => {
           let win = window.open(`${CDN_SERVER_PREFIX}${message.fileContent}`, '_blank');
           win.focus();
         }}>
@@ -583,10 +599,13 @@ const ChatMessageBox: React.FC<Message> = (message) => {
       )
     } else if (message.fileContentType == CONTENT_GIF) {
       return (
-        <div className={style.messageFileContent} onClick={() => {
-          let win = window.open(`https://media.giphy.com/media/${message.fileContent}/giphy.gif`);
-          win.focus();
-        }}>
+        <div className={style.messageImgContent} 
+          style={{width:`${imageThumbnailMessageWidth.toString()}px`, height:`${imageThumbnailMessageHeight.toString()}px`}} 
+          onClick={() => {
+            let win = window.open(`https://media.giphy.com/media/${message.fileContent}/giphy.gif`);
+            win.focus();
+          }}
+        >
           <img src={`https://media.giphy.com/media/${message.fileContent}/giphy.gif`}
             width={imageThumbnailMessageWidth.toString()}
             height={imageThumbnailMessageHeight.toString()}

@@ -87,7 +87,7 @@ public class MessageDaoImpl implements IMessageDao {
         "Message",
         collection -> {
           var res = new ArrayList<Message>();
-          for (var doc : collection.find(new Document("_id", new ObjectId(_id)))) {
+          for (var doc : collection.find(new Document("_id", new ObjectId(_id)))) { 
             res.add(this.parseWithId(doc, Message.class));
           }
           return res;
