@@ -1,13 +1,5 @@
 {
   "dependencies": {
-    "@types/sockjs-client": "^1.5.0",
-    "javascript-time-ago": "^2.3.3",
-    "react-grid-carousel": "^1.0.1",
-    "react-images-upload": "^1.2.8",
-    "react-time-ago": "^6.2.2",
-    "sockjs-client": "^1.5.0"
-  },
-  "devDependencies": {
-    "@types/javascript-time-ago": "^2.0.1"
+    "@types/sockjs-client": "^1.5.0"
   }
 }
