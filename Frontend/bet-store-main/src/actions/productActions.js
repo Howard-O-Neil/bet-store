@@ -13,7 +13,18 @@ import {
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
 } from "../constants/productConstants";
+
+import {
+  IMAGE_UPLOAD_REQUEST,
+  IMAGE_UPLOAD_SUCCESS,
+  IMAGE_UPLOAD_FAIL,
+} from "../constants/imageConstants";
+
+import { uploadImage } from "../actions/imageActions";
 
 export const listProducts = () => async (dispatch) => {
   try {
@@ -91,10 +102,26 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-export const createProduct = (id) => async (dispatch, getState) => {
+export const createProduct = (product, imagesToUpload) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
+    });
+
+    await dispatch(uploadImage(imagesToUpload));
+
+    const {
+      imageUpload: { images },
+    } = getState();
+
+    Object.entries(images).map((filename) => {
+      product.image.push({
+        link: filename[1],
+        alt: filename[0],
+      });
     });
 
     //get user info
@@ -105,7 +132,7 @@ export const createProduct = (id) => async (dispatch, getState) => {
       },
     };*/
     //
-    const { data } = await axios.delete(`/node/api/products/`, {});
+    const { data } = await axios.post(`/node/api/products/`, product);
 
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
@@ -114,6 +141,53 @@ export const createProduct = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateProduct = (id, product, imagesToUpload) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_UPDATE_REQUEST,
+    });
+
+    await dispatch(uploadImage(imagesToUpload));
+
+    const {
+      imageUpload: { images },
+    } = getState();
+
+    Object.entries(images).map((filename) => {
+      product.image.push({
+        link: filename[1],
+        alt: filename[0],
+      });
+    });
+
+    //get user info
+    //const {userLogin: {userInfo}} = getState()
+    /*const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };*/
+    //
+    //const { data } = await axios.put(`/node/api/products/${id}`, product);
+
+    dispatch({
+      type: PRODUCT_UPDATE_SUCCESS,
+      //payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

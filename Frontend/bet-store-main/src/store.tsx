@@ -15,14 +15,17 @@ import { profileReducer } from "./reducers/profileReducer";
 import {accountReducer} from "./reducers/accountReducer"
 import { notifyReducer } from "./reducers/notifyReducer";
 import { walletReducer } from "./reducers/walletReducer";
+import { imagesUploadReducer } from "./reducers/imageReducer";
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
+  productUpdate: productCreateReducer,
   categoryList: categoryListReducer,
   categoryDetails: categoryDetailsReducer,
+  imageUpload: imagesUploadReducer,
   profile:profileReducer,
   account:accountReducer,
   notify:notifyReducer,

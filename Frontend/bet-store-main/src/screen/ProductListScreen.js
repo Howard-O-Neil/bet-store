@@ -8,7 +8,6 @@ import {
 } from "../actions/productActions";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { listCategories } from "../actions/categoryActions";
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -23,12 +22,13 @@ const ProductListScreen = ({ history, match }) => {
     success: successDelete,
   } = productDelete;
 
-  const categoryList = useSelector((state) => state.categoryList);
+  const productCreate = useSelector((state) => state.productCreate);
   const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = categoryList;
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
 
   const userInfo = {
     _id: "5fa7fb0a62083e11ace57490",
@@ -36,7 +36,6 @@ const ProductListScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
     dispatch(listProducts());
-    dispatch(listCategories());
     /*if (userInfo) {
       dispatch(listProducts());
     } else {
@@ -51,7 +50,9 @@ const ProductListScreen = ({ history, match }) => {
     }
   };
 
-  const createProductHandler = (id) => {};
+  const createProductHandler = () => {
+    history.push(`/profile/product/new`);
+  };
   return (
     <>
       <Row className="align-items-center">
@@ -59,7 +60,7 @@ const ProductListScreen = ({ history, match }) => {
           <h1>Products</h1>
         </Col>
         <Col className="text-right">
-          <Button className="my-3" onclick={createProductHandler}>
+          <Button className="my-3" onClick={() => createProductHandler()}>
             <i className="fas fa-plus"></i> Create Product
           </Button>
         </Col>
@@ -67,7 +68,10 @@ const ProductListScreen = ({ history, match }) => {
       {loadingDelete && <h3>Loading</h3>}
 
       {errorDelete && <h3>{errorDelete}</h3>}
-      {loading || loadingCategories ? (
+      {loadingCreate && <h3>Loading</h3>}
+
+      {errorCreate && <h3>{errorCreate}</h3>}
+      {loading ? (
         <h3>Loading</h3>
       ) : error ? (
         <h3>{error}</h3>
@@ -88,15 +92,9 @@ const ProductListScreen = ({ history, match }) => {
                 <td>{product._id}</td>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
+                <td>{product.category.name}</td>
                 <td>
-                  {
-                    categories.find(
-                      (category) => category._id == product.category
-                    ).name
-                  }
-                </td>
-                <td>
-                  <LinkContainer to={`/user/product/${product._id}/edit`}>
+                  <LinkContainer to={`/profile/product/${product._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <i className="fas fa-edit"></i>
                     </Button>

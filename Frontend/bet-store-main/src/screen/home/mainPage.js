@@ -6,6 +6,7 @@ import Category from "../../components/Category";
 import { listProducts } from "../../actions/productActions";
 import style from "../../styles/ProductDisplay.module.scss";
 import { listCategories } from "../../actions/categoryActions";
+import Carousel from "react-grid-carousel";
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
@@ -26,40 +27,61 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Container className={style.categoryContainer}>
-        <Row>
-          <h4>Danh mục</h4>
-        </Row>
-        <Row>
+      <div className="container">
+        <div className={style.categoryContainer}>
+          <div className={style.category_header}>
+            <h4 className={style.title}>Danh mục</h4>
+          </div>
+
           {loadingCategories ? (
             <h2>Loading...</h2>
           ) : errorCategories ? (
             <h3>{errorCategories}</h3>
           ) : (
-            <Container>
-              <Row className={style.categoryDisplay}>
-                {categories.map((category) => (
-                  <Category className={style.category} category={category} />
-                ))}
-              </Row>
-            </Container>
+            <Carousel
+              cols={5}
+              rows={1}
+              gap={10}
+              responsiveLayout={[
+                {
+                  breakpoint: 1200,
+                  cols: 3,
+                },
+                {
+                  breakpoint: 990,
+                  cols: 2,
+                },
+                {
+                  breakpoint: 500,
+                  cols: 1,
+                },
+              ]}
+              loop
+            >
+              {categories.map((category) => (
+                <Carousel.Item>
+                  <Category category={category} />
+                </Carousel.Item>
+              ))}
+            </Carousel>
           )}
-        </Row>
-      </Container>
-      <h4>Sản phẩm</h4>
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : error ? (
-        <h3>{error}</h3>
-      ) : (
-        <Container className={style.productContainer}>
-          <Row>
-            {products.map((product) => (
-              <Product className={style.product} product={product} />
-            ))}
-          </Row>
-        </Container>
-      )}
+        </div>
+        <div className={`${style.productContainer} container`}>
+          <h4 className={style.title}>Sản phẩm</h4>
+
+          {loading ? (
+            <h2>Loading...</h2>
+          ) : error ? (
+            <h3>{error}</h3>
+          ) : (
+            <Row>
+              {products.map((product) => (
+                <Product product={product} />
+              ))}
+            </Row>
+          )}
+        </div>
+      </div>
     </>
   );
 };
