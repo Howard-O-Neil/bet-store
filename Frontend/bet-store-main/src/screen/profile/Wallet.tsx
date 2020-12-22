@@ -44,7 +44,7 @@ const Wallet: React.FC = () => {
                         <i className="fas fa-wallet"></i>
                         <div>
                             <strong>
-                                {wallet.Payload.currentwallet}
+                                {Number(wallet.Payload.currentwallet).toLocaleString('en')}                            
                             </strong>
                             Số tiền hiện có
                         </div>
@@ -53,7 +53,7 @@ const Wallet: React.FC = () => {
                         <i className="fas fa-university"></i>
                         <div>
                             <strong>
-                                {wallet.Payload.sumpaid}
+                                {Number(wallet.Payload.sumpaid).toLocaleString('en')}
                             </strong>
                             Số tiền đã nạp
                         </div>
