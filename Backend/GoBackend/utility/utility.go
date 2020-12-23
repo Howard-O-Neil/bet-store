@@ -3,14 +3,11 @@ package utility
 import (
 	"crypto/rand"
 	"fmt"
-	"os"
-
-	"github.com/BurntSushi/toml"
 )
 
 const CONFIG_PATH = "config-server.toml"
 
-const (
+/*const (
 	Database      = 110
 	Auth          = 120
 	TelAuthServer = 130
@@ -56,7 +53,7 @@ func GetConfigServerbyKey(key int) interface{} {
 		return nil
 	}
 }
-
+*/
 func GenerateKeycode() string {
 	RandomCrypto, _ := rand.Prime(rand.Reader, 64)
 	str := fmt.Sprint(RandomCrypto)

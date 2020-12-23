@@ -1,0 +1,33 @@
+.SliderViewContainer {
+    width: 100%;
+    background-color: black;
+}
+
+@media screen and (max-width:740px){
+    .SliderViewContainer{
+        padding-top: 40px;
+    }
+}
+
+.carousel-indicators{
+    align-items: center;
+    li{
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+        background-color: white;
+        transition: all 1s;
+    }
+    .active{
+        width: 15px !important;
+        height: 15px !important;
+        background-color: #f37990!important;
+    }
+}
+.btn-control{
+    &:hover{
+        .carousel-item{
+            transform: translateX(100px);
+        }
+    }
+}

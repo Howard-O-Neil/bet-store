@@ -1,16 +1,10 @@
 package service
 
 import (
-	"GoBackend/utility"
-	"errors"
-	"fmt"
-	"io/ioutil"
-	"net/http"
-	"strings"
 )
 
-var config utility.TelAuthServerStruct
-
+//var config utility.TelAuthServerStruct
+/*
 func SendKeycode(tel string, keycode string) error {
 	if config == (utility.TelAuthServerStruct{}) {
 		LoadConfig()
@@ -51,5 +45,6 @@ func SendKeycode(tel string, keycode string) error {
 }
 
 func LoadConfig() {
-	config = utility.GetConfigServerbyKey(utility.TelAuthServer).(utility.TelAuthServerStruct)
+	//config = utility.GetConfigServerbyKey(utility.TelAuthServer).(utility.TelAuthServerStruct)
 }
+*/

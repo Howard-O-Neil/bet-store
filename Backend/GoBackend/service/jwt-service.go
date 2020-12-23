@@ -2,9 +2,9 @@ package service
 
 import (
 	"GoBackend/entity"
-	"GoBackend/utility"
 	"errors"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -21,12 +21,12 @@ type jwtService struct {
 }
 
 func NewJwtService() JwtService {
-	var jwtConfig utility.JwtClaimStruct
-	jwtConfig = utility.GetConfigServerbyKey(utility.Auth).(utility.JwtClaimStruct)
+	//var jwtConfig utility.JwtClaimStruct
+	//jwtConfig = os.Getenv("Secretkey") //utility.GetConfigServerbyKey(utility.Auth).(utility.JwtClaimStruct)
 	///fmt.Errorf(jwtConfig.Secretkey)
 	return &jwtService{
-		secret: jwtConfig.Secretkey,
-		issuer: jwtConfig.Issuer,
+		secret: os.Getenv("Secretkey"),
+		issuer: os.Getenv("Issuer"),
 	}
 }
 
@@ -44,7 +44,7 @@ func (c *jwtService) GenerationToken(id string, username string) string {
 		id,
 		username,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 168).Unix(),
 			Issuer:    c.issuer,
 			IssuedAt:  time.Now().Unix(),
 		},

@@ -1,0 +1,16 @@
+.NotifyContainer {
+    position: fixed;
+    height: 0px;
+    width: 0px;
+    top: 1rem;
+    right: 1rem;
+    z-index: 09999999999;
+    background-color: red;
+
+    >div {
+        position: absolute;
+        width: 300px;
+        top: 1rem;
+        right: 1rem;
+    }
+}

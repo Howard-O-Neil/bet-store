@@ -61,3 +61,40 @@ func FindFileinStorage(filename string) string {
 	}
 	return path
 }
+
+func CreateFileIOReaderAutoFolder(filename string, file io.ReadCloser) (string, error) {
+	//src, err := file.Open()
+	timenowstr := time.Now().Format("02012006")
+
+	folderpath := "database/" + timenowstr
+	if _, err := os.Stat(folderpath); os.IsNotExist(err) {
+		if err := os.MkdirAll(folderpath, os.ModePerm); err != nil {
+			fmt.Printf("[CreateFile] Create dir failed: %s\n", err.Error())
+			return "", err
+		}
+	}
+
+	//Get ext file
+	re := regexp.MustCompile("(.+?)(\\.[^.]*$|$)")
+	match := re.FindStringSubmatch(filename)
+	ext := match[2]
+
+	//Genneration hash name
+	filenameHash := GenerationGUID() + timenowstr + ext
+
+	out, err := os.Create(fmt.Sprintf("%s/%s", folderpath, filenameHash))
+
+	if err != nil {
+		return "", err
+	}
+	defer out.Close()
+
+	_, err = io.Copy(out, file)
+	//_, err = io.Copy(out, src)
+
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%s", filenameHash), err
+}

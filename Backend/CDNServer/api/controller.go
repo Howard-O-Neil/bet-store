@@ -4,13 +4,40 @@ import (
 	"CDNServer/ImgHandle"
 	"CDNServer/StorageHandle"
 	"fmt"
+	"io"
 	"net/http"
+	"net/url"
 	"path/filepath"
-	"regexp"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
+
+const BaseURLAvatar = "https://avatars.dicebear.com/4.5/api/avataaars/"
+
+type KeyPairValue struct {
+	key   string
+	value string
+}
+
+var ConfigAvatarRandom = []KeyPairValue{
+	KeyPairValue{
+		key:   "eyes[]",
+		value: "happy",
+	},
+	KeyPairValue{
+		key:   "mouth[]",
+		value: "smile",
+	},
+	KeyPairValue{
+		key:   "width",
+		value: "100",
+	},
+	KeyPairValue{
+		key:   "height",
+		value: "100",
+	},
+}
 
 func UploadFiles(ctx *gin.Context) {
 	form, err := ctx.MultipartForm()
@@ -53,9 +80,9 @@ func UploadFile(ctx *gin.Context) {
 func DownloadFile(ctx *gin.Context) {
 	filename := ctx.Param("filename")
 
-	re := regexp.MustCompile("(.+?)(\\.[^.]*$|$)")
-	match := re.FindStringSubmatch(filename)
-	ext := match[2]
+	//re := regexp.MustCompile("(.+?)(\\.[^.]*$|$)")
+	//match := re.FindStringSubmatch(filename)
+	//ext := match[2]
 
 	path := StorageHandle.FindFileinStorage(filename)
 	if path == "" {
@@ -71,12 +98,12 @@ func DownloadFile(ctx *gin.Context) {
 	height := uint(h)
 
 	if width == 0 && height == 0 {
-		if IsAttachment(ext) {
-			fmt.Println("test")
-			ctx.FileAttachment(path, path)
-		} else {
-			ctx.File(path)
-		}
+		// if !IsAttachment(ext) {
+		// 	//fmt.Println("test")
+		// 	ctx.File(path)
+		// } else {
+		ctx.File(path)
+		//}
 		return
 	} else {
 		patht, err := ImgHandle.Resize(path, width, height)
@@ -84,11 +111,9 @@ func DownloadFile(ctx *gin.Context) {
 			ctx.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		} else {
 			ctx.File(patht)
-
 		}
 		return
 	}
-	ctx.JSON(404, gin.H{"msg": "file non exist"})
 }
 
 func IsAttachment(ext string) bool {
@@ -100,4 +125,60 @@ func IsAttachment(ext string) bool {
 	}
 	return true
 
+}
+
+func GetAvatarRandom(ctx *gin.Context) {
+
+	// ctx.JSON(http.StatusOK, gin.H{"msg": "urlQuery"})
+	// fmt.Println("urlQuery")
+	// return
+
+	GUID := StorageHandle.GenerationGUID()
+	sex := ctx.Param("sex")
+	urlQuery, err := url.Parse(BaseURLAvatar + GUID + ".svg")
+	if err != nil {
+		fmt.Println(err)
+	}
+	var q url.Values = make(url.Values)
+
+	//Set value default avatar
+	for i := 0; i < len(ConfigAvatarRandom); i++ {
+		q.Set(ConfigAvatarRandom[i].key, ConfigAvatarRandom[i].value)
+	}
+
+	//Set sex for avatar
+	if sex == "woman" {
+		q.Set("top[]", "longHair")
+	} else {
+		q.Set("top[]", "shortHair")
+	}
+
+	urlQuery.RawQuery = q.Encode()
+	fmt.Println(urlQuery)
+
+	fileDownloaded, err := DownloadAvatar(urlQuery.String())
+
+	if err != nil {
+		fmt.Println(err.Error())
+		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+		return
+	}
+	defer fileDownloaded.Close()
+	filename, err := StorageHandle.CreateFileIOReaderAutoFolder("file.svg", fileDownloaded)
+	if err != nil {
+		fmt.Println(err.Error())
+		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"avatar": filename})
+}
+
+func DownloadAvatar(url string) (io.ReadCloser, error) {
+
+	// Get the data
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	return resp.Body, nil
 }

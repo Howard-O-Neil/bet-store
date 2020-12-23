@@ -8,6 +8,7 @@ func SetRoute(app *gin.Engine) *gin.Engine {
 	RouteUpload(app)
 	RouteDownload(app)
 	RouteTest(app)
+	RouteAvatar(app)
 	return app
 }
 
@@ -18,6 +19,10 @@ func RouteUpload(app *gin.Engine) {
 
 func RouteDownload(app *gin.Engine) {
 	app.GET("cdn/:filename", DownloadFile)
+}
+
+func RouteAvatar(app *gin.Engine) {
+	app.GET("avatar/:sex", GetAvatarRandom)
 }
 
 func RouteTest(app *gin.Engine) {

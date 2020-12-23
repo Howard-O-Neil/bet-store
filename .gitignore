@@ -5,6 +5,24 @@ Backend/CDNServer/database/*
 #golang
 gin-bin
 go.sum
+Backend/GoBackend/.idea/*
+Backend/GoBackend/log/*
+Backend/CDNServer/.idea/*
 
 #datamongo
-Backend/Database/mongodata/*
+Backend/Database/data/*
+Backend/Database/log/*
+
+#javabackend
+Backend/JavaBackend/.vscode/*
+Backend/JavaBackend/target/*
+Backend/JavaBackend/node_modules/*
+Backend/JavaBackend/logs/*
+
+#frontend
+Frontend/**/node_modules/*
+
+#nodejsbackend
+node_modules/
+logs/
+

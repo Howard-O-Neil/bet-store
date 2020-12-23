@@ -2,6 +2,7 @@ package entity
 
 import "github.com/dgrijalva/jwt-go"
 
+
 type JwtClaimEntity struct {
 	ID   string `json:"id"`
 	User string `json:"user"`

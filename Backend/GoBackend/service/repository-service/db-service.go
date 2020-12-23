@@ -1,7 +1,7 @@
 package mongodbservice
 
 import (
-	"GoBackend/utility"
+	"os"
 
 	"gopkg.in/mgo.v2"
 )
@@ -9,21 +9,27 @@ import (
 type DBService interface {
 	CloseDBService()
 	GetSession() *mgo.Session
-	//InsertCollection
 }
 
 type dbService struct {
 	session *mgo.Session
 }
 
+var instance dbService
+
 func NewDBService() (*dbService, error) {
-	configconnectDB := utility.GetConfigServerbyKey(utility.Database).(utility.DatabaseStruct)
-	sec, err := mgo.Dial(configconnectDB.Stringconnection)
-	if err != nil {
-		return &dbService{session: nil}, err
+	if instance == (dbService{}) {
+		//configconnectDB := utility.GetConfigServerbyKey(utility.Database).(utility.DatabaseStruct)
+		sec, err := mgo.Dial(os.Getenv("MONGO_URI"))
+		if err != nil {
+			return &dbService{session: nil}, err
+		}
+		instance.session = sec
+		//return &dbService{session: sec}, nil
 	}
-	return &dbService{session: sec}, nil
+	return &instance, nil
 }
+
 
 func (s *dbService) GetSession() *mgo.Session {
 	return s.session
@@ -32,3 +38,8 @@ func (s *dbService) GetSession() *mgo.Session {
 func (s *dbService) CloseDBService() {
 	s.session.Close()
 }
+
+func (s *dbService) GetDatabase(name string) *mgo.Database {
+	return s.session.DB(name)
+}
+
