@@ -21,7 +21,7 @@ const HomeScreen = () => {
   } = categoryList;
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(listProducts({}));
     dispatch(listCategories());
   }, [dispatch]);
 

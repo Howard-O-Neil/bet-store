@@ -23,6 +23,10 @@
   background-color: #f4f4f4;
   cursor: pointer;
 }
-
+.list_item_selected:hover {
+  cursor: pointer;
+}
+.list_item_selected {
+}
 .list_item {
 }

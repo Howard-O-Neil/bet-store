@@ -74,7 +74,11 @@ function App() {
             path="/profile/product/:id/edit"
             component={ProductEditScreen}
           ></Route>
-          <Route path="/:category" component={CategoryViewScreen}></Route>
+          <Route
+            path="/mua-ban/:category"
+            component={CategoryViewScreen}
+          ></Route>
+          <Route path="/mua-ban" component={CategoryViewScreen}></Route>
           <Route path="/profile" component={Profile} exact></Route>
         </Switch>
         <Provider

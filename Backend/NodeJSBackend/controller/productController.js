@@ -57,6 +57,7 @@ const getProducts = asyncHandler(async (req, res) => {
         },
       }
     : {};
+
   const products = await Product.find({ ...keyword, ...category });
 
   res.json(products);

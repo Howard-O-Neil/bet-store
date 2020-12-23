@@ -24,7 +24,6 @@
     "@types/websocket": "^1.0.1",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
-    "bulma": "^0.9.1",
     "emoji-mart": "^3.0.0",
     "emoji-picker-react": "^3.2.4",
     "form-data": "^3.0.0",

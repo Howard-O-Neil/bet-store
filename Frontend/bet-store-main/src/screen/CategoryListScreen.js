@@ -52,6 +52,7 @@ const CategoryListScreen = () => {
   return (
     <div className="container">
       <h1>Danh mục</h1>
+      Đã chọn :
       {selectedPathName.map((path, index) =>
         index == 0 ? <span>{path}</span> : <span>{" > " + path}</span>
       )}
@@ -69,7 +70,11 @@ const CategoryListScreen = () => {
               (category) =>
                 category.parent === "" && (
                   <li
-                    class={`list-group-item d-flex justify-content-between align-items-center ${style.list_item}`}
+                    class={`list-group-item d-flex justify-content-between align-items-center ${
+                      category.path === selectedPath
+                        ? "active " + style.list_item_selected
+                        : style.list_item
+                    }`}
                     onClick={handleMainCategoryClick}
                     id={category.path}
                   >

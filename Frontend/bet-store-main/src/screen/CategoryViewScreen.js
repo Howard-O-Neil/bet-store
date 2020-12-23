@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Carousel from "react-grid-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { listCategories } from "../actions/categoryActions";
 import {
@@ -10,8 +11,8 @@ import {
 } from "../actions/productActions";
 import style from "../styles/CategoryView.module.scss";
 
-const CategoryViewScreen = ({ match, location }) => {
-  const category = location.pathname;
+const CategoryViewScreen = ({ match }) => {
+  const category = match.params.category || "";
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const {
@@ -27,17 +28,17 @@ const CategoryViewScreen = ({ match, location }) => {
     filteredProducts,
     filteredPages,
     currentPage,
+    totalPages,
   } = productList;
 
   useEffect(() => {
     dispatch(listCategories({ parent: category }));
     dispatch(listProducts({ category: category }));
-  }, [dispatch, location]);
+  }, [dispatch]);
 
   const handleSubCategoryClick = (path) => {
     //dispatch(listCategories({ parent: "/xe-co" }));
     dispatch(listProducts({ body: { category: path } }));
-    console.log(location);
   };
 
   const nextPage = () => {
@@ -63,86 +64,50 @@ const CategoryViewScreen = ({ match, location }) => {
   };
   return (
     <div className={style.body}>
-      <div
-        className={`container ${style.subCategoryContainer} ${style.section}`}
-      >
-        {categories.map((subCategory) => (
-          <div
-            className={style.subCategory}
-            onClick={() => handleSubCategoryClick(subCategory.fullPath)}
-          >
-            <img src="http://dummyimage.com/100x100.png/cc0000/ffffff"></img>
-
-            <h5>{subCategory.name}</h5>
-          </div>
-        ))}
-      </div>
-      <div className="field is-grouped" style={{ alignItems: "center" }}>
-        <div className="control">
-          <div className="select">
-            <select
-              onChange={(e) => {
-                sortByInput(e);
-              }}
-            >
-              <option value="" disabled selected>
-                Sort by
-              </option>
-
-              <option value="alphabet_asc">Name - A-Z</option>
-              <option value="alphabet_desc">Name - Z-A</option>
-
-              <option value="price_asc">Price - Lowest to Highest</option>
-              <option value="price_desc">Price - Highest to Lowest</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="control" style={{ minWidth: "300px" }}>
-          <input
-            onChange={(e) => {
-              this.filterByInput(e);
-            }}
-            style={{ width: "100%" }}
-            placeholder="Filter by"
-            type="text"
-          />
-        </div>
-      </div>
-      <div className="container">
-        <nav className="pagination" role="navigation" aria-label="pagination">
-          <button
-            className="button pagination-previous"
-            onClick={() => {
-              previousPage();
-            }}
-          >
-            Previous
-          </button>
-          <button
-            className="button pagination-next"
-            onClick={() => {
-              nextPage();
-            }}
-          >
-            Next page
-          </button>
-          <ul className="pagination-list">
-            {[...Array(filteredPages)].map((value, index) => (
-              <button
-                className={`button pagination-link ${
-                  currentPage === index + 1 ? "is-current" : ""
-                }`}
-                aria-label="Page 1"
-                onClick={() => goToPage(index + 1)}
-                aria-current="page"
-              >
-                {index + 1}
-              </button>
+      <div className={`container ${style.catContainer}`}>
+        {loadingCategories ? (
+          <h2>Loading...</h2>
+        ) : errorCategories ? (
+          <h3>{errorCategories}</h3>
+        ) : (
+          <Carousel cols={6} rows={1} gap={3} loop>
+            {categories.map((category) => (
+              <Carousel.Item>
+                <div
+                  className={`${style.subCategory}`}
+                  onClick={() => handleSubCategoryClick(category.fullPath)}
+                >
+                  <img src="http://dummyimage.com/100x100.png/cc0000/ffffff"></img>
+                  <br />
+                  <span>{category.name}</span>
+                </div>
+              </Carousel.Item>
             ))}
-          </ul>
-        </nav>
+          </Carousel>
+        )}
       </div>
+
+      <div className="container">
+        <div className="d-flex justify-content-end">
+          <select
+            className={`custom-select col-sm-4 `}
+            onChange={(e) => {
+              sortByInput(e);
+            }}
+          >
+            <option value="" disabled selected>
+              Sort by
+            </option>
+
+            <option value="alphabet_asc">Name - A-Z</option>
+            <option value="alphabet_desc">Name - Z-A</option>
+
+            <option value="price_asc">Price - Lowest to Highest</option>
+            <option value="price_desc">Price - Highest to Lowest</option>
+          </select>
+        </div>
+      </div>
+
       {loading ? (
         <h2>Loading...</h2>
       ) : error ? (
@@ -164,6 +129,48 @@ const CategoryViewScreen = ({ match, location }) => {
           </div>
         ))
       )}
+      <div className="container">
+        <nav
+          className="d-flex justify-content-center"
+          aria-label="Page navigation"
+        >
+          <ul className="pagination">
+            <li
+              className={`page-item ${currentPage === 1 && "disabled"}`}
+              onClick={() => {
+                currentPage !== 1 && previousPage();
+              }}
+            >
+              <a className="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span className="sr-only">Previous</span>
+              </a>
+            </li>
+            {[...Array(filteredPages)].map((value, index) => (
+              <li
+                className={`page-item ${currentPage === index + 1 && "active"}`}
+                onClick={() => goToPage(index + 1)}
+              >
+                <a className="page-link">{index + 1}</a>
+              </li>
+            ))}
+
+            <li
+              className={`page-item ${
+                currentPage === totalPages && "disabled"
+              }`}
+              onClick={() => {
+                currentPage !== totalPages && nextPage();
+              }}
+            >
+              <a className="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span className="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };
