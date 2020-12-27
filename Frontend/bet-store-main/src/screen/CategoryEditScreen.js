@@ -4,7 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   listCategories,
   listCategoryDetails,
+  createCategory,
 } from "../actions/categoryActions";
+
 import ImageUpload from "../components/ImageUpload";
 import style from "../styles/CategoryEdit.module.scss";
 
@@ -50,11 +52,23 @@ const CategoryEditScreen = ({ match }) => {
     let values = [...properties];
     values[i].name = event.target.value;
     setProperties(values);
-    console.log(properties);
   };
 
-  const onCategoryChange = (e) => {};
+  const onCategoryChange = (e) => {
+    setParent(e.target.value);
+  };
   const submitHandler = (e) => {
+    e.preventDefault();
+
+    const imagesToUpload = new FormData();
+    for (var x = 0; x < image.length; x++) {
+      imagesToUpload.append("files", image[x], image[x].name);
+    }
+
+    for (var x = 0; x < propertyImages.length; x++) {
+      imagesToUpload.append("files", propertyImages[x], propertyImages[x].name);
+    }
+
     const category = {
       name: name,
       path: path,
@@ -62,12 +76,12 @@ const CategoryEditScreen = ({ match }) => {
       properties: properties,
       parent: parent,
     };
-    console.log(category);
-    console.log(image);
-    console.log(propertyImages);
+
+    //console.log(image, propertyImages);
+    dispatch(createCategory(category, imagesToUpload));
   };
   const onAddPropety = (e) => {
-    setProperties([...properties, { name: "", image: null }]);
+    setProperties([...properties, { name: "", image: {} }]);
   };
 
   const onImageChange = (event) => {
@@ -168,6 +182,9 @@ const CategoryEditScreen = ({ match }) => {
               <Form.Group controlId="parent">
                 <Form.Label>Danh mục cha</Form.Label>
                 <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>
+                  <option value="" selected>
+                    root
+                  </option>
                   {categories.map((x) =>
                     x.parent === category.path ? (
                       <option value={x.path} selected>

@@ -6,7 +6,6 @@ import {
   productDetailsReducer,
   productDeleteReducer,
   productCreateReducer,
-  productFilterReducer,
 } from "./reducers/productReducer";
 import {
   categoryListReducer,
