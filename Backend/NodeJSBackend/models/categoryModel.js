@@ -10,7 +10,7 @@ const categorySchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    avatar: {
+    image: {
       link: { type: String /*required: true*/ },
       alt: { type: String /* required: true*/ },
     },
@@ -18,6 +18,10 @@ const categorySchema = mongoose.Schema(
       {
         key: { type: String /*required: true*/ },
         name: { type: String /*required: true*/ },
+        image: {
+          link: { type: String /*required: true*/ },
+          alt: { type: String /* required: true*/ },
+        },
       },
     ],
     parent: {

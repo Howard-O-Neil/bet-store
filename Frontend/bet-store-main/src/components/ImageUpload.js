@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import style from "../styles/ImageUpload.module.scss";
 const ImageUpload = ({
   defaultImages,
@@ -6,7 +6,10 @@ const ImageUpload = ({
   onChange,
   onDel,
   onDelDefault,
+  multiple,
 }) => {
+  const fileUploader = useRef();
+
   const thumbsContainer = {
     display: "flex",
     flexDirection: "row",
@@ -51,6 +54,10 @@ const ImageUpload = ({
     borderRadius: ".325em",
     cursor: "pointer",
   };
+  const handleClick = (e) => {
+    fileUploader.current.click();
+  };
+
   return (
     <div className={`container ${style.box}`}>
       <div className="mt-3">
@@ -58,10 +65,15 @@ const ImageUpload = ({
           className="form-control-file"
           type="file"
           onChange={onChange}
-          multiple
+          multiple={multiple}
           accept="image/*"
+          style={{ display: "none" }}
+          ref={fileUploader}
         />
       </div>
+      <button className="btn btn-primary" onClick={handleClick}>
+        Chọn hình ảnh
+      </button>
       <div style={thumbsContainer}>
         {defaultImages &&
           defaultImages.map((image, index) => (

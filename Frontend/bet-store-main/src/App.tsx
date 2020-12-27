@@ -33,6 +33,7 @@ import { useDispatch } from "react-redux";
 import { AddNotify } from "./actions/notifyAction";
 import CategoryListScreen from "./screen/CategoryListScreen";
 import CategoryViewScreen from "./screen/CategoryViewScreen";
+import CategoryEditScreen from "./screen/CategoryEditScreen";
 
 function App() {
   const dispatch = useDispatch();
@@ -79,6 +80,7 @@ function App() {
             component={CategoryViewScreen}
           ></Route>
           <Route path="/mua-ban" component={CategoryViewScreen}></Route>
+          <Route path="/categoryEdit" component={CategoryEditScreen}></Route>
           <Route path="/profile" component={Profile} exact></Route>
         </Switch>
         <Provider
