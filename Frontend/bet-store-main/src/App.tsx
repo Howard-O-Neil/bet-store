@@ -80,7 +80,15 @@ function App() {
             component={CategoryViewScreen}
           ></Route>
           <Route path="/mua-ban" component={CategoryViewScreen}></Route>
-          <Route path="/categoryEdit" component={CategoryEditScreen}></Route>
+          <Route
+            path="/categoryEdit/:id"
+            component={CategoryEditScreen}
+          ></Route>
+          <Route
+            path="/categoryEdit/"
+            component={CategoryEditScreen}
+            edit={false}
+          ></Route>
           <Route path="/profile" component={Profile} exact></Route>
         </Switch>
         <Provider

@@ -75,6 +75,9 @@ const ImageUpload = ({
         Chọn hình ảnh
       </button>
       <div style={thumbsContainer}>
+        {/*defaultImages.map((image) => {
+          console.log(image);
+        })*/}
         {defaultImages &&
           defaultImages.map((image, index) => (
             <div style={thumb} key={image.name}>

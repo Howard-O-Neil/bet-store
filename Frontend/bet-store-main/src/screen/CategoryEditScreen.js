@@ -5,12 +5,15 @@ import {
   listCategories,
   listCategoryDetails,
   createCategory,
+  updateCategory,
 } from "../actions/categoryActions";
 
 import ImageUpload from "../components/ImageUpload";
 import style from "../styles/CategoryEdit.module.scss";
 
-const CategoryEditScreen = ({ match }) => {
+const CategoryEditScreen = ({ match, edit }) => {
+  const isEdit = edit || false;
+  const id = match.params.id;
   const dispatch = useDispatch();
 
   const [properties, setProperties] = useState([]);
@@ -23,6 +26,7 @@ const CategoryEditScreen = ({ match }) => {
   const [imagePrview, setImagePreview] = useState([]);
 
   const [propertyImages, setPropertyImages] = useState([]);
+  const [propertyDefaultImage, setPropertyDefaultImages] = useState([]);
   const [propertyImagePreview, setPropertyImagePreview] = useState([]);
 
   const categoryDetails = useSelector((state) => state.categoryDetails);
@@ -40,13 +44,31 @@ const CategoryEditScreen = ({ match }) => {
   } = categoryList;
 
   useEffect(() => {
-    //dispatch(listCategoryDetails(match.params.id));
-    dispatch(listCategories());
-  }, [dispatch]);
+    if (id) {
+      if (!category.name || category._id !== id) {
+        dispatch(listCategoryDetails(id));
+      } else {
+        setName(category.name);
+        setPath(category.path);
+        setParent(category.parent);
+        setDefaultImage(category.image);
+        handlePropImage(category.properties);
+        setProperties(category.properties);
+        console.log(category);
+      }
+    }
 
-  useEffect(() => {
-    //dispatch(listCategoryDetails(match.params.id));
-  }, [category]);
+    dispatch(listCategories());
+  }, [dispatch, category]);
+
+  const handlePropImage = (prop) => {
+    let tempArr = [];
+    Object.values(prop).map((x) => {
+      tempArr = [...tempArr, x.image];
+    });
+    setPropertyDefaultImages(tempArr);
+    console.log(tempArr);
+  };
 
   const onPropertyChange = (i, event) => {
     let values = [...properties];
@@ -59,62 +81,76 @@ const CategoryEditScreen = ({ match }) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
+    const category = {
+      name: name,
+      path: parent + path,
+      image: defaultImage,
+      properties: properties,
+      parent: parent,
+    };
     const imagesToUpload = new FormData();
     for (var x = 0; x < image.length; x++) {
       imagesToUpload.append("files", image[x], image[x].name);
     }
-
-    for (var x = 0; x < propertyImages.length; x++) {
-      imagesToUpload.append("files", propertyImages[x], propertyImages[x].name);
+    if (!isEdit) {
+      for (var x = 0; x < propertyImages.length; x++) {
+        imagesToUpload.append(
+          "files",
+          propertyImages[x],
+          propertyImages[x].name
+        );
+      }
+      dispatch(createCategory(category, imagesToUpload));
+    } else {
+      dispatch(updateCategory(id, category, imagesToUpload, propertyImages));
     }
-
-    const category = {
-      name: name,
-      path: path,
-      image: {},
-      properties: properties,
-      parent: parent,
-    };
-
-    //console.log(image, propertyImages);
-    dispatch(createCategory(category, imagesToUpload));
+    //dispatch(createCategory(category, imagesToUpload));
   };
   const onAddPropety = (e) => {
     setProperties([...properties, { name: "", image: {} }]);
   };
 
   const onImageChange = (event) => {
+    if (defaultImage) {
+      setDefaultImage();
+      console.log("del");
+    }
     setImage([...event.target.files]);
   };
-
+  const onReset = () => {
+    console.log(defaultImage);
+  };
   const deleteImage = () => {
     setImage([]);
-    console.log("del");
   };
 
   const deleteDefaultImage = (index) => {
-    URL.revokeObjectURL(defaultImage);
     setDefaultImage([]);
+    // console.log("deldefault");
+    //console.log(defaultImage);
   };
 
   const onPropertyImageChange = (index, event) => {
-    let values = [...propertyImages];
-    values[index] = event.target.files[0];
-    setPropertyImages(values);
+    if (propertyDefaultImage[index]) {
+      deletePropertyDefaultImage(index);
+    }
+    let propImg = [...propertyImages];
+    propImg[index] = event.target.files[0];
+    setPropertyImages(propImg);
   };
 
   const deletePropertyImage = (index) => {
-    const arr = [...propertyImages];
+    let arr = [...propertyImages];
     arr[index] = undefined;
     setPropertyImages(arr);
     console.log(propertyImages);
   };
 
   const deletePropertyDefaultImage = (index) => {
-    /*const arr = [...defaultImages];
-    URL.revokeObjectURL(arr.splice(index, 1).preview);
-    setDefaultImage(arr);*/
+    let arr = [...propertyDefaultImage];
+    arr[index] = undefined;
+    setPropertyDefaultImages(arr);
+    console.log(index);
   };
   useEffect(() => {
     setPropertyImagePreview(
@@ -137,6 +173,14 @@ const CategoryEditScreen = ({ match }) => {
       )
     );
   }, [image]);
+
+  useEffect(
+    () => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      imagePrview.forEach((picture) => URL.revokeObjectURL(picture.preview));
+    },
+    [imagePrview]
+  );
 
   useEffect(
     () => () => {
@@ -200,6 +244,7 @@ const CategoryEditScreen = ({ match }) => {
             <Form.Group controlId="image">
               <Form.Label>Hình ảnh hiển thị</Form.Label>
               <ImageUpload
+                defaultImages={isEdit && defaultImage ? [defaultImage] : []}
                 images={imagePrview}
                 onChange={onImageChange}
                 onDel={deleteImage}
@@ -219,6 +264,11 @@ const CategoryEditScreen = ({ match }) => {
                     onChange={(e) => onPropertyChange(index, e)}
                   ></Form.Control>
                   <ImageUpload
+                    defaultImages={
+                      propertyDefaultImage[index] && [
+                        propertyDefaultImage[index],
+                      ]
+                    }
                     images={
                       propertyImagePreview[index] && [
                         propertyImagePreview[index],
@@ -226,7 +276,7 @@ const CategoryEditScreen = ({ match }) => {
                     }
                     onChange={(e) => onPropertyImageChange(index, e)}
                     onDel={(e) => deletePropertyImage(index)}
-                    onDelDefault={deletePropertyDefaultImage}
+                    onDelDefault={(e) => deletePropertyDefaultImage(index)}
                     multiple={false}
                   ></ImageUpload>
                 </div>
@@ -238,7 +288,10 @@ const CategoryEditScreen = ({ match }) => {
       </Container>
 
       <Container className={style.btn_container}>
-        <button className={`btn btn-outline-dark ${style.button}`}>
+        <button
+          className={`btn btn-outline-dark ${style.button}`}
+          onClick={onReset}
+        >
           Reset
         </button>
         <button className={`btn btn-outline-dark ${style.button}`}>Hủy</button>

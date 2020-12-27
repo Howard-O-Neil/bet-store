@@ -1,7 +1,10 @@
 import express from "express";
 import Category from "../models/categoryModel.js";
 import asyncHandler from "express-async-handler";
-import { createCategory } from "../controller/categoryController.js";
+import {
+  createCategory,
+  updateCategory,
+} from "../controller/categoryController.js";
 
 const router = express.Router();
 
@@ -43,5 +46,6 @@ router.get(
 );
 
 router.post("/", createCategory);
+router.route("/:id").put(updateCategory);
 
 export default router;

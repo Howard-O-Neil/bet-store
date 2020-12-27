@@ -115,7 +115,7 @@ export const createCategory = (category, imagesToUpload) => async (
   }
 };
 
-export const updateCategory = (id, product, imagesToUpload) => async (
+export const updateCategory = (id, category, catImg, propertyImages) => async (
   dispatch,
   getState
 ) => {
@@ -123,21 +123,45 @@ export const updateCategory = (id, product, imagesToUpload) => async (
     dispatch({
       type: CATEGORY_UPDATE_REQUEST,
     });
-    if (imagesToUpload.get("files")) {
-      await dispatch(uploadImage(imagesToUpload));
+    const changedCatImage = catImg.get("files") ? true : false;
+    console.log(category);
+    if (changedCatImage || (propertyImages && propertyImages.length)) {
+      if (propertyImages && propertyImages.length) {
+        for (var x = 0; x < propertyImages.length; x++) {
+          if (propertyImages[x])
+            catImg.append("files", propertyImages[x], propertyImages[x].name);
+        }
+      }
+      await dispatch(uploadImage(catImg));
 
       const {
         imageUpload: { images },
       } = getState();
-      console.log(images);
-      Object.entries(images).map((filename) => {
-        product.image.push({
-          link: filename[1],
-          alt: filename[0],
+
+      if (changedCatImage && propertyImages && propertyImages.length) {
+        const catImage = images.splice(0, 1);
+        category.image = { link: catImage[0][1], alt: catImage[0][0] };
+      } else if (changedCatImage) {
+        const catImage = Object.entries(images);
+        console.log(Object.entries(images));
+        category.image = { link: catImage[0][1], alt: catImage[0][0] };
+      }
+
+      if (propertyImages && propertyImages.length) {
+        Object.entries(images).map((image) => {
+          propertyImages.map((propImage, index) => {
+            if (propImage && image[0] === propImage.name) {
+              category.properties[index].image = {
+                link: image[1],
+                alt: image[0],
+              };
+            }
+          });
         });
-      });
+      }
     }
 
+    console.log(category);
     //get user info
     //const {userLogin: {userInfo}} = getState()
     /*const config = {
@@ -146,13 +170,14 @@ export const updateCategory = (id, product, imagesToUpload) => async (
       },
     };*/
     //
-    const { data } = await axios.put(`/node/api/products/${id}`, product);
+    const { data } = await axios.put(`/node/api/categories/${id}`, category);
 
     dispatch({
       type: CATEGORY_UPDATE_SUCCESS,
       payload: data,
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: CATEGORY_UPDATE_FAIL,
       payload:
