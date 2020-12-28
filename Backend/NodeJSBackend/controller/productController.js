@@ -64,7 +64,7 @@ const getProducts = asyncHandler(async (req, res) => {
 });
 
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id).populate("category");
+  const product = await Product.findById(req.params.id);
   console.log("go to here");
   if (product) {
     res.json(product);

@@ -69,11 +69,11 @@ function App() {
           <Route path="/categoryList" component={CategoryListScreen}></Route>
           <Route
             path="/profile/product/new"
-            component={AddProductScreen}
+            render={(props) => <ProductEditScreen {...props} edit={false} />}
           ></Route>
           <Route
             path="/profile/product/:id/edit"
-            component={ProductEditScreen}
+            render={(props) => <ProductEditScreen {...props} edit={true} />}
           ></Route>
           <Route
             path="/mua-ban/:category"
@@ -82,7 +82,7 @@ function App() {
           <Route path="/mua-ban" component={CategoryViewScreen}></Route>
           <Route
             path="/categoryEdit/:id"
-            component={CategoryEditScreen}
+            render={(props) => <CategoryEditScreen {...props} edit={true} />}
           ></Route>
           <Route
             path="/categoryEdit/"

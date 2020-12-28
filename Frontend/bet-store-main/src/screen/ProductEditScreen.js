@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
-import { listProductDetails, updateProduct } from "../actions/productActions";
+import {
+  createProduct,
+  listProductDetails,
+  updateProduct,
+} from "../actions/productActions";
 import { listCategories } from "../actions/categoryActions";
 import ImageUploader from "react-images-upload";
 import style from "../styles/ProductEditForm.module.scss";
@@ -11,7 +15,7 @@ import { uploadImage } from "../actions/imageActions";
 import ImageUpload from "../components/ImageUpload";
 const ProductEditScreen = (props) => {
   const productId = props.match.params.id;
-
+  const isEdit = props.edit || false;
   //const [selectedFile, setFile] = useState(null);
   const [properties, setProperties] = useState([]);
   const [propertyLabel, setPropertyLabel] = useState([]);
@@ -28,21 +32,39 @@ const ProductEditScreen = (props) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = categoryList;
+
   useEffect(() => {
-    if (!product.name || product._id !== productId) {
-      dispatch(listProductDetails(productId));
-      dispatch(listCategories());
-    } else {
-      setCategory(product.category);
-      setPropertyLabel(product.category.properties);
-      setName(product.name);
-      setPrice(product.price);
-      setDescription(product.description);
-      setCountInStock(product.countInStock);
-      setProperties(product.properties);
-      setDefaultImage(product.image);
+    dispatch(listCategories());
+  }, []);
+  useEffect(() => {
+    if (isEdit) {
+      if (!product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId));
+      } else {
+        setCategory(product.category);
+        setName(product.name);
+        setPrice(product.price);
+        setDescription(product.description);
+        setCountInStock(product.countInStock);
+        setProperties(product.properties);
+        setDefaultImage(product.image);
+      }
     }
   }, [dispatch, props.history, productId, product]);
+
+  useEffect(() => {
+    if (product.name && categories.length) {
+      setPropertyLabel(
+        categories.find((x) => x.path === product.category).properties
+      );
+    }
+  }, [product, categories]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -58,26 +80,27 @@ const ProductEditScreen = (props) => {
         price: price,
         countInStock: countInStock,
         image: defaultImages,
-        category: category._id,
+        category: category,
         user: "5fa7fb0a62083e11ace57490",
         properties: properties,
       };
       //console.log(files.get("files"));
       //dispatch(uploadImage(files));
 
-      dispatch(updateProduct(productId, temp_product, files));
+      if (isEdit) dispatch(updateProduct(productId, temp_product, files));
+      else dispatch(createProduct(temp_product, files));
     }
   };
 
   const onPropertyChange = (event) => {
     console.log(properties);
-    const prop = properties.find((prop) => prop.key === event.target.name);
+    const prop = properties.find((prop) => prop._id === event.target.name);
     if (prop)
-      properties.find((prop) => prop.key === event.target.name).value =
+      properties.find((prop) => prop._id === event.target.name).value =
         event.target.value;
     else
       properties.push({
-        key: event.target.name,
+        _id: event.target.name,
         value: event.target.value,
       });
   };
@@ -90,15 +113,8 @@ const ProductEditScreen = (props) => {
     setPropertyLabel(selectedCat.properties);
   };
 
-  const categoryList = useSelector((state) => state.categoryList);
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = categoryList;
-
   const getPropertyValue = (key) => {
-    const prop = properties.find((x) => x.key === key);
+    const prop = properties.find((x) => x._id === key);
     if (prop) return prop.value;
     return "";
   };
@@ -107,16 +123,16 @@ const ProductEditScreen = (props) => {
     setPictures([...pictures, ...event.target.files]);
   };
 
-  const deletePic = (index) => {
-    const arr = [...pictures];
-    arr.splice(index, 1);
-    setPictures(arr);
-  };
-
   const deleteDefaultPic = (index) => {
     const arr = [...defaultImages];
-    URL.revokeObjectURL(arr.splice(index, 1).preview);
+    arr.splice(index, 1);
     setDefaultImage(arr);
+  };
+
+  const deletePic = (index) => {
+    const arr = [...pictures];
+    URL.revokeObjectURL(arr.splice(index, 1).preview);
+    setPictures(arr);
   };
   useEffect(() => {
     setFiles(
@@ -190,49 +206,41 @@ const ProductEditScreen = (props) => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="category">
-              <Form.Label>Loại sản phẩm</Form.Label>
-              <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>
-                {categories.map((x) =>
-                  x._id === category._id ? (
-                    <option key={x._id} value={x._id} selected>
-                      {x.name}
-                    </option>
-                  ) : (
-                    <option key={x._id} value={x._id}>
-                      {x.name}
-                    </option>
-                  )
-                )}
-              </Form.Control>
-            </Form.Group>
-
-            {propertyLabel.map((prop) => (
-              <Form.Group controlId="properties">
-                <Form.Label>{prop.name}</Form.Label>
-                <Form.Control
-                  type="text"
-                  name={prop.key}
-                  onChange={(e) => onPropertyChange(e)}
-                  defaultValue={getPropertyValue(prop.key)}
-                  placeholder={prop.name}
-                ></Form.Control>
-              </Form.Group>
-            ))}
-            {/*<ImageUploader
-              {...props}
-              className={style.imgUpload}
-              withIcon={true}
-              onChange={onDrop}
-              defaultImages={defaultImages}
-              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-              maxFileSize={5242880}
-              withPreview={true}
-            />*/}
-
             <br />
           </Form>
         )}
+      </Container>
+      <Container className={style.form_section}>
+        <h1>Thông tin chi tiết</h1>
+        <Form.Group controlId="category">
+          <Form.Label>Loại sản phẩm</Form.Label>
+          <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>
+            {categories.map((x) =>
+              x.path === category ? (
+                <option key={x._id} value={x._id} selected>
+                  {x.name}
+                </option>
+              ) : (
+                <option key={x._id} value={x._id}>
+                  {x.name}
+                </option>
+              )
+            )}
+          </Form.Control>
+        </Form.Group>
+        {propertyLabel.map((prop) => (
+          <Form.Group controlId={`properties_${prop._id}`} key={prop._id}>
+            <Form.Label>{prop.name}</Form.Label>
+            <Form.Control
+              type="text"
+              name={prop._id}
+              onChange={(e) => onPropertyChange(e)}
+              defaultValue={getPropertyValue(prop._id)}
+              placeholder={prop.name}
+            ></Form.Control>
+          </Form.Group>
+        ))}
+        <br />
       </Container>
       <Container className={style.form_section}>
         <h1>Hình ảnh</h1>

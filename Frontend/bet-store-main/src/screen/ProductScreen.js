@@ -15,6 +15,9 @@ import Slider from "react-slick";
 
 import style from "../styles/ProductDetails.module.scss";
 import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
+import { listCategories } from "../actions/categoryActions";
+
+const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
   const dispatch = useDispatch();
 
@@ -26,6 +29,12 @@ const ProductScreen = ({ match }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = categoryList;
 
   const settings = {
     dots: true,
@@ -39,23 +48,25 @@ const ProductScreen = ({ match }) => {
     arrows: true,
     centerMode: true,
   };
-
   useEffect(() => {
-    const getProductDetails = async () => {
-      return await dispatch(listProductDetails(match.params.id)).then(() =>
-        console.log(product)
-      );
-    };
-    getProductDetails();
-  }, [dispatch, match]);
-
+    dispatch(listCategories());
+  }, []);
   useEffect(() => {
-    if (productDetails.loading == false) {
+    if (!product.name || product._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id));
+    } else {
       setImages(product.image);
       setProperties(product.properties);
-      setPropertyLabel(product.category.properties);
     }
-  }, [dispatch, productDetails.loading]);
+  }, [dispatch, product, match]);
+
+  useEffect(() => {
+    if (product.name && categories.length) {
+      setPropertyLabel(
+        categories.find((x) => x.path === product.category).properties
+      );
+    }
+  }, [product, categories]);
 
   return (
     <div className={style.body}>
@@ -107,18 +118,6 @@ const ProductScreen = ({ match }) => {
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>
-                <ListGroup variant="flush">
-                  {propertyLabel.map((prop) => (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>{prop.name}</Col>
-                        <Col>
-                          {properties.find((x) => x.key === prop.key).value}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
               </Card>
             </Col>
           </Row>
@@ -129,9 +128,26 @@ const ProductScreen = ({ match }) => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item className={style.price}>
-                  {product.price} ₫
+                  Giá : {product.price} ₫
                 </ListGroup.Item>
-                <ListGroup.Item>Mô tả: {product.description}</ListGroup.Item>
+                <ListGroup.Item className={style.description}>
+                  Mô tả:
+                  {product.description}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <h6>Chi tiết</h6>
+                </ListGroup.Item>
+                <ListGroup.Item className={style.prop_container}>
+                  {propertyLabel.map((prop) => (
+                    <div className={style.property}>
+                      <img src={`/cdn/cdn/${prop.image.link}`}></img>
+                      <span>
+                        {prop.name} :{" "}
+                        {properties.find((x) => x._id === prop._id).value}
+                      </span>
+                    </div>
+                  ))}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>
