@@ -328,7 +328,7 @@ export const loadExactPage = ({ page }) => async (dispatch, getState) => {
   });
 };
 
-export const loadDataIntoFilter = ({ countPerPage = 2 }) => async (
+export const loadDataIntoFilter = ({ countPerPage = 10 }) => async (
   dispatch,
   getState
 ) => {

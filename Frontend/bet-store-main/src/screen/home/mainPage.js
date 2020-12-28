@@ -22,7 +22,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     dispatch(listProducts({}));
-    dispatch(listCategories());
+    dispatch(listCategories({ parent: "" }));
   }, [dispatch]);
 
   return (
@@ -40,7 +40,7 @@ const HomeScreen = () => {
           ) : (
             <Carousel
               cols={5}
-              rows={1}
+              rows={2}
               gap={10}
               responsiveLayout={[
                 {

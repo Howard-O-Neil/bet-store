@@ -30,6 +30,19 @@
   background-color: white;
   border-radius: 5px;
 }
+.product img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.product p {
+  color: red;
+  font-weight: bold;
+}
+.product:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 .pagination {
   align-self: center;

@@ -6,11 +6,8 @@ import { LinkContainer } from "react-router-bootstrap";
 const Category = ({ category }) => {
   return (
     <div>
-      <Link to={category.fullPath} title={category.name}>
-        <img
-          src="https://static.chotot.com/storage/chapy-pro/newcats/v8/1000.png"
-          alt="alt"
-        />
+      <Link to={`mua-ban${category.path}`} title={category.name}>
+        <img src={`/cdn/cdn/${category.image.link}`} alt={category.image.alt} />
       </Link>
       <br />
       <span>{category.name}</span>

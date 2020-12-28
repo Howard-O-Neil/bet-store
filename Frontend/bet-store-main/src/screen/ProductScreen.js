@@ -11,10 +11,9 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
-import Slider from "react-slick";
 
 import style from "../styles/ProductDetails.module.scss";
-import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
+
 import { listCategories } from "../actions/categoryActions";
 
 const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
@@ -23,7 +22,6 @@ const ProductScreen = ({ match }) => {
 
   const [properties, setProperties] = useState([]);
   const [images, setImages] = useState([]);
-  let [sliderItem, setSliderItem] = useState([]);
 
   const [propertyLabel, setPropertyLabel] = useState([]);
 
@@ -138,6 +136,7 @@ const ProductScreen = ({ match }) => {
                   <h6>Chi tiết</h6>
                 </ListGroup.Item>
                 <ListGroup.Item className={style.prop_container}>
+                  {console.log(propertyLabel)}
                   {propertyLabel.map((prop) => (
                     <div className={style.property}>
                       <img src={`/cdn/cdn/${prop.image.link}`}></img>

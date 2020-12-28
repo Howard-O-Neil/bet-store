@@ -19,7 +19,7 @@ const ProductEditScreen = (props) => {
   //const [selectedFile, setFile] = useState(null);
   const [properties, setProperties] = useState([]);
   const [propertyLabel, setPropertyLabel] = useState([]);
-  const [category, setCategory] = useState({});
+  const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -107,9 +107,8 @@ const ProductEditScreen = (props) => {
 
   const onCategoryChange = async (event) => {
     setProperties([]);
-    const selectedCat = categories.find((x) => x._id === event.target.value);
-
-    setCategory(selectedCat);
+    const selectedCat = categories.find((x) => x.path === event.target.value);
+    setCategory(selectedCat.path);
     setPropertyLabel(selectedCat.properties);
   };
 
@@ -217,11 +216,11 @@ const ProductEditScreen = (props) => {
           <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>
             {categories.map((x) =>
               x.path === category ? (
-                <option key={x._id} value={x._id} selected>
+                <option key={x._id} value={x.path} selected>
                   {x.name}
                 </option>
               ) : (
-                <option key={x._id} value={x._id}>
+                <option key={x._id} value={x.path}>
                   {x.name}
                 </option>
               )
@@ -255,6 +254,7 @@ const ProductEditScreen = (props) => {
           onChange={onFileChange}
           onDel={deletePic}
           onDelDefault={deleteDefaultPic}
+          multiple
         ></ImageUpload>
         <br />
       </Container>

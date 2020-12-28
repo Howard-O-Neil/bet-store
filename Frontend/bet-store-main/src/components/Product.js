@@ -30,7 +30,12 @@ const Product = ({ product }) => {
       </Link>
       <div className={style.product_info}>
         <h5>{product.name}</h5>
-        <h6 className={style.price}>{product.price} ₫</h6>
+        <h6 className={style.price}>
+          {new Intl.NumberFormat("vi-VI", {
+            style: "currency",
+            currency: "VND",
+          }).format(product.price)}
+        </h6>
         <div className={style.time}>
           -
           <ReactTimeAgo date={product.updatedAt} locale="vi" /> -

@@ -14,14 +14,17 @@ const router = express.Router();
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const parent = req.query.parent
-      ? {
-          parent: {
-            $regex: req.query.parent,
-            $options: "i",
-          },
-        }
-      : {};
+    const parent =
+      req.query.parent === ""
+        ? { parent: req.query.parent }
+        : req.query.parent
+        ? {
+            parent: {
+              $regex: req.query.parent,
+              $options: "i",
+            },
+          }
+        : {};
 
     const categories = await Category.find({ ...parent });
     res.status(200).json(categories);

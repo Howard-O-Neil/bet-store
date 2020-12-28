@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Carousel from "react-grid-carousel";
 import { useDispatch, useSelector } from "react-redux";
+import ReactTimeAgo from "react-time-ago";
+import { LinkContainer } from "react-router-bootstrap";
 import { listCategories } from "../actions/categoryActions";
 import {
   listProducts,
@@ -33,7 +35,7 @@ const CategoryViewScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listCategories({ parent: category }));
-    dispatch(listProducts({ category: category }));
+    dispatch(listProducts({ body: { category: category } }));
   }, [dispatch]);
 
   const handleSubCategoryClick = (path) => {
@@ -75,9 +77,9 @@ const CategoryViewScreen = ({ match }) => {
               <Carousel.Item>
                 <div
                   className={`${style.subCategory}`}
-                  onClick={() => handleSubCategoryClick(category.fullPath)}
+                  onClick={() => handleSubCategoryClick(category.path)}
                 >
-                  <img src="http://dummyimage.com/100x100.png/cc0000/ffffff"></img>
+                  <img src={`/cdn/cdn/${category.image.link}`}></img>
                   <br />
                   <span>{category.name}</span>
                 </div>
@@ -115,18 +117,27 @@ const CategoryViewScreen = ({ match }) => {
       ) : (
         filteredProducts &&
         filteredProducts.map((product) => (
-          <div className={`container  ${style.product} tile is-parent is-3`}>
-            <div className="media tile is-child box">
-              <img
-                className="mr-3 mt-2 mb-2"
-                src="http://dummyimage.com/100x100.png/cc0000/ffffff"
-              ></img>
-              <div className="media-body">
-                {product.name}
-                <p>{product.price}</p>
+          <LinkContainer to={`/product/${product._id}`}>
+            <div className={`container  ${style.product}`}>
+              <div className="media">
+                <img
+                  className="mr-3 mt-2 mb-2"
+                  src={`/cdn/cdn/${product.image[0].link}`}
+                ></img>
+                <div className="media-body mt-2">
+                  <h6>{product.name}</h6>
+                  <p>
+                    {new Intl.NumberFormat("vi-VI", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(product.price)}
+                  </p>
+                  <i class="fas fa-clock"></i>
+                  <ReactTimeAgo date={product.updatedAt} locale="vi" />
+                </div>
               </div>
             </div>
-          </div>
+          </LinkContainer>
         ))
       )}
       <div className="container">
