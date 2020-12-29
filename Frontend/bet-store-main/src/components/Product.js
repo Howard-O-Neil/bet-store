@@ -25,20 +25,22 @@ const Product = ({ product }) => {
     <div className={style.product_card}>
       <Link to={`/product/${product._id}`}>
         <div className={style.product_image}>
-          <img src="https://dummyimage.com/250x250.jpg/5fa2dd/ffffff" />
+          <img src={`/cdn/cdn/${product.image[0].link}`} />
         </div>
       </Link>
       <div className={style.product_info}>
         <h5>{product.name}</h5>
-        <h6 className={style.price}>
-          {new Intl.NumberFormat("vi-VI", {
-            style: "currency",
-            currency: "VND",
-          }).format(product.price)}
-        </h6>
-        <div className={style.time}>
-          -
-          <ReactTimeAgo date={product.updatedAt} locale="vi" /> -
+        <div className={style.price_time}>
+          <h6 className={style.price}>
+            {new Intl.NumberFormat("vi-VI", {
+              style: "currency",
+              currency: "VND",
+            }).format(product.price)}
+          </h6>
+          <div className={style.time}>
+            -
+            <ReactTimeAgo date={product.updatedAt} locale="vi" /> -
+          </div>
         </div>
       </div>
     </div>

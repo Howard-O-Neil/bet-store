@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../components/FormContainer";
 import {
   createProduct,
   listProductDetails,
   updateProduct,
 } from "../actions/productActions";
 import { listCategories } from "../actions/categoryActions";
-import ImageUploader from "react-images-upload";
 import style from "../styles/ProductEditForm.module.scss";
 import { uploadImage } from "../actions/imageActions";
 import ImageUpload from "../components/ImageUpload";
+import CategoryPicker from "../components/CategoryPicker";
+
 const ProductEditScreen = (props) => {
   const productId = props.match.params.id;
   const isEdit = props.edit || false;
@@ -28,6 +28,9 @@ const ProductEditScreen = (props) => {
   const [pictures, setPictures] = useState([]);
   const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
+
+  const [selectedPathName, setSelectedPathName] = useState([]);
+  const [selectedPath, setSelectedPath] = useState([]);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -143,6 +146,13 @@ const ProductEditScreen = (props) => {
     );
   }, [pictures]);
 
+  const setPath = (pos, pathName, path) => {
+    selectedPathName[pos] = pathName;
+    selectedPath[pos] = path;
+    setSelectedPathName(selectedPathName.slice(0, pos + 1));
+    setSelectedPath(selectedPath.slice(0, pos + 1));
+  };
+
   /* useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
@@ -211,6 +221,18 @@ const ProductEditScreen = (props) => {
       </Container>
       <Container className={style.form_section}>
         <h1>Thông tin chi tiết</h1>
+        {/*<div className={style.selectedPath}>
+          <b>Đã chọn : </b>
+
+          {selectedPathName.map((path, index) =>
+            index == 0 ? <span>{path}</span> : <span>{" > " + path}</span>
+          )}
+        </div>
+        <CategoryPicker
+          setPath={setPath}
+          selectedPath={selectedPath}
+          selectedPathName={setSelectedPathName}
+          ></CategoryPicker>*/}
         <Form.Group controlId="category">
           <Form.Label>Loại sản phẩm</Form.Label>
           <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>

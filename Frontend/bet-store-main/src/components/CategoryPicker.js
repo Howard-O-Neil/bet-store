@@ -1,16 +1,14 @@
-import { map } from "jquery";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { listCategories } from "../actions/categoryActions";
 import style from "../styles/CategoryList.module.scss";
 
-const CategoryListScreen = () => {
+const CategoryPicker = ({ selectedPath, selectedPathName, setPath }) => {
   const dispatch = useDispatch();
 
   const [subCategoryList1, setSubCategoryList1] = useState([]);
   const [subCategoryList2, setSubCategoryList2] = useState([]);
-  const [selectedPathName, setSelectedPathName] = useState([]);
-  const [selectedPath, setSelectedPath] = useState([]);
+
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -29,12 +27,6 @@ const CategoryListScreen = () => {
       })
     );
     setPath(0, e.target.outerText, e.target.id);
-  };
-  const setPath = (pos, pathName, path) => {
-    selectedPathName[pos] = pathName;
-    selectedPath[pos] = path;
-    setSelectedPathName(selectedPathName.slice(0, pos + 1));
-    setSelectedPath(selectedPath.slice(0, pos + 1));
   };
 
   useEffect(() => {
@@ -58,13 +50,6 @@ const CategoryListScreen = () => {
   const items = 10;
   return (
     <div className="container">
-      <h1>Danh mục</h1>
-      <b>Đã chọn :</b>
-      <span className={style.selectedPath}>
-        {selectedPathName.map((path, index) =>
-          index == 0 ? <span>{path}</span> : <span>{" > " + path}</span>
-        )}
-      </span>
       <div className={style.catSelect}>
         <div
           className={`list-group list-group-flush overflow-auto ${style.catList}`}
@@ -131,4 +116,4 @@ const CategoryListScreen = () => {
   );
 };
 
-export default CategoryListScreen;
+export default CategoryPicker;

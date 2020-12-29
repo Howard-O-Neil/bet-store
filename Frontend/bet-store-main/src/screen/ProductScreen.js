@@ -53,6 +53,7 @@ const ProductScreen = ({ match }) => {
     if (!product.name || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id));
     } else {
+      document.title = product.name;
       setImages(product.image);
       setProperties(product.properties);
     }
@@ -60,9 +61,9 @@ const ProductScreen = ({ match }) => {
 
   useEffect(() => {
     if (product.name && categories.length) {
-      setPropertyLabel(
-        categories.find((x) => x.path === product.category).properties
-      );
+      const cat = categories.find((x) => x.path === product.category);
+      if (cat) setPropertyLabel(cat.properties);
+      else dispatch(listCategories());
     }
   }, [product, categories]);
 
@@ -79,17 +80,21 @@ const ProductScreen = ({ match }) => {
         <Container>
           <Row>
             <Col md={7}>
-              <Carousel className={style.slider}>
-                {images.map((image) => (
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={`/cdn/cdn/${image.link}`}
-                      alt={image.alt}
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Carousel className={style.slider}>
+                    {images.map((image) => (
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={`/cdn/cdn/${image.link}`}
+                          alt={image.alt}
+                        />
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </ListGroup.Item>
+              </ListGroup>
             </Col>
 
             <Col md={5} className={style.sticky_col}>
@@ -126,7 +131,11 @@ const ProductScreen = ({ match }) => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item className={style.price}>
-                  Giá : {product.price} ₫
+                  Giá :{" "}
+                  {new Intl.NumberFormat("vi-VI", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(product.price)}
                 </ListGroup.Item>
                 <ListGroup.Item className={style.description}>
                   Mô tả:
@@ -142,7 +151,8 @@ const ProductScreen = ({ match }) => {
                       <img src={`/cdn/cdn/${prop.image.link}`}></img>
                       <span>
                         {prop.name} :{" "}
-                        {properties.find((x) => x._id === prop._id).value}
+                        {properties.find((x) => x._id === prop._id) &&
+                          properties.find((x) => x._id === prop._id).value}
                       </span>
                     </div>
                   ))}

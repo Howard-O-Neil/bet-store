@@ -21,6 +21,7 @@ const HomeScreen = () => {
   } = categoryList;
 
   useEffect(() => {
+    document.title = "Bet Store";
     dispatch(listProducts({}));
     dispatch(listCategories({ parent: "" }));
   }, [dispatch]);

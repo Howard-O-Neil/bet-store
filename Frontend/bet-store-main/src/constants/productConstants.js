@@ -27,3 +27,4 @@ export const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 export const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 export const LOAD_NEW_PAGE = "LOAD_NEW_PAGE";
 export const LOAD_EXACT_PAGE = "LOAD_EXACT_PAGE";
+export const SHUFFLE_PRODUCT = "SHUFFLE_PRODUCT";

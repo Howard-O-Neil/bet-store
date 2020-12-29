@@ -22,6 +22,7 @@ import {
   LOAD_NEW_PAGE,
   LOAD_EXACT_PAGE,
   LOAD_DATA_INTO_FILTER,
+  SHUFFLE_PRODUCT,
 } from "../constants/productConstants";
 
 import { uploadImage } from "../actions/imageActions";
@@ -41,7 +42,8 @@ export const listProducts = ({ body = "", countPerPage }) => async (
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
     });
-    dispatch(loadDataIntoFilter({ countPerPage }));
+    await dispatch(loadDataIntoFilter({ countPerPage }));
+    dispatch(shuffleProduct());
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
@@ -351,6 +353,17 @@ export const loadDataIntoFilter = ({ countPerPage = 10 }) => async (
       totalPages: totalPages,
       filteredPages: totalPages,
     },
+  });
+};
+
+export const shuffleProduct = () => async (dispatch, getState) => {
+  const { productList: state } = getState();
+  const { products } = state;
+  const shuffledProducts = products.sort(() => Math.random() - 0.5);
+  state.filteredProducts = shuffledProducts;
+  dispatch({
+    type: SHUFFLE_PRODUCT,
+    payload: { ...state },
   });
 };
 

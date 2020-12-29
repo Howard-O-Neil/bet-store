@@ -20,6 +20,17 @@
   margin-top: 16;
   padding: 20;
 }
+
+.selectedPath span {
+  color: red;
+  padding-left: 2px;
+  font-weight: bold;
+}
+
+.selectedPath b {
+  padding-left: 14px;
+}
+
 h1 {
   padding-top: 10px;
 }

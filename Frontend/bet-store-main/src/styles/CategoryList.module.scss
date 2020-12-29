@@ -3,20 +3,11 @@
 }
 
 .catList {
-  width: 33%;
+  flex: 1 40%;
   height: 340px;
   border: 1px dashed gray;
-  margin: 0 5px;
-  padding: 5px;
+  margin-right: 5px;
   border-radius: 3px;
-}
-
-.arrow_icon {
-  float: right;
-  position: absolute;
-  top: 50%;
-  right: 0%;
-  transform: translate(-50%, -50%);
 }
 
 .list_item:hover {

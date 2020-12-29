@@ -23,6 +23,7 @@ import {
   LOAD_NEW_PAGE,
   LOAD_EXACT_PAGE,
   LOAD_DATA_INTO_FILTER,
+  SHUFFLE_PRODUCT,
 } from "../constants/productConstants";
 
 export const productListReducer = (
@@ -37,23 +38,15 @@ export const productListReducer = (
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
     case SORT_BY_ALPHABET:
-      return {
-        ...action.payload,
-      };
     case SORT_BY_PRICE:
-      return { ...action.payload };
     case FILTER_BY_PRICE:
-      return { ...action.payload };
     case FILTER_BY_VALUE:
-      return { ...action.payload };
     case LOAD_NEW_PAGE:
-      return {
-        ...action.payload,
-      };
     case LOAD_EXACT_PAGE:
-      return { ...action.payload };
+    case SHUFFLE_PRODUCT:
     case LOAD_DATA_INTO_FILTER:
       return { ...action.payload };
+
     default:
       return state;
   }
