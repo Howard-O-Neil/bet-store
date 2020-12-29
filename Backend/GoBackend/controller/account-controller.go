@@ -4,6 +4,8 @@ import (
 	"GoBackend/entity"
 	"GoBackend/service"
 	mongodbservice "GoBackend/service/repository-service"
+	"GoBackend/utility"
+	"regexp"
 
 	"fmt"
 	"net/http"
@@ -99,14 +101,17 @@ func SignupHandle(ctx *gin.Context) {
 	}
 	account.Profile.AccountID = account.ID
 	account.Profile.Username = account.Username
-	_, err = Profileservice.AddProfile(account.Profile)
+	idProfile, err := Profileservice.AddProfile(account.Profile)
 
 	if err != nil {
 		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusConflict, err.Error()))
 	} else {
+		_, err = Walletservice.NewWalletforProfile(idProfile)
+		if err != nil {
+			fmt.Println("[AccountSignup] Create wallet fail: " + err.Error())
+		}
 		ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"msg": "Account created"}))
 	}
-
 }
 
 func HashPassword(password string) (string, error) {
@@ -122,9 +127,6 @@ func CheckPasswordHash(password, hash string) bool {
 func ChangePasswordHandle(ctx *gin.Context) {
 	var passwordChangeEntity entity.PasswordChangeEntity
 	err := ctx.BindJSON(&passwordChangeEntity)
-
-	// passHashed, err := HashPassword(passwordChangeEntity.NewPassword)
-	// fmt.Println(passHashed)
 	if err != nil {
 		ctx.JSON(200, service.CreateMsgErrorJsonResponse(http.StatusBadRequest, "format body wrong"))
 		return
@@ -155,10 +157,8 @@ func ChangePasswordHandle(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusFound, "Password wrong"))
 		return
 	}
-
 }
 
-/*
 func ConfirmTelbySMS(ctx *gin.Context) {
 	var account entity.AccountEntity
 	ctx.BindJSON(&account)
@@ -176,7 +176,7 @@ func ConfirmTelbySMS(ctx *gin.Context) {
 		return
 	}
 
-	c := sec.GetSession().DB(utility.GetConfigServerbyKey(utility.Database).(utility.DatabaseStruct).NAME_DATABASE).C("KeyCodeTel")
+	c := sec.GetSession().DB(os.Getenv("NAME_DATABASE")).C("KeyCodeTel")
 
 	keyCodeTel := KeyCodeTel{Tel: account.Tel, Time: time.Now(), Key: utility.GenerateKeycode()}
 
@@ -211,7 +211,7 @@ func CheckTelbySMS(ctx *gin.Context) {
 		return
 	}
 
-	c := sec.GetSession().DB(utility.GetConfigServerbyKey(utility.Database).(utility.DatabaseStruct).NAME_DATABASE).C("KeyCodeTel")
+	c := sec.GetSession().DB(os.Getenv("NAME_DATABASE")).C("KeyCodeTel")
 
 	var keyCodeTel KeyCodeTel
 	c.Find(bson.M{"tel": account.Tel, "key": account.Keycode}).One(&keyCodeTel)
@@ -226,4 +226,3 @@ func CheckTelbySMS(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, gin.H{"msg": "Confirm tel success"})
 }
-*/

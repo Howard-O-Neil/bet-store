@@ -173,7 +173,8 @@ export default function InfoProfile() {
     }
 
     const ChangeSelectSexForm = (evt: React.ChangeEvent<any>) => {
-        setProfileState(SetSex(String(evt.target.value)));
+        //alert(evt.target.value);
+        //console.log($(`input[name=SelectSexForm][value=woman]`).attr("checked","true"));
     }
 
     return (

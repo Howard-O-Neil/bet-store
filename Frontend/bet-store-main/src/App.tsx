@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useHistory, useLocation } from "react-router";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 //import Login from './components/Login';
 import "../src/resource/font-awesome/css/font-awesome.min.css";
@@ -91,20 +91,20 @@ function App() {
           ></Route>
           <Route path="/profile" component={Profile} exact></Route>
         </Switch>
-        <Provider
-          store={createStore(
-            combineReducers({
-              conversationControl: conversationControlReducer,
-              messageControl: messageControlReducer,
-              chatAccountInfo: accountInfoReducer,
-              viewControl: viewControlReducer,
-              socketInfo: socketInfoReducer,
-            })
-          )}
-        >
-          <ChatBox></ChatBox>
-        </Provider>
-        <FooterView></FooterView>
+          <Provider
+            store={createStore(
+              combineReducers({
+                conversationControl: conversationControlReducer,
+                messageControl: messageControlReducer,
+                chatAccountInfo: accountInfoReducer,
+                viewControl: viewControlReducer,
+                socketInfo: socketInfoReducer
+              })
+            )}
+          >
+            <ChatBox></ChatBox>
+          </Provider>
+          <FooterView></FooterView>
       </BrowserRouter>
     </div>
   );

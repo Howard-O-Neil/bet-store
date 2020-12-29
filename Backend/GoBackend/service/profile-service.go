@@ -25,6 +25,7 @@ type ProfileService interface {
 	GetProfile(ID string) (entity.ProfileEntity, error)
 	EditProfile(ID string, profile entity.ProfileEntity) error
 	DelProfile() (bson.ObjectId, error)
+	GetProfilebyUsername(user string) (entity.ProfileEntity, error)
 }
 
 type ProfileDataService struct {
@@ -131,4 +132,13 @@ func GetAvatarRandomFromCDNServer(sex string) (string, error) {
 	fmt.Println(avatarJsonUnpack.Avatar)
 	fmt.Println("----------------------")
 	return string(avatarJsonUnpack.Avatar), nil
+}
+
+func (c *ProfileDataService) GetProfilebyUsername(user string) (entity.ProfileEntity, error) {
+	var result entity.ProfileEntity
+	err := c.collection.Find(bson.M{"username": user}).One(&result)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
 }

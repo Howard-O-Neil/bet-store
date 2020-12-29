@@ -13,6 +13,9 @@ func SetRoute(app *gin.Engine) *gin.Engine {
 	RouteCategory(app)
 	RouteContentStatic(app)
 	RouteProfile(app)
+	RouteHookWallet(app)
+	RouteWallet(app)
+
 	RouteTest(app)
 	//Route have auth
 	appauth := app.Group("/a", middlewares.AuthorizeJWT())
@@ -79,4 +82,17 @@ func RouteProfile(app *gin.Engine) {
 		"/profile/",
 		middlewares.AuthorizeJWT(),
 		controller.EditProfile)
+}
+
+func RouteHookWallet(app *gin.Engine) {
+	app.POST(
+		"/api/webhookwallet",
+		controller.WebhookWalletHandle)
+}
+
+func RouteWallet(app *gin.Engine) {
+	app.GET(
+		"/wallet/",
+		middlewares.AuthorizeJWT(),
+		controller.GetInfoWallet)
 }
