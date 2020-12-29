@@ -10,16 +10,23 @@ const categorySchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    avatar: {
-      link: { type: String, required: true },
-      alt: { type: String, required: true },
+    image: {
+      link: { type: String /*required: true*/ },
+      alt: { type: String /* required: true*/ },
     },
     properties: [
       {
-        key: { type: String, required: true },
-        name: { type: String, required: true },
+        key: { type: String /*required: true*/ },
+        name: { type: String /*required: true*/ },
+        image: {
+          link: { type: String /*required: true*/ },
+          alt: { type: String /* required: true*/ },
+        },
       },
     ],
+    parent: {
+      type: String,
+    },
   },
   {
     timestamps: true,
