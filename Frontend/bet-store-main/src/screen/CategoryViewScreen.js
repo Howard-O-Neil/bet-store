@@ -13,7 +13,8 @@ import {
 } from "../actions/productActions";
 import style from "../styles/CategoryView.module.scss";
 
-const CategoryViewScreen = ({ match }) => {
+const CategoryViewScreen = ({ match, location }) => {
+  const keyword = new URLSearchParams(location.search).get("q");
   const category = match.params.category || "";
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
@@ -35,8 +36,8 @@ const CategoryViewScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listCategories({ parent: category }));
-    dispatch(listProducts({ body: { category: category } }));
-  }, [dispatch]);
+    dispatch(listProducts({ body: { category: category, keyword: keyword } }));
+  }, [dispatch, keyword]);
 
   const handleSubCategoryClick = (path) => {
     //dispatch(listCategories({ parent: "/xe-co" }));
