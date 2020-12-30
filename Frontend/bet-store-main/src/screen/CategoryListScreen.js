@@ -1,16 +1,15 @@
-import { map } from "jquery";
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { listCategories } from "../actions/categoryActions";
+import { LinkContainer } from "react-router-bootstrap";
+
 import style from "../styles/CategoryList.module.scss";
 
-const CategoryListScreen = () => {
+const CategoryListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
-  const [subCategoryList1, setSubCategoryList1] = useState([]);
-  const [subCategoryList2, setSubCategoryList2] = useState([]);
-  const [selectedPathName, setSelectedPathName] = useState([]);
-  const [selectedPath, setSelectedPath] = useState([]);
+  const [sortedCategory, setSortedCategory] = useState([]);
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -22,110 +21,66 @@ const CategoryListScreen = () => {
     dispatch(listCategories());
   }, [dispatch]);
 
-  const handleMainCategoryClick = (e) => {
-    setSubCategoryList1(
-      categories.filter((category) => {
-        if (category.parent === e.target.id) return category;
-      })
-    );
-    setPath(0, e.target.outerText, e.target.id);
-  };
-  const setPath = (pos, pathName, path) => {
-    selectedPathName[pos] = pathName;
-    selectedPath[pos] = path;
-    setSelectedPathName(selectedPathName.slice(0, pos + 1));
-    setSelectedPath(selectedPath.slice(0, pos + 1));
-  };
-
   useEffect(() => {
-    console.log(selectedPathName);
-    console.log(selectedPath);
-  }, [selectedPathName]);
+    setSortedCategory(
+      categories.sort((a, b) => {
+        var textA = a.path;
 
-  const handleSubCategory1Click = (e) => {
-    setSubCategoryList2(
-      categories.filter((category) => {
-        if (category.parent === e.target.id) return category;
+        var textB = b.path;
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
       })
     );
-    setPath(1, e.target.outerText, e.target.id);
+  }, [categories]);
+
+  const createCategoryHandler = () => {
+    history.push("/category/new");
   };
 
-  const handleSubCategory2Click = (e) => {
-    setPath(2, e.target.outerText, e.target.id);
-  };
-
-  const items = 10;
   return (
     <div className="container">
-      <h1>Danh mục</h1>
-      <b>Đã chọn :</b>
-      <span className={style.selectedPath}>
-        {selectedPathName.map((path, index) =>
-          index == 0 ? <span>{path}</span> : <span>{" > " + path}</span>
-        )}
-      </span>
-      <div className={style.catSelect}>
-        <div
-          className={`list-group list-group-flush overflow-auto ${style.catList}`}
-        >
-          {loadingCategories ? (
-            <h2>Loading...</h2>
-          ) : errorCategories ? (
-            <h3>{errorCategories}</h3>
-          ) : (
-            categories.map(
-              (category) =>
-                category.parent === "" && (
-                  <li
-                    class={`list-group-item d-flex justify-content-between align-items-center ${
-                      selectedPath.includes(category.path)
-                        ? "active " + style.list_item_selected
-                        : style.list_item
-                    }`}
-                    onClick={handleMainCategoryClick}
-                    id={category.path}
-                  >
-                    {category.name}
-                  </li>
-                )
-            )
-          )}
-        </div>
-        <div
-          className={`list-group list-group-flush overflow-auto ${style.catList}`}
-        >
-          {subCategoryList1.map((category) => (
-            <li
-              class={`list-group-item d-flex justify-content-between align-items-center ${
-                selectedPath.includes(category.path)
-                  ? "active " + style.list_item_selected
-                  : style.list_item
-              }`}
-              onClick={handleSubCategory1Click}
-              id={category.path}
-            >
-              {category.name}
-            </li>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onClick={createCategoryHandler}
+      >
+        <i className="fas fa-plus"></i> Thêm danh mục
+      </button>
+
+      <div className="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên danh mục</th>
+
+            <th scope="col">Số thuộc tính</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedCategory.map((category, index) => (
+            <tr key={category._id}>
+              <th scope="row">
+                {[...Array(category.path.split("/").length - 2)].map(
+                  (value) => (
+                    <i class="fas fa-arrow-circle-right">&nbsp;</i>
+                  )
+                )}
+              </th>
+              <td className={`${category.parent === "" ? style.root_cat : ""}`}>
+                {category.name}
+              </td>
+
+              <td>{category.properties.length}</td>
+              <td>
+                <LinkContainer to={`/category/${category._id}/edit`}>
+                  <Button variant="light" className="btn-sm">
+                    <i className="fas fa-edit"></i>
+                  </Button>
+                </LinkContainer>
+              </td>
+            </tr>
           ))}
-        </div>
-        <div
-          className={`list-group list-group-flush overflow-auto ${style.catList}`}
-        >
-          {subCategoryList2.map((category) => (
-            <li
-              class={`list-group-item d-flex justify-content-between align-items-center ${
-                selectedPath.includes(category.path)
-                  ? "active " + style.list_item_selected
-                  : style.list_item
-              }`}
-              onClick={handleSubCategory2Click}
-              id={category.path}
-            >
-              {category.name}
-            </li>
-          ))}
-        </div>
+        </tbody>
       </div>
     </div>
   );

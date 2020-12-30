@@ -81,30 +81,30 @@ function App() {
           ></Route>
           <Route path="/mua-ban" component={CategoryViewScreen}></Route>
           <Route
-            path="/categoryEdit/:id"
+            path="/category/:id/edit"
             render={(props) => <CategoryEditScreen {...props} edit={true} />}
           ></Route>
           <Route
-            path="/categoryEdit/"
+            path="/category/new"
             component={CategoryEditScreen}
             edit={false}
           ></Route>
           <Route path="/profile" component={Profile} exact></Route>
         </Switch>
-          <Provider
-            store={createStore(
-              combineReducers({
-                conversationControl: conversationControlReducer,
-                messageControl: messageControlReducer,
-                chatAccountInfo: accountInfoReducer,
-                viewControl: viewControlReducer,
-                socketInfo: socketInfoReducer
-              })
-            )}
-          >
-            <ChatBox></ChatBox>
-          </Provider>
-          <FooterView></FooterView>
+        <Provider
+          store={createStore(
+            combineReducers({
+              conversationControl: conversationControlReducer,
+              messageControl: messageControlReducer,
+              chatAccountInfo: accountInfoReducer,
+              viewControl: viewControlReducer,
+              socketInfo: socketInfoReducer,
+            })
+          )}
+        >
+          <ChatBox></ChatBox>
+        </Provider>
+        <FooterView></FooterView>
       </BrowserRouter>
     </div>
   );
