@@ -2,3 +2,82 @@
   max-width: 500px;
   margin: 20px auto;
 }
+
+.body {
+  background-color: #f4f4f4;
+}
+
+.form_section {
+  min-height: max-content;
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.thumbsContainer {
+  display: "flex";
+  flex-direction: "row";
+  flex-wrap: "wrap";
+  margin-top: 16;
+  padding: 20;
+}
+
+.selectedPath span {
+  color: red;
+  padding-left: 2px;
+  font-weight: bold;
+}
+
+.selectedPath b {
+  padding-left: 14px;
+}
+
+h1 {
+  padding-top: 10px;
+}
+.img_select {
+  padding-bottom: 10px;
+}
+.thumb {
+  position: "relative";
+  display: "inline-flex";
+  border-radius: 2;
+  border: "1px solid #eaeaea";
+  margin-bottom: 8;
+  margin-right: 8;
+  width: 100;
+  height: 100;
+  padding: 4;
+  box-sizing: "border-box";
+}
+
+.thumbInner {
+  display: "flex";
+  min-width: 0;
+  overflow: "hidden";
+}
+
+.img_preview {
+  display: "block";
+  max-width: "100px";
+}
+
+.thumbButton {
+  position: "absolute";
+  right: 10;
+  bottom: 10;
+  background: "rgba(0,0,0,.8)";
+  color: "#fff";
+  border: 0;
+  border-radius: ".325em";
+  cursor: "pointer";
+}
+
+.button {
+  width: 100px;
+  margin: 10px;
+  display: inline-block;
+}
+.btn_container {
+  text-align: right;
+  padding-bottom: 20px;
+}

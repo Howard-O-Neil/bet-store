@@ -33,22 +33,39 @@ const updateProduct = asyncHandler(async (req, res) => {
       res.status(200).json({ message: "Product updated" });
     } else {
       res.status(404);
+      throw new Error("Product not found");
     }
-    throw new Error("Product not found");
   } catch (error) {
     throw new Error(error);
   }
 });
 
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find(req.body).populate("category");
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const category = req.query.category
+    ? {
+        category: {
+          $regex: req.query.category,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const products = await Product.find({ ...keyword, ...category });
 
   res.json(products);
 });
 
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id).populate("category");
-
+  const product = await Product.findById(req.params.id);
+  console.log("go to here");
   if (product) {
     res.json(product);
   } else {

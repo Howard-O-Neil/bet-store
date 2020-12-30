@@ -1,0 +1,23 @@
+.catSelect {
+  display: flex;
+}
+
+.catList {
+  flex: 1 40%;
+  height: 340px;
+  border: 1px dashed gray;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+.list_item:hover {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+.list_item_selected:hover {
+  cursor: pointer;
+}
+.list_item_selected {
+}
+.list_item {
+}

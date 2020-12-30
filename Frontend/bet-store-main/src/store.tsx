@@ -12,7 +12,7 @@ import {
   categoryDetailsReducer,
 } from "./reducers/categoryReducer";
 import { profileReducer } from "./reducers/profileReducer";
-import {accountReducer} from "./reducers/accountReducer"
+import { accountReducer } from "./reducers/accountReducer";
 import { notifyReducer } from "./reducers/notifyReducer";
 import { walletReducer } from "./reducers/walletReducer";
 import { imagesUploadReducer } from "./reducers/imageReducer";

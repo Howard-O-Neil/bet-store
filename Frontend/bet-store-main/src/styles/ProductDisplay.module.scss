@@ -12,6 +12,8 @@
   margin-top: 0;
   margin-left: -1px;
   background-color: white;
+  position: relative;
+  min-height: 200px;
 }
 .product_card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -19,7 +21,9 @@
 
 .product_image img {
   margin-top: 10px;
-  max-width: 90%;
+  width: 90%;
+  height: 150px;
+  object-fit: cover;
 }
 
 .product_info {
@@ -35,6 +39,10 @@
   color: gray;
   font-size: small;
   padding-bottom: 10px;
+}
+
+.price_time {
+  vertical-align: text-bottom;
 }
 
 @media (max-width: 920px) {

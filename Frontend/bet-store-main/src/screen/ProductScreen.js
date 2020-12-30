@@ -11,21 +11,28 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
-import Slider from "react-slick";
 
 import style from "../styles/ProductDetails.module.scss";
-import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
+
+import { listCategories } from "../actions/categoryActions";
+
+const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
   const dispatch = useDispatch();
 
   const [properties, setProperties] = useState([]);
   const [images, setImages] = useState([]);
-  let [sliderItem, setSliderItem] = useState([]);
 
   const [propertyLabel, setPropertyLabel] = useState([]);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = categoryList;
 
   const settings = {
     dots: true,
@@ -39,23 +46,26 @@ const ProductScreen = ({ match }) => {
     arrows: true,
     centerMode: true,
   };
-
   useEffect(() => {
-    const getProductDetails = async () => {
-      return await dispatch(listProductDetails(match.params.id)).then(() =>
-        console.log(product)
-      );
-    };
-    getProductDetails();
-  }, [dispatch, match]);
-
+    dispatch(listCategories());
+  }, []);
   useEffect(() => {
-    if (productDetails.loading == false) {
+    if (!product.name || product._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id));
+    } else {
+      document.title = product.name;
       setImages(product.image);
       setProperties(product.properties);
-      setPropertyLabel(product.category.properties);
     }
-  }, [dispatch, productDetails.loading]);
+  }, [dispatch, product, match]);
+
+  useEffect(() => {
+    if (product.name && categories.length) {
+      const cat = categories.find((x) => x.path === product.category);
+      if (cat) setPropertyLabel(cat.properties);
+      else dispatch(listCategories());
+    }
+  }, [product, categories]);
 
   return (
     <div className={style.body}>
@@ -70,17 +80,21 @@ const ProductScreen = ({ match }) => {
         <Container>
           <Row>
             <Col md={7}>
-              <Carousel className={style.slider}>
-                {images.map((image) => (
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={`/cdn/cdn/${image.link}`}
-                      alt={image.alt}
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Carousel className={style.slider}>
+                    {images.map((image) => (
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={`/cdn/cdn/${image.link}`}
+                          alt={image.alt}
+                        />
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </ListGroup.Item>
+              </ListGroup>
             </Col>
 
             <Col md={5} className={style.sticky_col}>
@@ -107,18 +121,6 @@ const ProductScreen = ({ match }) => {
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>
-                <ListGroup variant="flush">
-                  {propertyLabel.map((prop) => (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>{prop.name}</Col>
-                        <Col>
-                          {properties.find((x) => x.key === prop.key).value}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
               </Card>
             </Col>
           </Row>
@@ -129,9 +131,32 @@ const ProductScreen = ({ match }) => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item className={style.price}>
-                  {product.price} ₫
+                  Giá :{" "}
+                  {new Intl.NumberFormat("vi-VI", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(product.price)}
                 </ListGroup.Item>
-                <ListGroup.Item>Mô tả: {product.description}</ListGroup.Item>
+                <ListGroup.Item className={style.description}>
+                  Mô tả:
+                  {product.description}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <h6>Chi tiết</h6>
+                </ListGroup.Item>
+                <ListGroup.Item className={style.prop_container}>
+                  {console.log(propertyLabel)}
+                  {propertyLabel.map((prop) => (
+                    <div className={style.property}>
+                      <img src={`/cdn/cdn/${prop.image.link}`}></img>
+                      <span>
+                        {prop.name} :{" "}
+                        {properties.find((x) => x._id === prop._id) &&
+                          properties.find((x) => x._id === prop._id).value}
+                      </span>
+                    </div>
+                  ))}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>

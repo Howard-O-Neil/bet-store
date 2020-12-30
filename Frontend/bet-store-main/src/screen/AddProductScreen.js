@@ -96,10 +96,10 @@ const AddProductScreen = ({ history }) => {
       user: "5fa7fb0a62083e11ace57490",
       properties: properties,
     };
-    //console.log(uploadFiledata.get("files"));
+    console.log(uploadFiledata.get("files"));
     //console.log(uploadFiledata);
     //dispatch(uploadImage(uploadFiledata));
-    dispatch(createProduct(product, uploadFiledata));
+    //dispatch(createProduct(product, uploadFiledata));
 
     /* await axios.post(`${cdnServer}/upload`, uploadFiledata, {}).then((res) => {
       Object.values(res.data).map((filename) => {
