@@ -10,6 +10,9 @@ import { AccountTabStackParamList } from '../../types';
 
 export default function SignupScreen() {
   const navigation = useNavigation<StackNavigationProp<AccountTabStackParamList, "Account">>()
+  
+  //const [AccountSignup, setAccountSignup] = useState<>()
+  
   const HandleLogin = () => {
 
   }
