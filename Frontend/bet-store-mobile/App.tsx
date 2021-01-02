@@ -15,8 +15,8 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   // Ignore log notification by message:
-  LogBox.ignoreLogs(['Warning: ...']);
-  console.disableYellowBox = true;
+  LogBox.ignoreLogs(['The global "__expo" and "Expo" objects will be removed in SDK 41. Learn more about how to fix this warning: https://expo.fyi/deprecated-globals']);
+  //console.disableYellowBox = true;
 
   // Ignore all log notifications:
   LogBox.ignoreAllLogs();

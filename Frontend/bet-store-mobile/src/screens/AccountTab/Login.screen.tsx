@@ -27,22 +27,42 @@ export default function LoginScreen() {
   const dispatch = useDispatch();
   const [username, setusername] = useState<string>("");
   const [password, setpassword] = useState<string>("");
-  const accountRedux = useSelector((state:AppState) => state.account);
+  const accountRedux = useSelector((state: AppState) => state.account);
   const [IsLogging, setIsLogging] = useState<boolean>(false);
   const HandleLogin = () => {
+
+    if (username == "") {
+      showMessage({
+        message: "Chưa nhập username",
+        type: "danger",
+        icon: "danger",
+      });
+      return;
+    } else if (password == "") {
+      showMessage({
+        message: "Chưa nhập password",
+        type: "danger",
+        icon: "danger",
+      });
+      return;
+    }
+
     let account: AccountEntity = {
       username: username,
       password: password
     }
+
     setIsLogging(true);
     dispatch(setStateLogin())
     console.log(Constants.manifest.debuggerHost?.split(`:`).shift()?.concat(`:3000`));
     axios.post(`${GolangAPI}/api/account/login`, account)
       .then(
+
         res => {
+          console.log(res);
           if (res.data["status"] === 200) {
             dispatch(setLoginSuccess(res.data["data"]["token"]))
-            SetItemInStorage("token",res.data["data"]["token"]);
+            SetItemInStorage("token", res.data["data"]["token"]);
 
             showMessage({
               message: "Đăng nhập thành công",
@@ -51,6 +71,7 @@ export default function LoginScreen() {
             });
             navigation.goBack();
           } else {
+
             dispatch(setStateErrorLogin());
             showMessage({
               message: "Đăng nhập thất bại",
@@ -71,9 +92,9 @@ export default function LoginScreen() {
           });
         }
       ).finally(
-        ()=>setIsLogging(false)
+        () => setIsLogging(false)
       );
-    
+
   }
 
   return (
@@ -83,12 +104,12 @@ export default function LoginScreen() {
         <TextInput value={username} onChangeText={(val) => { setusername(val) }} style={styles.InputStyle} placeholder="Tên đăng nhập" />
         <TextInput value={password} onChangeText={(val) => { setpassword(val) }} style={styles.InputStyle} placeholder="Mật khẩu" secureTextEntry={true} />
         {IsLogging ? <TouchableOpacity activeOpacity={.8} style={[styles.BtnAction, styles.disable]} onPress={HandleLogin} disabled>
-          <ActivityIndicator size="small" color="#0000ff"/>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginLeft:10 }}>Đăng nhập</Text>
-        </TouchableOpacity>:
+          <ActivityIndicator size="small" color="#0000ff" />
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginLeft: 10 }}>Đăng nhập</Text>
+        </TouchableOpacity> :
           <TouchableOpacity activeOpacity={.8} style={styles.BtnAction} onPress={HandleLogin} >
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Đăng nhập</Text>
-        </TouchableOpacity>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Đăng nhập</Text>
+          </TouchableOpacity>
         }
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Text>
@@ -118,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2'
   },
   BtnAction: {
-    flexDirection:"row",
+    flexDirection: "row",
     marginTop: 20,
     margin: 10,
     padding: 10,
@@ -128,8 +149,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#01b241'
   },
-  disable:{
-    opacity:.5
+  disable: {
+    opacity: .5
   }
 
 });

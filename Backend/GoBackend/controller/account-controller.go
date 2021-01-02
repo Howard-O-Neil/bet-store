@@ -69,6 +69,9 @@ type BsonAccountEntity struct {
 func SignupHandle(ctx *gin.Context) {
 	var account entity.AccountEntity
 	ctx.BindJSON(&account)
+
+	fmt.Println(account)
+
 	account.Password, _ = HashPassword(account.Password)
 	//fmt.Println(account.Password)
 	sec, err := mongodbservice.NewDBService()
