@@ -17,6 +17,7 @@ import { EraseItemInStorage } from '../../components/AsyncStorageUtls';
 import { Logout, LogoutAccount } from '../../actions/accountAction';
 import { CDNAPI } from '../../../define';
 import { InfoWallet } from '../../actions/walletAction';
+import Svg, { Ellipse, SvgCssUri, SvgUri } from 'react-native-svg';
 
 const WALLET = "wallet";
 const PAY = "pay";
@@ -29,16 +30,15 @@ const SALE = "sale";
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<AccountTabStackParamList, "Account">>()
-
+  const [IsAvatarSVG, setIsAvatarSVG] = useState<Boolean>(false);
   const [Islogin, setIslogin] = useState(false);
   const profile = useSelector((state: AppState) => state.profile);
   const account = useSelector((state: AppState) => state.account);
-  const wallet = useSelector((state:AppState) => state.wallet)
+  const wallet = useSelector((state: AppState) => state.wallet)
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (account.Payload.IsLogin === true)
-    {
+    if (account.Payload.IsLogin === true) {
       //console.log(account.Payload);
 
       dispatch(GetProfile());
@@ -48,11 +48,18 @@ const AccountScreen: React.FC = () => {
     }
   }, [dispatch, account.Payload.IsLogin])
 
-  const HandleBTN = (key:string)=>{
+  useEffect(() => {
+    if (profile.IsFetching == false&&profile.Payload.avatar!=""){
+      if(profile.Payload.avatar.slice(-4) ===".svg" )
+        setIsAvatarSVG(true);
+    }
+  }, [dispatch, profile.IsFetching])
+
+  const HandleBTN = (key: string) => {
     switch (key) {
       case LOGOUT:
         dispatch(LogoutAccount());
-        break;    
+        break;
       default:
         break;
     }
@@ -64,10 +71,35 @@ const AccountScreen: React.FC = () => {
           <View style={{}} >
             <TouchableOpacity activeOpacity={.8} style={{ flex: 0 }} onPress={() => navigation.navigate("Profile")}>
               <View style={styles.HeaderProfile}>
-                <Image
-                  style={styles.AvatarImg}
-                  source={{ uri: `${CDNAPI}/cdn/${profile.Payload.avatar}` }}
-                />
+
+                <View style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 40,
+                  margin: 10,
+                  overflow: 'hidden',
+                  borderWidth: 1,
+                  borderColor: '#ededed',
+                  //backgroundColor:'red',
+                  //backgroundColor: '#989898'
+                }}>
+                  {
+                    IsAvatarSVG === false ?
+                      <Image
+                        style={styles.AvatarImg}
+                        width={64}
+                        height={64}
+                        source={{ uri: `${CDNAPI}/cdn/${profile.Payload.avatar}` }}
+                      /> :
+                      <SvgUri
+                        width={64}
+                        height={64}
+                        uri={`${CDNAPI}/cdn/${profile.Payload.avatar}`}
+                      />
+
+                  }
+                </View>
+
                 <View style={styles.TitleProfile}>
                   <Text style={styles.Name}>
                     {profile.Payload.name} {profile.Payload.surname}
@@ -86,16 +118,16 @@ const AccountScreen: React.FC = () => {
               <FlatList
                 style={{ marginTop: 10 }}
                 data={[
-                  { key: 'Bán hàng', detail: 'Quản lý sản phẩm', typeBtn:SALE },
-                  { key: 'Chi tiết ví', detail: `Trong ví của bạn còn ${wallet.Payload.currentwallet.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}đ`, typeBtn:WALLET },
-                  { key: 'Nạp tiền', detail: `Nạp tiền qua momo`,typeBtn:PAY },
-                  { key: 'Hỗ trợ', detail: `Gặp vấn đề về tài khoản, v.v..`, typeBtn:SUPPORT },
-                  { key: 'Đăng xuất', typeBtn:LOGOUT },
+                  { key: 'Bán hàng', detail: 'Quản lý sản phẩm', typeBtn: SALE },
+                  { key: 'Chi tiết ví', detail: `Trong ví của bạn còn ${wallet.Payload.currentwallet.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}đ`, typeBtn: WALLET },
+                  { key: 'Nạp tiền', detail: `Nạp tiền qua momo`, typeBtn: PAY },
+                  { key: 'Hỗ trợ', detail: `Gặp vấn đề về tài khoản, v.v..`, typeBtn: SUPPORT },
+                  { key: 'Đăng xuất', typeBtn: LOGOUT },
                 ]}
                 renderItem={
                   ({ item }) =>
 
-                    <TouchableOpacity style={{ flexDirection: 'row', borderColor: '#ecf0f1', borderWidth: 1 }}onPress = {()=>HandleBTN(item.typeBtn)}>
+                    <TouchableOpacity style={{ flexDirection: 'row', borderColor: '#ecf0f1', borderWidth: 1 }} onPress={() => HandleBTN(item.typeBtn)}>
                       <View style={{ height: 55, justifyContent: 'center', paddingLeft: 20 }}>
                         <Text style={{ fontSize: 20, fontWeight: '400' }}>{item.key}</Text>
                         {item.detail && <Text style={{ opacity: .5 }}>{item.detail}</Text>}
@@ -134,8 +166,8 @@ const styles = StyleSheet.create({
   AvatarImg: {
     width: 64,
     height: 64,
-    borderRadius: 40,
-    margin: 10
+    // borderRadius: 40,
+    // margin: 10
   },
   HeaderProfile: {
     flexDirection: 'row'

@@ -15,6 +15,7 @@ import {
   GET_PROFILE_SUCCESS,
   REMOVE_PROFILE,
   SAVE_CHANGE_AVATAR,
+  SAVE_EDIT_PROFILE,
 } from '../constants/profileConstants';
 import {ActionType} from '../types/actionType';
 import {Profile} from '../types/profile';
@@ -23,13 +24,13 @@ import FormData from 'form-data';
 import {PasswordChangeType} from '../types/passwordchangeType';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GetItemInStorage } from '../components/AsyncStorageUtls';
-import { GolangAPI } from '../../define';
+import { CDNAPI, GolangAPI } from '../../define';
 
 export const GetProfile = () => async (
   dispatch: React.Dispatch<ActionType<Profile>>,
 ) => {
 
-  console.log("test ple");
+  //console.log("test ple");
   dispatch(setStateGetProfile());
   Axios.defaults.headers.common.Authentication =
     'Bearer ' + await GetItemInStorage('token'); // for all requests
@@ -37,7 +38,7 @@ export const GetProfile = () => async (
   if (response.status === 200) {
     if (response.data.status === 200) {
       dispatch(setProfile(response.data.data));
-      //console.log(response.data.data);
+      console.log(response.data.data);
     } else {
       dispatch(setStateErrorProfile(response.data.message));
     }
@@ -46,18 +47,26 @@ export const GetProfile = () => async (
   }
 };
 
+
+
+const SaveEditProfileAction = (profile: Profile): ActionType<Profile> => {
+  return {
+    type: SAVE_EDIT_PROFILE,
+    payload: profile,
+  };
+};
+
+
 export const EditProfile = (profile: Profile) => async (
   dispatch: React.Dispatch<ActionType<Profile>>,
 ) => {
-  //console.log(profile);
   dispatch(EditProfileAction());
-  //Object.entries(profile).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
 
-  let response = await Axios.post<ReponseAPI<Profile>>('/go/profile/', profile);
-  console.log(response);
+  let response = await Axios.post<ReponseAPI<Profile>>(`${GolangAPI}/profile/`, profile);
   if (response.status === 200) {
     if (response.data.status === 200) {
       dispatch(EditProfileAction_SUCCESS(profile));
+      dispatch(SaveEditProfileAction(profile));
     } else {
       dispatch(EditProfileAction_FAIL());
     }
@@ -118,18 +127,18 @@ export const ProfileRemove = () => {
 export const ChangeAvatar = (file: any) => async (
   dispatch: React.Dispatch<ActionType<Profile>>,
 ) => {
+  
+  console.log(file);
+  dispatch(ChangeAvatar_Request());
+  var data = new FormData();
   dispatch(ChangeAvatar_Request());
   var data = new FormData();
   // console.log(path);
   // fs.createReadStream(path);
   data.append('files', file);
-
   var config: AxiosRequestConfig = {
     method: 'post',
-    url: '/cdn/upload',
-    // headers: {
-    //     ...data.getHeaders()
-    // },
+    url: `${CDNAPI}/upload`,
     data: data,
   };
 
@@ -138,7 +147,7 @@ export const ChangeAvatar = (file: any) => async (
       //console.log(res.data[file.name]);
 
       var dataAvatar = JSON.stringify({avatar: res1.data[file.name]});
-      Axios.post<ReponseAPI<string>>('/go/profile/', dataAvatar)
+      Axios.post<ReponseAPI<string>>(`${GolangAPI}/profile/`, dataAvatar)
         .then((res) => {
           if (res.data.status === 200) {
             dispatch(ChangeAvatar_Success(res1.data[file.name]));

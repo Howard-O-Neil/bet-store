@@ -38,7 +38,7 @@ func EditProfile(ctx *gin.Context) {
 	var data, _ = ClaimJwt.(entity.JwtClaimEntity)
 	var profile entity.ProfileEntity
 	ctx.BindJSON(&profile)
-
+	fmt.Println(profile)
 	//ctx.JSON(200, gin.H{"auth": data.ID})
 
 	err := Profileservice.EditProfile(data.ID, profile)
