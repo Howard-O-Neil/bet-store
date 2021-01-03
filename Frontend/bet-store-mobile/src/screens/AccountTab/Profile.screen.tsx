@@ -74,6 +74,7 @@ export default function ProfileScreen() {
       uri: localUri, name: filename, type
     }
     dispatch(ChangeAvatar(query));
+    setBoxSelectAvatar(false)
   };
 
   const HandleLibrary = async () => {
@@ -98,6 +99,7 @@ export default function ProfileScreen() {
       uri: localUri, name: filename, type
     }
     dispatch(ChangeAvatar(query));
+    setBoxSelectAvatar(false)
   };
 
   const ChangeEditMode = () => {
@@ -130,6 +132,8 @@ export default function ProfileScreen() {
       }
     }
   }, [dispatch,editprofile.IsFetching])
+
+
 
   return (
     <View style={{ backgroundColor: 'transparent', flex: 1 }}>
