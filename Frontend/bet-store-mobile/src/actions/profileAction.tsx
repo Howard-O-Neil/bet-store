@@ -15,6 +15,7 @@ import {
   GET_PROFILE_SUCCESS,
   REMOVE_PROFILE,
   SAVE_CHANGE_AVATAR,
+  SAVE_EDIT_PROFILE,
 } from '../constants/profileConstants';
 import {ActionType} from '../types/actionType';
 import {Profile} from '../types/profile';
@@ -46,18 +47,26 @@ export const GetProfile = () => async (
   }
 };
 
+
+
+const SaveEditProfileAction = (profile: Profile): ActionType<Profile> => {
+  return {
+    type: SAVE_EDIT_PROFILE,
+    payload: profile,
+  };
+};
+
+
 export const EditProfile = (profile: Profile) => async (
   dispatch: React.Dispatch<ActionType<Profile>>,
 ) => {
-  //console.log(profile);
   dispatch(EditProfileAction());
-  //Object.entries(profile).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
 
-  let response = await Axios.post<ReponseAPI<Profile>>('/go/profile/', profile);
-  console.log(response);
+  let response = await Axios.post<ReponseAPI<Profile>>(`${GolangAPI}/profile/`, profile);
   if (response.status === 200) {
     if (response.data.status === 200) {
       dispatch(EditProfileAction_SUCCESS(profile));
+      dispatch(SaveEditProfileAction(profile));
     } else {
       dispatch(EditProfileAction_FAIL());
     }

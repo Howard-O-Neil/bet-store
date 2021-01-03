@@ -169,7 +169,6 @@ export default function SignupScreen() {
               borderRadius: 0,
               borderWidth: 0,
               flex: 1
-
             }}
             
             placeholderStyle={{

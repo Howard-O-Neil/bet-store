@@ -11,7 +11,7 @@ import {
   categoryListReducer,
   categoryDetailsReducer,
 } from './reducers/categoryReducer';
-import {profileReducer} from './reducers/profileReducer';
+import {editprofileReducer, profileReducer} from './reducers/profileReducer';
 import {accountReducer} from './reducers/accountReducer';
 import {notifyReducer} from './reducers/notifyReducer';
 import {walletReducer} from './reducers/walletReducer';
@@ -30,6 +30,7 @@ const reducer = combineReducers({
   account: accountReducer,
   notify: notifyReducer,
   wallet: walletReducer,
+  editprofile: editprofileReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 
