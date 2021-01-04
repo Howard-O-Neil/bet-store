@@ -12,6 +12,8 @@ import {
   sortByPrice,
 } from "../actions/productActions";
 import style from "../styles/CategoryView.module.scss";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 const CategoryViewScreen = ({ match, location }) => {
   const keyword = new URLSearchParams(location.search).get("q");
@@ -69,9 +71,9 @@ const CategoryViewScreen = ({ match, location }) => {
     <div className={style.body}>
       <div className={`container ${style.catContainer}`}>
         {loadingCategories ? (
-          <h2>Loading...</h2>
+          <Loader />
         ) : errorCategories ? (
-          <h3>{errorCategories}</h3>
+          <Message variant="danger">{errorCategories}</Message>
         ) : (
           <Carousel cols={6} rows={1} gap={3} loop>
             {categories.map((category) => (
@@ -112,9 +114,9 @@ const CategoryViewScreen = ({ match, location }) => {
       </div>
 
       {loading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : error ? (
-        <h3>{error}</h3>
+        <Message variant="danger">{error}</Message>
       ) : (
         filteredProducts &&
         filteredProducts.map((product) => (

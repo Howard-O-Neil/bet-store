@@ -9,6 +9,8 @@ import {
 } from "../actions/categoryActions";
 
 import ImageUpload from "../components/ImageUpload";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import style from "../styles/CategoryEdit.module.scss";
 
 const CategoryEditScreen = ({ match, edit }) => {
@@ -197,9 +199,9 @@ const CategoryEditScreen = ({ match, edit }) => {
       <Container className={style.form_section}>
         <h1>Chỉnh sửa danh mục</h1>
         {loadingCategory || loadingCategories ? (
-          <h3>Loading</h3>
+          <Loader />
         ) : errorCategory || errorCategories ? (
-          <h3>{errorCategory}</h3>
+          <Message variant="danger">{errorCategory}</Message>
         ) : (
           <>
             <Form>

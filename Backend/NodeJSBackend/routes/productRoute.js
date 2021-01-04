@@ -6,6 +6,7 @@ import {
   deleteProduct,
   updateProduct,
 } from "../controller/productController.js";
+import authenticate from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // @desc Fetch all products
@@ -19,8 +20,8 @@ router.route("/").get(getProducts).post(createProduct);
 router
   .route("/:id")
   .get(getProductById)
-  .delete(deleteProduct)
-  .put(updateProduct);
+  .delete(authenticate, deleteProduct)
+  .put(authenticate, updateProduct);
 
 // @desc Create single product
 // @route POST /api/products/

@@ -15,6 +15,8 @@ import { listProductDetails } from "../actions/productActions";
 import style from "../styles/ProductDetails.module.scss";
 
 import { listCategories } from "../actions/categoryActions";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
@@ -73,9 +75,9 @@ const ProductScreen = ({ match }) => {
         Go Back
   </Link>*/}
       {productDetails.loading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : productDetails.error ? (
-        <h3>{productDetails.error}</h3>
+        <Message variant="danger">{productDetails.error}</Message>
       ) : (
         <Container>
           <Row>

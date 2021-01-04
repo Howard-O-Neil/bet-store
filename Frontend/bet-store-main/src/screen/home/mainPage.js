@@ -7,6 +7,9 @@ import { listProducts } from "../../actions/productActions";
 import style from "../../styles/ProductDisplay.module.scss";
 import { listCategories } from "../../actions/categoryActions";
 import Carousel from "react-grid-carousel";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
@@ -35,9 +38,9 @@ const HomeScreen = () => {
           </div>
 
           {loadingCategories ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : errorCategories ? (
-            <h3>{errorCategories}</h3>
+            <Message variant="danger">{errorCategories}</Message>
           ) : (
             <Carousel
               cols={5}
@@ -68,12 +71,14 @@ const HomeScreen = () => {
           )}
         </div>
         <div className={`${style.productContainer} container`}>
-          <h4 className={style.title}>Sản phẩm</h4>
-
+          <div>
+            <h4 className={style.title}>Sản phẩm</h4>
+          </div>
+          <br />
           {loading ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : error ? (
-            <h3>{error}</h3>
+            <Message variant="danger">{error}</Message>
           ) : (
             <Row>
               {products.map((product) => (
