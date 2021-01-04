@@ -95,4 +95,8 @@ func RouteWallet(app *gin.Engine) {
 		"/wallet/",
 		middlewares.AuthorizeJWT(),
 		controller.GetInfoWallet)
+	app.GET(
+		"/wallet/detailtrans/",
+		middlewares.AuthorizeJWT(),
+		controller.GetDetailTransWallet)
 }

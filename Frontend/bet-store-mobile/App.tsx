@@ -8,8 +8,9 @@ import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
 import store from './src/store';
-  import { LogBox } from 'react-native';
 import * as Permissions  from 'expo-permissions';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider as StoreProvider } from 'react-redux';
 
 export default function App() {
   //const [statusCam, setstatusCam] = useState(false);
@@ -34,7 +35,7 @@ export default function App() {
   //console.disableYellowBox = true;
 
   // Ignore all log notifications:
-  LogBox.ignoreAllLogs();
+  //LogBox.ignoreAllLogs();
 
   //if(statusCam)
 
@@ -42,14 +43,18 @@ export default function App() {
     return null;
   } else {
     return (
-      <Provider store = {store}>
-        <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+      <StoreProvider store={store}>
+        <PaperProvider>
+          <Provider store = {store}>
+            <SafeAreaProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
 
-          <FlashMessage position="top" />
-        </SafeAreaProvider>
-      </Provider>
+              <FlashMessage position="top" />
+            </SafeAreaProvider>
+          </Provider>
+        </PaperProvider>
+      </StoreProvider>
     );
   }
 }

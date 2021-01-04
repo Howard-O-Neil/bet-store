@@ -14,7 +14,7 @@ import {
 import {editprofileReducer, profileReducer} from './reducers/profileReducer';
 import {accountReducer} from './reducers/accountReducer';
 import {notifyReducer} from './reducers/notifyReducer';
-import {walletReducer} from './reducers/walletReducer';
+import {transDetailWalletReducer, walletReducer} from './reducers/walletReducer';
 import {imagesUploadReducer} from './reducers/imageReducer';
 
 const reducer = combineReducers({
@@ -31,6 +31,7 @@ const reducer = combineReducers({
   notify: notifyReducer,
   wallet: walletReducer,
   editprofile: editprofileReducer,
+  transDetailWallet: transDetailWalletReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 

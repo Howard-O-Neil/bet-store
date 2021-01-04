@@ -49,8 +49,8 @@ const AccountScreen: React.FC = () => {
   }, [dispatch, account.Payload.IsLogin])
 
   useEffect(() => {
-    if (profile.IsFetching == false&&profile.Payload.avatar!=""){
-      if(profile.Payload.avatar.slice(-4) ===".svg" )
+    if (profile.IsFetching == false && profile.Payload.avatar != "") {
+      if (profile.Payload.avatar.slice(-4) === ".svg")
         setIsAvatarSVG(true);
     }
   }, [dispatch, profile.IsFetching])
@@ -59,6 +59,13 @@ const AccountScreen: React.FC = () => {
     switch (key) {
       case LOGOUT:
         dispatch(LogoutAccount());
+        break;
+
+      case WALLET:
+        navigation.navigate('Wallet');
+        break;
+      case PAY:
+        navigation.navigate('PayWallet');
         break;
       default:
         break;
@@ -118,7 +125,7 @@ const AccountScreen: React.FC = () => {
               <FlatList
                 style={{ marginTop: 10 }}
                 data={[
-                  { key: 'Bán hàng', detail: 'Quản lý sản phẩm', typeBtn: SALE },
+                  { key: 'Bán hàng', detail: 'Quản lý sản phẩm', typeBtn: SALE },//${wallet.Payload.currentwallet.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}đ
                   { key: 'Chi tiết ví', detail: `Trong ví của bạn còn ${wallet.Payload.currentwallet.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}đ`, typeBtn: WALLET },
                   { key: 'Nạp tiền', detail: `Nạp tiền qua momo`, typeBtn: PAY },
                   { key: 'Hỗ trợ', detail: `Gặp vấn đề về tài khoản, v.v..`, typeBtn: SUPPORT },

@@ -31,4 +31,6 @@ export type AccountTabStackParamList = {
   Login: undefined;
   Profile: undefined;
   Signup:undefined;
+  Wallet:undefined;
+  PayWallet:undefined;
 };

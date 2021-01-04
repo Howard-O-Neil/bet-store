@@ -54,12 +54,12 @@ export default function LoginScreen() {
 
     setIsLogging(true);
     dispatch(setStateLogin())
-    console.log(Constants.manifest.debuggerHost?.split(`:`).shift()?.concat(`:3000`));
+    //console.log(Constants.manifest.debuggerHost?.split(`:`).shift()?.concat(`:3000`));
     axios.post(`${GolangAPI}/api/account/login`, account)
       .then(
 
         res => {
-          console.log(res);
+          //console.log(res);
           if (res.data["status"] === 200) {
             dispatch(setLoginSuccess(res.data["data"]["token"]))
             SetItemInStorage("token", res.data["data"]["token"]);
