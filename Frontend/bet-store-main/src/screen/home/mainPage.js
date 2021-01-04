@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Card, CardGroup, Container } from "react-bootstrap";
 import Product from "../../components/Product";
 import Category from "../../components/Category";
-import { listProducts } from "../../actions/productActions";
+import { listRandomProducts } from "../../actions/productActions";
 import style from "../../styles/ProductDisplay.module.scss";
 import { listCategories } from "../../actions/categoryActions";
 import Carousel from "react-grid-carousel";
@@ -25,7 +25,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     document.title = "Bet Store";
-    dispatch(listProducts({}));
+    dispatch(listRandomProducts({}));
     dispatch(listCategories({ parent: "" }));
   }, [dispatch]);
 

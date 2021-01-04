@@ -85,10 +85,23 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+const getRamdomProduct = asyncHandler(async (req, res) => {
+  const number = req.query.keyword || 20;
+  const product = await Product.aggregate([{ $sample: { size: number } }]);
+
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404);
+    throw new Error("There are no product");
+  }
+});
+
 export {
   getProducts,
   getProductById,
   deleteProduct,
   createProduct,
   updateProduct,
+  getRamdomProduct,
 };

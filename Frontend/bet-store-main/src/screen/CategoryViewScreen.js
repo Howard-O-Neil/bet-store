@@ -6,8 +6,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { listCategories } from "../actions/categoryActions";
 import {
   listProducts,
+  loadDataIntoFilter,
   loadExactPage,
   loadNewPage,
+  shuffleProduct,
   sortByAlphabet,
   sortByPrice,
 } from "../actions/productActions";
@@ -30,6 +32,7 @@ const CategoryViewScreen = ({ match, location }) => {
   const {
     loading,
     error,
+    products,
     filteredProducts,
     filteredPages,
     currentPage,
@@ -40,6 +43,12 @@ const CategoryViewScreen = ({ match, location }) => {
     dispatch(listCategories({ parent: category }));
     dispatch(listProducts({ body: { category: category, keyword: keyword } }));
   }, [dispatch, keyword]);
+
+  useEffect(() => {
+    dispatch(loadDataIntoFilter({ countPerPage: 10 }));
+    dispatch(shuffleProduct);
+    dispatch(loadExactPage({ page: 1 }));
+  }, [products]);
 
   const handleSubCategoryClick = (path) => {
     //dispatch(listCategories({ parent: "/xe-co" }));
