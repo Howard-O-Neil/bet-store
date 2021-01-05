@@ -28,9 +28,7 @@ import {
 import { uploadImage } from "../actions/imageActions";
 import { param } from "jquery";
 
-export const listProducts = ({ body = "", countPerPage }) => async (
-  dispatch
-) => {
+export const listProducts = (body) => async (dispatch) => {
   try {
     dispatch({
       type: PRODUCT_LIST_REQUEST,
@@ -42,8 +40,33 @@ export const listProducts = ({ body = "", countPerPage }) => async (
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
     });
-    await dispatch(loadDataIntoFilter({ countPerPage }));
-    dispatch(shuffleProduct());
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listRandomProducts = ({ countPerPage = 20 }) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_LIST_REQUEST,
+    });
+
+    const { data } = await axios.get("/node/api/products/random", {
+      params: countPerPage,
+    });
+
+    dispatch({
+      type: PRODUCT_LIST_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,

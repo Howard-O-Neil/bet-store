@@ -57,15 +57,19 @@ const getProducts = asyncHandler(async (req, res) => {
         },
       }
     : {};
+  const user = req.query.user
+    ? {
+        user: req.query.user,
+      }
+    : {};
 
-  const products = await Product.find({ ...keyword, ...category });
+  const products = await Product.find({ ...keyword, ...category, ...user });
 
   res.json(products);
 });
 
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
-  console.log("go to here");
   if (product) {
     res.json(product);
   } else {
@@ -86,10 +90,23 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+const getRamdomProduct = asyncHandler(async (req, res) => {
+  const number = req.query.keyword || 20;
+  const product = await Product.aggregate([{ $sample: { size: number } }]);
+
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404);
+    throw new Error("There are no product");
+  }
+});
+
 export {
   getProducts,
   getProductById,
   deleteProduct,
   createProduct,
   updateProduct,
+  getRamdomProduct,
 };

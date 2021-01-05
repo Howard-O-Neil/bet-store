@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-grid-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import ReactTimeAgo from "react-time-ago";
@@ -6,14 +6,19 @@ import { LinkContainer } from "react-router-bootstrap";
 import { listCategories } from "../actions/categoryActions";
 import {
   listProducts,
+  loadDataIntoFilter,
   loadExactPage,
   loadNewPage,
+  shuffleProduct,
   sortByAlphabet,
   sortByPrice,
 } from "../actions/productActions";
 import style from "../styles/CategoryView.module.scss";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
-const CategoryViewScreen = ({ match }) => {
+const CategoryViewScreen = ({ match, location }) => {
+  const keyword = new URLSearchParams(location.search).get("q");
   const category = match.params.category || "";
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
@@ -23,10 +28,17 @@ const CategoryViewScreen = ({ match }) => {
     categories,
   } = categoryList;
 
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    if (categories.length) setCats([...categories]);
+  }, [categories]);
+
   const productList = useSelector((state) => state.productList);
   const {
     loading,
     error,
+    products,
     filteredProducts,
     filteredPages,
     currentPage,
@@ -35,11 +47,17 @@ const CategoryViewScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listCategories({ parent: category }));
-    dispatch(listProducts({ body: { category: category } }));
-  }, [dispatch]);
+    dispatch(listProducts({ body: { category: category, keyword: keyword } }));
+  }, [dispatch, keyword]);
+
+  useEffect(() => {
+    dispatch(loadDataIntoFilter({ countPerPage: 10 }));
+    dispatch(shuffleProduct);
+    dispatch(loadExactPage({ page: 1 }));
+  }, [products]);
 
   const handleSubCategoryClick = (path) => {
-    //dispatch(listCategories({ parent: "/xe-co" }));
+    dispatch(listCategories({ parent: path }));
     dispatch(listProducts({ body: { category: path } }));
   };
 
@@ -68,23 +86,24 @@ const CategoryViewScreen = ({ match }) => {
     <div className={style.body}>
       <div className={`container ${style.catContainer}`}>
         {loadingCategories ? (
-          <h2>Loading...</h2>
+          <Loader />
         ) : errorCategories ? (
-          <h3>{errorCategories}</h3>
+          <Message variant="danger">{errorCategories}</Message>
         ) : (
           <Carousel cols={6} rows={1} gap={3} loop>
-            {categories.map((category) => (
-              <Carousel.Item>
-                <div
-                  className={`${style.subCategory}`}
-                  onClick={() => handleSubCategoryClick(category.path)}
-                >
-                  <img src={`/cdn/cdn/${category.image.link}`}></img>
-                  <br />
-                  <span>{category.name}</span>
-                </div>
-              </Carousel.Item>
-            ))}
+            {cats &&
+              cats.map((category) => (
+                <Carousel.Item>
+                  <div
+                    className={`${style.subCategory}`}
+                    onClick={() => handleSubCategoryClick(category.path)}
+                  >
+                    <img src={`/cdn/cdn/${category.image.link}`}></img>
+                    <br />
+                    <span>{category.name}</span>
+                  </div>
+                </Carousel.Item>
+              ))}
           </Carousel>
         )}
       </div>
@@ -111,9 +130,9 @@ const CategoryViewScreen = ({ match }) => {
       </div>
 
       {loading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : error ? (
-        <h3>{error}</h3>
+        <Message variant="danger">{error}</Message>
       ) : (
         filteredProducts &&
         filteredProducts.map((product) => (

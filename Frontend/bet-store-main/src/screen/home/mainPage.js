@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Card, CardGroup, Container } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import Product from "../../components/Product";
 import Category from "../../components/Category";
-import { listProducts } from "../../actions/productActions";
+import { listRandomProducts } from "../../actions/productActions";
 import style from "../../styles/ProductDisplay.module.scss";
 import { listCategories } from "../../actions/categoryActions";
 import Carousel from "react-grid-carousel";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import { LinkContainer } from "react-router-bootstrap";
+
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
@@ -22,7 +26,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     document.title = "Bet Store";
-    dispatch(listProducts({}));
+    dispatch(listRandomProducts({}));
     dispatch(listCategories({ parent: "" }));
   }, [dispatch]);
 
@@ -35,9 +39,9 @@ const HomeScreen = () => {
           </div>
 
           {loadingCategories ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : errorCategories ? (
-            <h3>{errorCategories}</h3>
+            <Message variant="danger">{errorCategories}</Message>
           ) : (
             <Carousel
               cols={5}
@@ -68,21 +72,29 @@ const HomeScreen = () => {
           )}
         </div>
         <div className={`${style.productContainer} container`}>
-          <h4 className={style.title}>Sản phẩm</h4>
-
-          {loading ? (
-            <h2>Loading...</h2>
-          ) : error ? (
-            <h3>{error}</h3>
-          ) : (
-            <Row>
-              {products.map((product) => (
-                <Product product={product} />
-              ))}
-            </Row>
-          )}
+          <div className={style.titleGroup}>
+            <h4 className={style.title}>Sản phẩm</h4>
+          </div>
+          <div>
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
+              <Row>
+                {products.map((product) => (
+                  <Product product={product} />
+                ))}
+              </Row>
+            )}
+          </div>
         </div>
       </div>
+      <LinkContainer to="/mua-ban">
+        <Button className={style.button} type="button" variant="primary">
+          Xem Thêm
+        </Button>
+      </LinkContainer>
     </>
   );
 };

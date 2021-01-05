@@ -35,6 +35,11 @@ const ProductEditScreen = (props) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const profile = useSelector((state) => state.profile);
+  const {
+    Payload: { accountID },
+  } = profile;
+
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -84,7 +89,7 @@ const ProductEditScreen = (props) => {
         countInStock: countInStock,
         image: defaultImages,
         category: category,
-        user: "5fa7fb0a62083e11ace57490",
+        user: accountID,
         properties: properties,
       };
       //console.log(files.get("files"));
@@ -168,6 +173,7 @@ const ProductEditScreen = (props) => {
       </Link>
       <Container className={style.form_section}>
         <h1>Chỉnh sửa sản phẩm</h1>
+        {accountID}
         {loading || loadingCategories ? (
           <h3>Loading</h3>
         ) : error ? (
@@ -236,6 +242,9 @@ const ProductEditScreen = (props) => {
         <Form.Group controlId="category">
           <Form.Label>Loại sản phẩm</Form.Label>
           <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>
+            <option value="" disabled selected>
+              Chọn loại sản phẩm
+            </option>
             {categories.map((x) =>
               x.path === category ? (
                 <option key={x._id} value={x.path} selected>
