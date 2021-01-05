@@ -57,8 +57,13 @@ const getProducts = asyncHandler(async (req, res) => {
         },
       }
     : {};
+  const user = req.query.user
+    ? {
+        user: req.query.user,
+      }
+    : {};
 
-  const products = await Product.find({ ...keyword, ...category });
+  const products = await Product.find({ ...keyword, ...category, ...user });
 
   res.json(products);
 });

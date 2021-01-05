@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Card, CardGroup, Container } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import Product from "../../components/Product";
 import Category from "../../components/Category";
 import { listRandomProducts } from "../../actions/productActions";
@@ -9,6 +9,7 @@ import { listCategories } from "../../actions/categoryActions";
 import Carousel from "react-grid-carousel";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
+import { LinkContainer } from "react-router-bootstrap";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -71,23 +72,29 @@ const HomeScreen = () => {
           )}
         </div>
         <div className={`${style.productContainer} container`}>
-          <div>
+          <div className={style.titleGroup}>
             <h4 className={style.title}>Sản phẩm</h4>
           </div>
-          <br />
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <Message variant="danger">{error}</Message>
-          ) : (
-            <Row>
-              {products.map((product) => (
-                <Product product={product} />
-              ))}
-            </Row>
-          )}
+          <div>
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
+              <Row>
+                {products.map((product) => (
+                  <Product product={product} />
+                ))}
+              </Row>
+            )}
+          </div>
         </div>
       </div>
+      <LinkContainer to="/mua-ban">
+        <Button className={style.button} type="button" variant="primary">
+          Xem Thêm
+        </Button>
+      </LinkContainer>
     </>
   );
 };

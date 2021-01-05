@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-grid-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import ReactTimeAgo from "react-time-ago";
@@ -28,6 +28,12 @@ const CategoryViewScreen = ({ match, location }) => {
     categories,
   } = categoryList;
 
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    if (categories.length) setCats([...categories]);
+  }, [categories]);
+
   const productList = useSelector((state) => state.productList);
   const {
     loading,
@@ -51,7 +57,7 @@ const CategoryViewScreen = ({ match, location }) => {
   }, [products]);
 
   const handleSubCategoryClick = (path) => {
-    //dispatch(listCategories({ parent: "/xe-co" }));
+    dispatch(listCategories({ parent: path }));
     dispatch(listProducts({ body: { category: path } }));
   };
 
@@ -85,18 +91,19 @@ const CategoryViewScreen = ({ match, location }) => {
           <Message variant="danger">{errorCategories}</Message>
         ) : (
           <Carousel cols={6} rows={1} gap={3} loop>
-            {categories.map((category) => (
-              <Carousel.Item>
-                <div
-                  className={`${style.subCategory}`}
-                  onClick={() => handleSubCategoryClick(category.path)}
-                >
-                  <img src={`/cdn/cdn/${category.image.link}`}></img>
-                  <br />
-                  <span>{category.name}</span>
-                </div>
-              </Carousel.Item>
-            ))}
+            {cats &&
+              cats.map((category) => (
+                <Carousel.Item>
+                  <div
+                    className={`${style.subCategory}`}
+                    onClick={() => handleSubCategoryClick(category.path)}
+                  >
+                    <img src={`/cdn/cdn/${category.image.link}`}></img>
+                    <br />
+                    <span>{category.name}</span>
+                  </div>
+                </Carousel.Item>
+              ))}
           </Carousel>
         )}
       </div>

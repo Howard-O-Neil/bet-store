@@ -28,9 +28,7 @@ import {
 import { uploadImage } from "../actions/imageActions";
 import { param } from "jquery";
 
-export const listProducts = ({ body = "", countPerPage }) => async (
-  dispatch
-) => {
+export const listProducts = (body) => async (dispatch) => {
   try {
     dispatch({
       type: PRODUCT_LIST_REQUEST,

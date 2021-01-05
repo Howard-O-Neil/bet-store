@@ -21,7 +21,6 @@ export const listCategories = (body = "") => async (dispatch) => {
     dispatch({
       type: CATEGORY_LIST_REQUEST,
     });
-    console.log(body);
     const { data } = await axios.get("/node/api/categories", { params: body });
 
     dispatch({
