@@ -10,6 +10,8 @@ import {
 import {
   categoryListReducer,
   categoryDetailsReducer,
+  categoryCreateReducer,
+  categoryUpdateReducer,
 } from "./reducers/categoryReducer";
 import { profileReducer } from "./reducers/profileReducer";
 import { accountReducer } from "./reducers/accountReducer";
@@ -25,11 +27,13 @@ const reducer = combineReducers({
   productUpdate: productCreateReducer,
   categoryList: categoryListReducer,
   categoryDetails: categoryDetailsReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryUpdate: categoryUpdateReducer,
   imageUpload: imagesUploadReducer,
-  profile:profileReducer,
-  account:accountReducer,
-  notify:notifyReducer,
-  wallet:walletReducer,
+  profile: profileReducer,
+  account: accountReducer,
+  notify: notifyReducer,
+  wallet: walletReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 

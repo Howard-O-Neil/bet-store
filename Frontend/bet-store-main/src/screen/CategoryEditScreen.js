@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
   listCategories,
@@ -13,7 +13,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import style from "../styles/CategoryEdit.module.scss";
 
-const CategoryEditScreen = ({ match, edit }) => {
+const CategoryEditScreen = ({ match, edit, history }) => {
   const isEdit = edit || false;
   const id = match.params.id;
   const dispatch = useDispatch();
@@ -31,6 +31,14 @@ const CategoryEditScreen = ({ match, edit }) => {
   const [propertyDefaultImage, setPropertyDefaultImages] = useState([]);
   const [propertyImagePreview, setPropertyImagePreview] = useState([]);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => {
+    setShowModal(false);
+    if (createSuccess) history.push("/profile");
+  };
+  const handleShow = () => setShowModal(true);
+
   const categoryDetails = useSelector((state) => state.categoryDetails);
   const {
     loading: loadingCategory,
@@ -44,6 +52,20 @@ const CategoryEditScreen = ({ match, edit }) => {
     error: errorCategories,
     categories,
   } = categoryList;
+
+  const categoryCreate = useSelector((state) => state.categoryCreate);
+  const {
+    loading: createLoading,
+    error: createError,
+    success: createSuccess,
+  } = categoryCreate;
+
+  const categoryUpdate = useSelector((state) => state.categoryUpdate);
+  const {
+    loading: updateLoading,
+    error: updateError,
+    success: updateSuccess,
+  } = categoryUpdate;
 
   useEffect(() => {
     if (id) {
@@ -82,6 +104,7 @@ const CategoryEditScreen = ({ match, edit }) => {
     setParent(e.target.value);
   };
   const submitHandler = (e) => {
+    handleShow();
     e.preventDefault();
     const category = {
       name: name,
@@ -119,9 +142,7 @@ const CategoryEditScreen = ({ match, edit }) => {
     }
     setImage([...event.target.files]);
   };
-  const onReset = () => {
-    console.log(defaultImage);
-  };
+
   const deleteImage = () => {
     setImage([]);
   };
@@ -197,7 +218,8 @@ const CategoryEditScreen = ({ match, edit }) => {
   return (
     <div className="container">
       <Container className={style.form_section}>
-        <h1>Chỉnh sửa danh mục</h1>
+        {isEdit ? <h1>Chỉnh sửa danh mục</h1> : <h1>Tạo danh mục</h1>}
+
         {loadingCategory || loadingCategories ? (
           <Loader />
         ) : errorCategory || errorCategories ? (
@@ -289,27 +311,46 @@ const CategoryEditScreen = ({ match, edit }) => {
         )}
       </Container>
 
-      <Container className={style.btn_container}>
-        <button
-          className={`btn btn-outline-dark ${style.button}`}
-          onClick={onReset}
-        >
-          Reset
-        </button>
+      <Container className={style.btnContainer}>
         <button className={`btn btn-outline-dark ${style.button}`}>Hủy</button>
-        <button
-          className={`btn btn-primary ${style.button}`}
-          onClick={submitHandler}
-        >
-          Lưu
-        </button>
         <button
           className={`btn btn-primary ${style.button}`}
           onClick={onAddPropety}
         >
           Thêm thuộc tính
         </button>
+
+        <button
+          className={`btn btn-primary ${style.button}`}
+          onClick={submitHandler}
+        >
+          Lưu
+        </button>
       </Container>
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Thông báo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {createLoading || updateLoading ? (
+            <Loader />
+          ) : createError || updateError ? (
+            <>
+              <Message variant="danger">Không thành công</Message>
+              {/*<Message variant="danger">{createError}</Message>*/}
+            </>
+          ) : (
+            (createSuccess || updateSuccess) && (
+              <Message variant="success">Thành công</Message>
+            )
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Quay lại
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

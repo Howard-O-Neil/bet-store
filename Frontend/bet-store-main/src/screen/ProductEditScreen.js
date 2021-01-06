@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProduct,
@@ -12,8 +12,17 @@ import style from "../styles/ProductEditForm.module.scss";
 import { uploadImage } from "../actions/imageActions";
 import ImageUpload from "../components/ImageUpload";
 import CategoryPicker from "../components/CategoryPicker";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 const ProductEditScreen = (props) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => {
+    setShowModal(false);
+    if (createSuccess) props.history.push("/profile");
+  };
+  const handleShow = () => setShowModal(true);
   const productId = props.match.params.id;
   const isEdit = props.edit || false;
   //const [selectedFile, setFile] = useState(null);
@@ -34,6 +43,19 @@ const ProductEditScreen = (props) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: createLoading,
+    error: createError,
+    success: createSuccess,
+  } = productCreate;
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: updateLoading,
+    error: updateError,
+    success: updateSuccess,
+  } = productUpdate;
 
   const profile = useSelector((state) => state.profile);
   const {
@@ -82,6 +104,7 @@ const ProductEditScreen = (props) => {
       files.append("files", pictures[x], pictures[x].name);
     }
     if (window.confirm("Bạn có chắc chắn muốn lưu sản phẩm?")) {
+      handleShow();
       const temp_product = {
         name: name,
         description: description,
@@ -168,12 +191,9 @@ const ProductEditScreen = (props) => {
 
   return (
     <div className={style.body}>
-      <Link to="/profile/product" className="btn btn-light my-3">
-        Quay lại
-      </Link>
       <Container className={style.form_section}>
         <h1>Chỉnh sửa sản phẩm</h1>
-        {accountID}
+
         {loading || loadingCategories ? (
           <h3>Loading</h3>
         ) : error ? (
@@ -290,10 +310,12 @@ const ProductEditScreen = (props) => {
         <br />
       </Container>
       <Container className={style.btn_container}>
-        <button className={`btn btn-outline-dark ${style.button}`}>
-          Reset
+        <button
+          className={`btn btn-outline-dark ${style.button}`}
+          onClick={() => props.history.push("/profile")}
+        >
+          Hủy
         </button>
-        <button className={`btn btn-outline-dark ${style.button}`}>Hủy</button>
         <button
           className={`btn btn-primary ${style.button}`}
           onClick={submitHandler}
@@ -301,6 +323,31 @@ const ProductEditScreen = (props) => {
           Lưu
         </button>
       </Container>
+
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Thông báo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {createLoading || updateLoading ? (
+            <Loader />
+          ) : createError || updateError ? (
+            <>
+              <Message variant="danger">Không thành công</Message>
+              {/*<Message variant="danger">{createError}</Message>*/}
+            </>
+          ) : (
+            (createSuccess || updateSuccess) && (
+              <Message variant="success">Thành công</Message>
+            )
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Quay lại
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

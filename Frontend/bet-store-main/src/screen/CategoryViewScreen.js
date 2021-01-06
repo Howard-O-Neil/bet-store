@@ -16,6 +16,7 @@ import {
 import style from "../styles/CategoryView.module.scss";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Page404 from "./404";
 
 const CategoryViewScreen = ({ match, location }) => {
   const keyword = new URLSearchParams(location.search).get("q");
@@ -47,7 +48,7 @@ const CategoryViewScreen = ({ match, location }) => {
 
   useEffect(() => {
     dispatch(listCategories({ parent: category }));
-    dispatch(listProducts({ body: { category: category, keyword: keyword } }));
+    dispatch(listProducts({ category: category, keyword: keyword }));
   }, [dispatch, keyword]);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const CategoryViewScreen = ({ match, location }) => {
 
   const handleSubCategoryClick = (path) => {
     dispatch(listCategories({ parent: path }));
-    dispatch(listProducts({ body: { category: path } }));
+    dispatch(listProducts({ category: path }));
   };
 
   const nextPage = () => {
@@ -159,48 +160,55 @@ const CategoryViewScreen = ({ match, location }) => {
           </LinkContainer>
         ))
       )}
-      <div className="container">
-        <nav
-          className="d-flex justify-content-center"
-          aria-label="Page navigation"
-        >
-          <ul className="pagination">
-            <li
-              className={`page-item ${currentPage === 1 && "disabled"}`}
-              onClick={() => {
-                currentPage !== 1 && previousPage();
-              }}
-            >
-              <a className="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span className="sr-only">Previous</span>
-              </a>
-            </li>
-            {[...Array(filteredPages)].map((value, index) => (
+      {totalPages > 1 && (
+        <div className="container">
+          <nav
+            className="d-flex justify-content-center"
+            aria-label="Page navigation"
+          >
+            <ul className="pagination">
               <li
-                className={`page-item ${currentPage === index + 1 && "active"}`}
-                onClick={() => goToPage(index + 1)}
+                className={`page-item ${currentPage === 1 && "disabled"}`}
+                onClick={() => {
+                  currentPage !== 1 && previousPage();
+                }}
               >
-                <a className="page-link">{index + 1}</a>
+                <a className="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span className="sr-only">Previous</span>
+                </a>
               </li>
-            ))}
+              {[...Array(filteredPages)].map((value, index) => (
+                <li
+                  className={`page-item ${
+                    currentPage === index + 1 && "active"
+                  }`}
+                  onClick={() => goToPage(index + 1)}
+                >
+                  <a className="page-link">{index + 1}</a>
+                </li>
+              ))}
 
-            <li
-              className={`page-item ${
-                currentPage === totalPages && "disabled"
-              }`}
-              onClick={() => {
-                currentPage !== totalPages && nextPage();
-              }}
-            >
-              <a className="page-link" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span className="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+              <li
+                className={`page-item ${
+                  currentPage === totalPages && "disabled"
+                }`}
+                onClick={() => {
+                  currentPage !== totalPages && nextPage();
+                }}
+              >
+                <a className="page-link" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span className="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
+      {filteredProducts && filteredProducts.length === 0 && (
+        <Page404 variant="product"></Page404>
+      )}
     </div>
   );
 };
