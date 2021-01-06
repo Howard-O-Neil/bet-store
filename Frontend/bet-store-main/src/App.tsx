@@ -23,7 +23,7 @@ import {
   socketInfoReducer,
   viewControlReducer,
 } from "./reducers/chatBoxReducer";
-import ProductListScreen from "./screen/ProductListScreen";
+
 import ProductEditScreen from "./screen/ProductEditScreen";
 
 import ChatBox from "./components/ChatBox";
@@ -34,6 +34,7 @@ import { AddNotify } from "./actions/notifyAction";
 import CategoryListScreen from "./screen/CategoryListScreen";
 import CategoryViewScreen from "./screen/CategoryViewScreen";
 import CategoryEditScreen from "./screen/CategoryEditScreen";
+import Page404 from "./screen/404";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,11 +62,7 @@ function App() {
             <Login islogin={false} />
           </Route>
           <Route path="/product/:id" component={ProductScreen} exact></Route>
-          <Route
-            path="/profile/product"
-            component={ProductListScreen}
-            exact
-          ></Route>
+
           <Route path="/categoryList" component={CategoryListScreen}></Route>
           <Route
             path="/profile/product/new"
@@ -90,6 +87,7 @@ function App() {
             edit={false}
           ></Route>
           <Route path="/profile" component={Profile} exact></Route>
+          <Route path="/" component={Page404}></Route>
         </Switch>
         <Provider
           store={createStore(
