@@ -10,6 +10,8 @@ import {
 import {
   categoryListReducer,
   categoryDetailsReducer,
+  categoryCreateReducer,
+  categoryUpdateReducer,
 } from "./reducers/categoryReducer";
 import { profileReducer } from "./reducers/profileReducer";
 import { accountReducer } from "./reducers/accountReducer";
@@ -27,6 +29,8 @@ const reducer = combineReducers({
   productUpdate: productCreateReducer,
   categoryList: categoryListReducer,
   categoryDetails: categoryDetailsReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryUpdate: categoryUpdateReducer,
   imageUpload: imagesUploadReducer,
   uploadImage: uploadImageReducer,
   profile:profileReducer,

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import style from "../styles/ProductList.module.scss";
 import { Button } from "react-bootstrap";
+import Page404 from "./404";
 const ProductList = () => {
   const dispatch = useDispatch();
 
@@ -80,6 +81,7 @@ const ProductList = () => {
               </div>
             </div>
           ))}
+          {products.length === 0 && <Page404 variant="product" />}
         </div>
       </div>
     </>

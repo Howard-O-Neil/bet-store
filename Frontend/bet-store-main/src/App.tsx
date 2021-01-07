@@ -23,7 +23,7 @@ import {
   socketInfoReducer,
   viewControlReducer,
 } from "./reducers/chatBoxReducer";
-import ProductListScreen from "./screen/ProductListScreen";
+
 import ProductEditScreen from "./screen/ProductEditScreen";
 
 import ChatBox from "./components/ChatBox";
@@ -60,7 +60,6 @@ function App() {
             <Login islogin={false} />
           </Route>
           <Route path="/product/:id" component={ProductScreen} exact></Route>
-          <Route path="/profile/product" component={ProductListScreen} exact />
           <Route path="/categoryList" component={CategoryListScreen}></Route>
           <Route path="/profile/product/new" render={(props) => <ProductEditScreen {...props} edit={false} />} />
           <Route path="/profile/product/:id/edit" render={(props) => <ProductEditScreen {...props} edit={true} />} />

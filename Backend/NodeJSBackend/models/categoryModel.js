@@ -16,7 +16,7 @@ const categorySchema = mongoose.Schema(
     },
     properties: [
       {
-        key: { type: String /*required: true*/ },
+        
         name: { type: String /*required: true*/ },
         image: {
           link: { type: String /*required: true*/ },
