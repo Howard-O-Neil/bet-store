@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Switch, useHistory, useLocation } from "react-router";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 //import Login from './components/Login';
 import "../src/resource/font-awesome/css/font-awesome.min.css";
@@ -13,43 +13,28 @@ import Header from "./components/header/Header";
 import Home from "./screen/home/home";
 import FooterView from "./components/footer/Footer";
 import ProductScreen from "./screen/ProductScreen";
-import AddProductScreen from "./screen/AddProductScreen";
-import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
-import {
-  accountInfoReducer,
-  conversationControlReducer,
-  messageControlReducer,
-  socketInfoReducer,
-  viewControlReducer,
-} from "./reducers/chatBoxReducer";
 
 import ProductEditScreen from "./screen/ProductEditScreen";
 
-import ChatBox from "./components/ChatBox";
 import Profile from "./screen/profile/profile";
 import NotifyContainer from "./components/NotifyContainer";
 import { useDispatch } from "react-redux";
-import { AddNotify } from "./actions/notifyAction";
 import CategoryListScreen from "./screen/CategoryListScreen";
 import CategoryViewScreen from "./screen/CategoryViewScreen";
 import CategoryEditScreen from "./screen/CategoryEditScreen";
-import Page404 from "./screen/404";
+import { AdminScreen } from "./screen/AdminScreen";
+import { Page404Screen } from "./screen/404Screen";
 
 function App() {
-  const dispatch = useDispatch();
   return (
     <div>
       <BrowserRouter>
-        {/* <button onClick = {()=>{dispatch(AddNotify({path:"ddd",destination:"hahah",title:"betstore"}))}}>
-          test
-        </button> */}
-
         <NotifyContainer />
         <div className="headermain">
           <Header></Header>
         </div>
         <Switch>
+
           <Route path="/" exact>
             {Home}
           </Route>
@@ -62,20 +47,10 @@ function App() {
             <Login islogin={false} />
           </Route>
           <Route path="/product/:id" component={ProductScreen} exact></Route>
-
           <Route path="/categoryList" component={CategoryListScreen}></Route>
-          <Route
-            path="/profile/product/new"
-            render={(props) => <ProductEditScreen {...props} edit={false} />}
-          ></Route>
-          <Route
-            path="/profile/product/:id/edit"
-            render={(props) => <ProductEditScreen {...props} edit={true} />}
-          ></Route>
-          <Route
-            path="/mua-ban/:category"
-            component={CategoryViewScreen}
-          ></Route>
+          <Route path="/profile/product/new" render={(props) => <ProductEditScreen {...props} edit={false} />} />
+          <Route path="/profile/product/:id/edit" render={(props) => <ProductEditScreen {...props} edit={true} />} />
+          <Route path="/mua-ban/:category" component={CategoryViewScreen} />
           <Route path="/mua-ban" component={CategoryViewScreen}></Route>
           <Route
             path="/category/:id/edit"
@@ -87,9 +62,12 @@ function App() {
             edit={false}
           ></Route>
           <Route path="/profile" component={Profile} exact></Route>
-          <Route path="/" component={Page404}></Route>
+          <Route path="/admin/:tabname" component={AdminScreen} exact>
+          </Route>
+          <Route path="/admin" exact> <Redirect to="/admin/slider" /></Route>
+          <Route path="/NotFound" component={Page404Screen} exact />
         </Switch>
-        <Provider
+        {/* <Provider
           store={createStore(
             combineReducers({
               conversationControl: conversationControlReducer,
@@ -101,7 +79,7 @@ function App() {
           )}
         >
           <ChatBox></ChatBox>
-        </Provider>
+        </Provider> */}
         <FooterView></FooterView>
       </BrowserRouter>
     </div>

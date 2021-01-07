@@ -18,6 +18,8 @@ import { accountReducer } from "./reducers/accountReducer";
 import { notifyReducer } from "./reducers/notifyReducer";
 import { walletReducer } from "./reducers/walletReducer";
 import { imagesUploadReducer } from "./reducers/imageReducer";
+import { addsliderReducer, editSliderReducer, getsliderReducer, removeSliderReducer } from "./reducers/sliderReducer";
+import { uploadImageReducer } from "./reducers/imageReducerts";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -30,10 +32,15 @@ const reducer = combineReducers({
   categoryCreate: categoryCreateReducer,
   categoryUpdate: categoryUpdateReducer,
   imageUpload: imagesUploadReducer,
-  profile: profileReducer,
-  account: accountReducer,
-  notify: notifyReducer,
-  wallet: walletReducer,
+  uploadImage: uploadImageReducer,
+  profile:profileReducer,
+  account:accountReducer,
+  notify:notifyReducer,
+  wallet:walletReducer,
+  getSlider:getsliderReducer,
+  addSlider:addsliderReducer,
+  removeSlider:removeSliderReducer,
+  editSlider:editSliderReducer
 });
 export type AppState = ReturnType<typeof reducer>;
 
