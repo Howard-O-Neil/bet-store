@@ -13,7 +13,9 @@ func SendKeycode(tel string, keycode string) error {
 	url := os.Getenv("URL_HOST_TEL")
 	method := "POST"
 
-	query := fmt.Sprintf("Body=%s&From=%s&To=%s", "Key confirm tel: "+keycode, os.Getenv("TEL_HOST"), tel)
+	query := fmt.Sprintf("Body=%s&From=%s&To=%s", "[BetStore]Key confirm tel: "+keycode, os.Getenv("TEL_HOST"), tel)
+
+	fmt.Println(url)
 	payload := strings.NewReader(query)
 
 	client := &http.Client{}

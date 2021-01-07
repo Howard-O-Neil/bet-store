@@ -8,6 +8,7 @@ go.sum
 Backend/GoBackend/.idea/*
 Backend/GoBackend/log/*
 Backend/CDNServer/.idea/*
+Backend/GoBackend/.env
 
 #datamongo
 Backend/Database/data/*
@@ -25,4 +26,3 @@ Frontend/**/node_modules/*
 #nodejsbackend
 node_modules/
 logs/
-
