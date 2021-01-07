@@ -4,7 +4,10 @@
   flex-wrap: wrap;
   background-color: white;
 }
-
+.button {
+  margin: 20px 0px;
+  width: 60%;
+}
 .product_card {
   flex: 1 17%;
   border: 0.5px solid #e3e7ef;
@@ -12,6 +15,8 @@
   margin-top: 0;
   margin-left: -1px;
   background-color: white;
+  position: relative;
+  min-height: 200px;
 }
 .product_card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -19,7 +24,9 @@
 
 .product_image img {
   margin-top: 10px;
-  max-width: 90%;
+  width: 90%;
+  height: 150px;
+  object-fit: cover;
 }
 
 .product_info {
@@ -37,6 +44,10 @@
   padding-bottom: 10px;
 }
 
+.price_time {
+  vertical-align: text-bottom;
+}
+
 @media (max-width: 920px) {
   .product_card {
     flex: 1 30%;
@@ -49,15 +60,18 @@
   }
 }
 
-.title {
-  text-align: left;
-
-  font-size: 32px;
-  margin-bottom: 24px;
-  font-weight: 700;
-  line-height: 1;
-  color: #0e0e0e;
-  padding: 20px 10px;
+.titleGroup {
+  .title {
+    text-align: left;
+    display: block;
+    font-size: 32px;
+    width: fit-content;
+    font-weight: 700;
+    line-height: 1;
+    color: #0e0e0e;
+    padding: 20px 10px;
+    float: left;
+  }
 }
 
 .categoryContainer {

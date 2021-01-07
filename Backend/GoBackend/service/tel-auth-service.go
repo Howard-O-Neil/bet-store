@@ -1,18 +1,19 @@
 package service
 
 import (
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"strings"
 )
 
-//var config utility.TelAuthServerStruct
-/*
 func SendKeycode(tel string, keycode string) error {
-	if config == (utility.TelAuthServerStruct{}) {
-		LoadConfig()
-	}
-	url := config.URL_HOST
+	url := os.Getenv("URL_HOST_TEL")
 	method := "POST"
 
-	query := fmt.Sprintf("Body=%s&From=%s&To=%s", "Key confirm tel: "+keycode, config.TEL_HOST, tel)
+	query := fmt.Sprintf("Body=%s&From=%s&To=%s", "Key confirm tel: "+keycode, os.Getenv("TEL_HOST"), tel)
 	payload := strings.NewReader(query)
 
 	client := &http.Client{}
@@ -22,7 +23,7 @@ func SendKeycode(tel string, keycode string) error {
 		fmt.Printf("%s\n", err)
 		return err
 	}
-	req.Header.Add("Authorization", fmt.Sprintf("Basic %s", config.AUTH_KEY))
+	req.Header.Add("Authorization", fmt.Sprintf("Basic %s", os.Getenv("AUTH_KEY")))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	res, err := client.Do(req)
@@ -43,8 +44,3 @@ func SendKeycode(tel string, keycode string) error {
 	fmt.Printf("%s\n", string(body))
 	return errors.New(string(body))
 }
-
-func LoadConfig() {
-	//config = utility.GetConfigServerbyKey(utility.TelAuthServer).(utility.TelAuthServerStruct)
-}
-*/

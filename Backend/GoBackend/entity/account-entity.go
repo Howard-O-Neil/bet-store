@@ -7,6 +7,6 @@ type AccountEntity struct {
 	Username string        `json:"username" bson:"username"`
 	Password string        `json:"password" bson:"password"`
 	Tel      string        `json:"tel" bson:"tel"`
-	//Keycode  string        `json:"key" bson:"key"`
-	Profile ProfileEntity `json:"profile" bson:"profile"`
+	Keycode  string        `json:"key,omitempty" bson:"key,omitempty"`
+	Profile  ProfileEntity `json:"profile" bson:"profile"`
 }

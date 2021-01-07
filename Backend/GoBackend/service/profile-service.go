@@ -69,13 +69,17 @@ func (c *ProfileDataService) AddProfile(enti entity.ProfileEntity) (bson.ObjectI
 	//handle more...
 
 	//Add avatar random
-	avatarRandom, err := GetAvatarRandomFromCDNServer("men")
+	if enti.Sex == "" {
+		enti.Sex = "men"
+	}
+	avatarRandom, err := GetAvatarRandomFromCDNServer(enti.Sex)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	enti.Avatar = avatarRandom
 
+	fmt.Println(enti)
 	err = c.collection.Insert(&enti)
 	if err != nil {
 		return "", err

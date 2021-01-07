@@ -63,6 +63,8 @@ func RouteTest(app *gin.Engine) {
 func RouteContentStatic(app *gin.Engine) {
 	app.GET("/slider/", controller.LoadSlider)
 	app.POST("/slider/", controller.CreateSlider)
+	app.DELETE("/slider", controller.DelSlider)
+	app.PUT("/slider", controller.EditSlider)
 }
 
 func RouteAuth(app *gin.RouterGroup) {
@@ -95,4 +97,8 @@ func RouteWallet(app *gin.Engine) {
 		"/wallet/",
 		middlewares.AuthorizeJWT(),
 		controller.GetInfoWallet)
+	app.GET(
+		"/wallet/detailtrans/",
+		middlewares.AuthorizeJWT(),
+		controller.GetDetailTransWallet)
 }

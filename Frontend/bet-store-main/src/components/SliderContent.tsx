@@ -2,13 +2,8 @@ import React from 'react'
 import $ from 'jquery'
 import "../styles/SliderView.scss"
 import Axios from 'axios';
+import { DataSlider } from '../types/SliderType';
 
-
-interface DataSlider {
-    link: string,
-    atl: string,
-    href: string,
-}
 
 const SliderView: React.FC = () => {
 
@@ -60,7 +55,7 @@ const SliderView: React.FC = () => {
                                 (item: DataSlider, index) => {
                                     return (
                                         <div className={"carousel-item " + (index === 0 ? "active" : "")} >
-                                            <img className="d-block w-100" src={"/cdn/cdn/" + item.link + "?height=370"} alt={item.atl} />
+                                            <img className="d-block w-100" src={"/cdn/cdn/" + item.link + "?height=370"} alt={item.alt} />
                                         </div>
                                     );
                                 }

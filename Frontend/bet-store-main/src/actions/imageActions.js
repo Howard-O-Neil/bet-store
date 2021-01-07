@@ -13,13 +13,13 @@ export const uploadImage = (images) => async (dispatch, getState) => {
 
     //get user info
     //const {userLogin: {userInfo}} = getState()
-    /*const config = {
+    const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        "Content-Type": "multipart/form-data",
       },
-    };*/
+    };
     //
-    const { data } = await axios.post(`/cdn/upload`, images);
+    const { data } = await axios.post(`/cdn/upload`, images, config);
 
     dispatch({
       type: IMAGE_UPLOAD_SUCCESS,

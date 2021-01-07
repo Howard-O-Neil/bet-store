@@ -11,8 +11,10 @@ dotenv.config();
 connectDB();
 
 const importData = async () => {
-  console.log("Data imported!");
+  
   try {
+    await Product.deleteMany();
+    await Category.deleteMany();
     await Product.insertMany(products);
     await Category.insertMany(categories);
     console.log("Data imported!");
