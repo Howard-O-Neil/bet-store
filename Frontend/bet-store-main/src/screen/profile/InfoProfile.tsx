@@ -157,6 +157,7 @@ export default function InfoProfile() {
     var SelectSexForm: React.RefObject<HTMLInputElement> = createRef();
 
     const HandleSubmit = () => {
+        console.log(profileState);
         dispatch(EditProfile(profileState));
         dispatch(AddNotify({ path: "#", destination: "Cập nhật thông tin thành công!!!", title: "BetStore" }));
         //dispatch(EditProfile(profileState));
@@ -173,7 +174,9 @@ export default function InfoProfile() {
     }
 
     const ChangeSelectSexForm = (evt: React.ChangeEvent<any>) => {
-        setProfileState(SetSex(String(evt.target.value)));
+        //alert(evt.target.value);
+        setProfileState(SetSex(evt.target.value))
+        //console.log($(`input[name=SelectSexForm][value=woman]`).attr("checked","true"));
     }
 
     return (
@@ -211,7 +214,7 @@ export default function InfoProfile() {
                         <div className={styles.SelectSexForm} ref={SelectSexForm} onChange={ChangeSelectSexForm}>
                             <input className="form-check-input" type="radio" name="SelectSexForm" id="womansex" defaultValue="woman" />
                             <label className="form-check-label" htmlFor="womansex">Nữ</label>
-                            <input className="form-check-input" type="radio" name="SelectSexForm" id="mansex" defaultValue="man" />
+                            <input className="form-check-input" type="radio" name="SelectSexForm" id="mansex" defaultValue="men" />
                             <label className="form-check-label" htmlFor="mansex">Nam</label>
                             <input className="form-check-input" type="radio" name="SelectSexForm" id="othersex" defaultValue="other" />
                             <label className="form-check-label" htmlFor="othersex">Khác</label>

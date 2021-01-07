@@ -122,9 +122,6 @@ export const ChangeAvatar = (file: File) => async (dispatch: React.Dispatch<Acti
     Axios(config)
         .then(
             res1 => {
-                //console.log(res.data[file.name]);
-
-                console.log("teststeste");
                 var data = JSON.stringify({ "avatar": res1.data[file.name] });
                 Axios.post<ReponseAPI<string>>(
                     '/go/profile/',

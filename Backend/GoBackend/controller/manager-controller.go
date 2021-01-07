@@ -10,42 +10,52 @@ var categoryservice service.CategoryService
 var Sliderservice service.SliderService
 var Profileservice service.ProfileService
 var AccountService service.AccountService
+var Walletservice service.WalletService
+var Transferservice service.TransferService
 
 func InitController() error {
 	//NewDatabaseService
-	d, err := mongodbservice.NewDBService()
+	var err error
+	Databaseservice, err = mongodbservice.NewDBService()
 	if err != nil {
 		return err
 	}
-	Databaseservice = d
 
 	//NewCategoryService
-	c, err := service.NewCategoryService()
+	categoryservice, err = service.NewCategoryService()
 	if err != nil {
 		return err
 	}
-	categoryservice = c
 
 	//NewSliderService
-	s, err := service.NewSliderService()
+	Sliderservice, err = service.NewSliderService()
 	if err != nil {
 		return err
 	}
-	Sliderservice = s
 
 	//NewProfileService
-	p, err := service.NewProfileService()
+	Profileservice, err = service.NewProfileService()
 	if err != nil {
 		return err
 	}
-	Profileservice = p
 
 	//NewAccountService
-	a, err := service.NewAccountService()
+	AccountService, err = service.NewAccountService()
 	if err != nil {
 		return err
 	}
-	AccountService = a
+
+	//NewWalletService
+	Walletservice, err = service.NewWalletService()
+	if err != nil {
+		return err
+	}
+
+	//NewTransferService
+	Transferservice, err = service.NewTransferService()
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

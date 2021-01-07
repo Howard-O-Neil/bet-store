@@ -1,0 +1,145 @@
+.WalletContainer{
+    
+}
+.InfoWallet, .QrWallet{
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px;
+    margin-top: 0px;
+    padding: 10px;
+}
+
+.InfoWallet{
+    .Title{
+        h4{
+            padding: 0px;
+            margin: 15px;
+            font-weight: bold;
+        }
+    }
+    
+    .Body{
+        display: flex;
+        justify-content: space-around;
+        margin: 15px;
+        .Amount{
+            display: flex;
+            >div {
+                >strong{
+                    display: block;
+                    &::after{
+                        content:" đ";
+                    }
+                }
+            }
+            >i {
+                display: flex;
+                align-items: center;
+                font-size: 25px;
+                margin-right: 20px;
+                background-color: rgb(223, 173, 223);
+                padding: 10px;
+                border-radius: 3px;
+                color: rgb(134, 62, 134);
+            }
+        }
+        .SumAmount{
+            @extend .Amount;
+            >i{
+                color: #1fab89!important;
+                background-color:#c9f7f5!important;
+                
+            }
+        }
+    }
+
+    
+}
+
+.QrWallet{
+    .Title{
+        h4{
+            padding: 0px;
+            margin: 15px;
+            font-weight: bold;
+        }
+    }
+    .Body{
+        h5{
+            margin-top: 20px;
+        }
+        margin: 15px;
+        .InfoMomo{
+
+            background-color: #f5f7fa!important;
+            padding: 20px;
+            
+            .Row{
+                padding: 5px;
+                h6{
+                    margin: 0px;
+                    >span{
+                        font-weight: bold;
+                    }
+                }
+                display: flex;
+                .Label{
+                    width: 50%;
+                }
+                .Value{
+                    width: 50%;
+                }
+                .QRContainer{
+                    margin: auto;
+                    width: 15rem;
+                    >img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        .FormMomo{
+            display: flex;
+            justify-content: center;
+
+            border-radius: 10px;
+            border: 1px solid #487eb0;
+            width: max-content;
+            margin: auto;
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+            input[type=number]{
+                border: none;
+                outline: none;
+                overflow: hidden;
+                border-radius: 10px;
+                padding: 10px;
+                -moz-appearance: textfield;
+            }
+            input[type=submit]{
+                // border-radius: 0px 10px 10px 0px;
+                // border: 1px solid #487eb0;
+                // transform: translateX(-1px);
+                background-color: transparent;
+                border-left:1px solid #487eb0;
+                border: none;
+                outline: none;
+                padding: 10px;
+                border-radius: 0px 10px 10px 0px;
+                background-color: #7594b1;
+                font-weight: bold;
+                color: white;
+                transition: background-color .2s;
+                &:hover{
+                    background-color: #487eb0;
+                }
+            }
+        }
+    }
+}

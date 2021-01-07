@@ -1,0 +1,17 @@
+export const GET_PROFILE:string = 'GET_PROFILE';
+export const GET_PROFILE_SUCCESS:string = 'GET_PROFILE_SUCCESS';
+export const GET_PROFILE_FAIL:string = 'GET_PROFILE_FAIL';
+export const REMOVE_PROFILE:string = 'REMOVE_PROFILE';
+export const CHANGE_AVATAR:string = 'CHANGE_AVATAR';
+export const CHANGE_AVATAR_SUCCESS:string = 'CHANGE_AVATAR_SUCCESS';
+export const CHANGE_AVATAR_FAIL:string = 'CHANGE_AVATAR_FAIL';
+export const SAVE_CHANGE_AVATAR:string = 'SAVE_CHANGE_AVATAR';
+export const SAVE_CHANGE_AVATAR_SUCCESS:string = 'SAVE_CHANGE_AVATAR_SUCCESS';
+export const SAVE_CHANGE_AVATAR_FAIL:string = 'SAVE_CHANGE_AVATAR_FAIL';
+export const EDIT_PROFILE:string = 'EDIT_PROFILE';
+export const EDIT_PROFILE_SUCCESS:string = 'EDIT_PROFILE_SUCCESS';
+export const EDIT_PROFILE_FAIL:string = 'EDIT_PROFILE_FAIL';
+export const CHANGE_PASSWORD:string = 'CHANGE_PASSWORD';
+export const CHANGE_PASSWORD_SUCCESS:string = 'CHANGE_PASSWORD_SUCCESS';
+export const CHANGE_PASSWORD_FAIL:string = 'CHANGE_PASSWORD_FAIL';
+export const SAVE_EDIT_PROFILE:string = 'SAVE_EDIT_PROFILE';

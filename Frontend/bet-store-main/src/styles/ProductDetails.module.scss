@@ -1,0 +1,39 @@
+.body {
+  background-color: #f4f4f4;
+}
+.slider {
+  max-width: 100%;
+  max-height: 450px;
+  align-content: center;
+}
+.slider img {
+  height: 450px;
+
+  object-fit: scale-down;
+}
+
+.price {
+  color: red;
+  font-weight: bold;
+  font-size: larger;
+}
+.sticky_col {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.description {
+  white-space: pre-wrap;
+}
+.prop_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.property {
+  flex: 1 50%;
+  padding: 10px;
+}
+.property img {
+  max-width: 50px;
+  padding-right: 10px;
+}

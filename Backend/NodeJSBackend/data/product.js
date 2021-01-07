@@ -1,274 +1,1168 @@
 export default [
   {
-    _id: "5fbe2580469e2e0025ac4c17",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fbe2580469e2e0025ac4c19",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fbe2580469e2e0025ac4c1a",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 71500000,
+    countInStock: 1,
+    _id: "5fe984037e440200567b5ebc",
+    name: "Piaggio Sprint 125 ABS Iget 5/2020 Biển Đẹp",
+    description:
+      "Piaggio Vespa Sprint 125 Iget ABS 2020\nMàu sơn: Xám - sần ( phiên bản Sproty )\nĐăng ký: 5/2020\nOdo: 1200km ( cửa hàng cam kết chuẩn )\nBiển số đẹp: 29H2 – 162.91\n\nXe siêu mới như dắt hãng , đầy đủ phụ kiện 2 gương , 2 chìa khóa & Sổ bảo hành theo xe .\nĐộng cơ Iget đời mới nhiều công nghệ, vận hành êm ái và tiết kiệm nhiên liệu tuyệt đối. Phanh ABS chống bó cứng khiến cho xe an toàn trên mọi cung đường\n\nCam kết :\n\nGiấy tờ đầy đủ, an ninh nghiêm ngặt\nMọi xe đều là nguyên bản , Nói không với xe máy ra\nBảo hành máy móc , động cơ 2 năm\nBảo hành an ninh trọn đời\nBảo hành tận nơi trong Hà Nội , mọi lỗi kể cả nhỏ  Hỗ trợ khách sang tên , đổi biển chi phí rẻ thời gian nhanh  Mua lại xe giá cao khi khách hàng không có nhu cầu sử dụng\nHỗ trợ chi phí vận chuyển đến mọi tỉnh thành khắp cả nước",
     image: [
       {
-        _id: "5fbe2580469e2e0025ac4c1b",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5fe984037e440200567b5ebf",
+        link: "e6ee5f4bffc7450f9aa25bf3cf27870228122020.jpg",
+        alt: "e95f7f100fa2079a81d50da13043f1fa-2694303300360030910.jpg",
+      },
+      {
+        _id: "5fe9a9c32abdef00775257ce",
+        link: "bbe6ee22e42b9cab6a8999185a1962f428122020.png",
+        alt: "map-enemies.png",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/xe-may",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Piaggio" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "Sprint" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2020" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "2000" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay ga" },
+    ],
+    __v: 2,
+    createdAt: "2020-12-28T09:47:47.210Z",
+    updatedAt: "2020-12-28T09:47:47.210Z",
   },
   {
-    _id: "5fc8dcfbdc518d002fc2f646",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcfbdc518d002fc2f648",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcfbdc518d002fc2f649",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 460000000,
+    countInStock: 1,
+    _id: "5fe9f49604a35601ba33caf0",
+    name: "Attrage 2020 số tự động 140tr",
+    description:
+      "ATTRAGE MT 2020 & ATTRAGE AT 2020 đang được ưu đãi từ trước đến giờ\nXe nhập nhưng vẫn được hỗ trợ thuế trước bạ 50%\n☑️ Lăn bánh hoàn tất:\nAttrage MT: 375 triệu (đã bao gồm VAT), Chuẩn bị 115 triệu nhận xe ngay\nAttrage AT: 460 triệu (đã bao gồm VAT), Chuẩn bị 140 triệu nhận xe ngay\nTặng gói phụ kiện cao cấp (giá trị cao), Chương trình Đại lý Tại Mitsubishi Phương Nguyên\nBộ phụ kiện theo xe chính hãng: áo trùm, thùng đá, bình chữa cháy, dù che mưa, nhiên liệu xăng, Sổ da Mitsubishi, lọc nhớt.\n- Nhập khẩu THÁI LAN nguyên chiếc\n- Siêu tiết kiệm nhiên liệu, thấp trong phân khúc xe 5 chỗ tại thị trường Việt Nam\n- Kiểu dáng đẹp mắt xu hướng hiện đại\n- Nội thất siêu rộng rãi\n* Bao giá thị trường xe 5 chỗ nhập khẩu nguyên chiếc\n☑️ Khách mua chạy gia đình hay kinh doanh dịch vụ đều thích hợp, mau hoàn vốn do chi phí đầu tư thấp!!!\n3 màu:\n✔️ Trắng\n✔️ Đỏ\n✔️ Xám Titan\n————————\nMITSUBISHI PHƯƠNG NGUYÊN\nLUÔN SẴN XE GIAO NGAY\nChi phí bảo dưỡng thấp, linh kiện phụ tùng luôn đáp ứng\nNhân viên chuyên nghiệp, tư vấn trung thực\nTự hào đại lý lý với doanh số đứng đầu cả nước\nLái thử miễn phí, ký hợp đồng và thu cọc tại nhà\nHỗ trợ đăng ký ra biển số, mua xe qua ngân hàng thủ tục dễ dàng, hồ sơ nhanh lẹ, lãi suất cực tốt.",
     image: [
       {
-        _id: "5fc8dcfbdc518d002fc2f64a",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5fe9f49604a35601ba33caf2",
+        link: "21ad4c396a379a5fa54d909ca953aa2828122020.jpg",
+        alt: "f58573b8c3a6f5646fa5e01389689fae-2698647400310790307.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Mitsubishi" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Attrage" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2021" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Mới" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Thái Lan" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Sedan" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-28T15:07:02.202Z",
+    updatedAt: "2020-12-28T15:07:02.202Z",
   },
   {
-    _id: "5fc8dcfcdc518d002fc2f64b",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcfcdc518d002fc2f64d",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcfcdc518d002fc2f64e",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 516000000,
+    countInStock: 1,
+    _id: "5fe9f70604a35601ba33cafc",
+    name: "CERATO 2019 MỚI 90% ",
+    description:
+      "** Cerato 1.6MT 2019 biển tỉnh, màu xanh đá, xe chạy 31.000km sơ cua chưa hạ, 4 vỏ theo xe.\n=> Xe lên nhiều đồ chơi, thảm taplo, bọc vô lăng, gương gặp chỉnh điện, lên màn hình Android, camera hành trình trước sau loại tốt, lót thảm 5D cao cấp, có hộc gió hàng ghế sau ... mua về chỉ để chạy. Vì xe chủ rất kỷ và và chăm.\n=> Bảo hiểm thân vỏ còn tới 7/2021.\n=> Xe về chỉ việc đổ xăng mà đi thôi ko cần phải làm gì, vì quá mới.\n=> Xem xe tại nhà, công chứng nhanh gọn lẹ\n=> Nhanh lẹ cho người mua thiện chí, miễn tiếp cò lái.",
     image: [
       {
-        _id: "5fc8dcfcdc518d002fc2f64f",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5fe9f70604a35601ba33cafe",
+        link: "17fc364cf6fcac79a4e17153edc223d428122020.jpg",
+        alt: "2646ad97e3ce76037ab4f48deb7ca741-2699733116155199868.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Kia" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Cerato" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2019" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Số sàn" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Việt Nam" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Sedan" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-28T15:17:26.305Z",
+    updatedAt: "2020-12-28T15:17:26.305Z",
   },
   {
-    _id: "5fc8dcfddc518d002fc2f650",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcfddc518d002fc2f652",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcfddc518d002fc2f653",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 790000000,
+    countInStock: 2,
+    _id: "5fe9f8b304a35601ba33cb08",
+    name: "CHEVROLET",
+    description:
+      "Chỉ cần trả trước 10% bạn có cơ hội sở hữu chiếc xe SUV 7 chỗ Nhập Khẩu , của Mỹ với nhiều ưu đãi:\n\n1. Hỗ trợ đóng thuế trước bạ và đăng kí trên Toàn quốc\n2. Thời gian vay 8 năm – Lãi suất 0.65 tháng)– Không cần thu nhập\n3. Đáp ứng tất cả hồ sơ khó toàn quốc.\n4. Đặc biệt giảm giá TRỰC TIẾP 270 TRIỆU —>>Hỗ trợ: BẢO HIỂM VẬT CHẤT, PHIM CÁCH NHIỆT , ĐỦ QUÀ TẶNG ( số lượng có hạn) => GỌI TRỰC TIẾP Gặp PHƯỚC ( Trưởng nhóm BH) ĐỂ NHẬN ƯU ĐÃI LỚN\n\nChevrolet Trailblazer 2.5 AT LTZ - Số tự động (2 cầu) BẢN FULL : 790 TRIỆU ( SUẤT NỘI BỘ)\n\n*Trailblazer trang bị rất nhiều các tính năng an toàn cao như:\n\n+Hệ thống chống bó cứng phanh (ABS)\n+Hệ thống phân phối lực phanh điện tử ( EBD)\n+Kiểm soát lực kéo chống trượt ( TCS)\n+Ổn định thân xe điện tử ( ESC)\n+Cảnh báo va chạm từ xa\n+Cảnh báo lệch làn đường\n+Cảnh báo điểm mù\n+Cảnh báo phương tiện di chuyển ngang khi lùi xe\n+Hỗ trợ xuống dốc ( HDC)\n+Khởi hành ngang dốc ( HSA)\n+Camera lùi đánh lái theo góc lái\n+Hệ thống kiểm soát áp suất lốp (TPMS)\n+Gương chống chói tự động\n+Gạt mưa tự động\n+Đèn pha tự động\n\n*Dịch vụ sau mua/Bảo hành.\n🎁 Bảo dưỡng nhanh, lấy xe ngay\n🎁 Bảo hành phụ tùng 1 năm / 20.000 Km\n🎁 Bảo hành xe 3 năm / 100.000 km.",
     image: [
       {
-        _id: "5fc8dcfddc518d002fc2f654",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5fe9f8b304a35601ba33cb0a",
+        link: "9c28b1a8043231d6e30b72af7c1953d328122020.jpg",
+        alt: "7638705689.jpg",
+      },
+      {
+        _id: "5fe9f8b304a35601ba33cb0b",
+        link: "c9edecf41603a492f8f6064d51d3aa3a28122020.jpg",
+        alt: "7639897675.jpg",
+      },
+      {
+        _id: "5fe9f8b304a35601ba33cb0c",
+        link: "cf67d3c6d2b97c35813cf71b587739b528122020.jpg",
+        alt: "7669431295.jpg",
+      },
+      {
+        _id: "5fe9f8b304a35601ba33cb0d",
+        link: "d0a99bbd09dc1a7b43d32cd9c75a951f28122020.jpg",
+        alt: "7671115130.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Chevrolet" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Trailblazer" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2020" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Mới" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Dầu" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Mỹ" },
+      { _id: "5fe949edbce39a002f0175d9", value: "SUV / Cross over" },
+      { _id: "5fe949edbce39a002f0175da", value: "7" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-28T15:24:35.184Z",
+    updatedAt: "2020-12-28T15:24:35.184Z",
   },
   {
-    _id: "5fc8dcfedc518d002fc2f655",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcfedc518d002fc2f657",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcfedc518d002fc2f658",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 580000000,
+    countInStock: 5,
+    _id: "5fe9f9e004a35601ba33cb17",
+    name: "FORD Ranger 2021",
+    description:
+      "FORD RANGER 2020\nĐỦ MÀU, ĐỦ LOẠI - GIAO NGAY\nHỖ TRỢ VAY VỐN TỚI 90% VÀ NỢ XẤU\nĐỘNG CƠ HỘP SỐ HOÀN TOÀN MỚI\n\n📣 GIÁ NIÊM YẾT XE RANGER MẪU MỚI NEW 2021 :\n- RANGER XLT LIMITED 2.0L AT 4x4 2021: 799tr VNĐ\n- RANGER XLS 2.2L AT 4x2 2021: 650 trVNĐ\n- RANGER XLS 2.2L MT 4x2 2021: 630tr VNĐ\n- RANGER XL 2.2L MT 4X4 2021: 616tr VNĐ\nGIÁ CHƯA GIẢM VÀ CHƯA BAO GỒM QUÀ TẶNG\n\n📣 ƯU ĐÃI LỚN TỪ SHOWROOM FORD SỐ 1 TPHCM VỀ GIÁ CẢ, DỊCH VỤ SAU BÁN HÀNG VÀ CHẾ ĐỘ BẢO HÀNH BẢO DƯỠNG:\n1. Giảm giá tiền mặt trừ trực tiếp vào giá xe\n2. TẶNG Bảo hiểm vật chất 2 chiều : MIC , PVI, Bảo Việt , Pjico, Liberty......\n3. TẶNG các phụ kiện theo xe:\n🎁 Dán phim cách nhiệt\n🎁 Lót thùng\n🎁 Nắp thùng thấp, cao hoặc nắp cuộn\n🎁 Bọc trần 5D cao cấp\n🎁 Lót sàn simili cao cấp chống thấm\n🎁 Phủ gầm\n🎁 Camera hành trình\n🎁 Ốp viền đèn\n🎁 Ốp chén cửa\n🎁 Viền che mưa\n🎁 Và một số option khác.\n\n📣 HỖ TRỢ TRẢ GÓP:\n✅ Hỗ trợ góp từ 70% đến 90% giá trị xe với lãi suất cực kì ưu đãi 0.6%/ tháng cố định và thời gian lên đến 8 năm.\n✅ Hỗ trợ khách hàng chứng minh thu nhập, cty mới thành lập, nợ chú ý, nợ xấu, Bao hồ sơ vay ngân hàng toàn quốc\n✅ Hỗ trợ đăng ký, đăng kiểm lấy cà vẹt nhanh\n✅ Hỗ trợ giao xe tận nhà cho khách hàng kể cả khách ở tỉnh xa.\n✅ Hỗ trợ lái thử tận nhà\n✅ Giá ưu đãi đặc biệt khi đổi xe cũ lấy xe mới\n✅ XE ĐỦ MÀU - GIAO NGAY TRONG NGÀY",
     image: [
       {
-        _id: "5fc8dcfedc518d002fc2f659",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5fe9f9e004a35601ba33cb19",
+        link: "3a5b58152d39adcf23b7b32b30684e8d28122020.jpg",
+        alt: "34f3e1709a12d36c62cdb2e1d8abf100-2697480735725213567.jpg",
+      },
+      {
+        _id: "5fe9f9e004a35601ba33cb1a",
+        link: "3940fe2abab91972b222f6861d29379728122020.jpg",
+        alt: "39af123ca66f80c4eb624c8a5c954466-2697480738942461278.jpg",
+      },
+      {
+        _id: "5fe9f9e004a35601ba33cb1b",
+        link: "fce745c4078f7716193072002de80c9e28122020.jpg",
+        alt: "87069b121f52eb04e0f24efd423d7d52-2697480739494770209.jpg",
+      },
+      {
+        _id: "5fe9f9e004a35601ba33cb1c",
+        link: "10ed0480131c25201142903b63f1ee0f28122020.jpg",
+        alt: "a676c6c4535f7bd059a1cab03fc3d002-2697480736140031161.jpg",
+      },
+      {
+        _id: "5fe9f9e004a35601ba33cb1d",
+        link: "b3f3f726df3aba0578dc18b553988edb28122020.jpg",
+        alt: "f4c7b069f5b3d6f30b1de04884c5e1c5-2697480736765466495.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Ford" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Ranger" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2021" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Mới" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Dầu" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Mỹ" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Pick-up (bán tải)" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-28T15:29:36.449Z",
+    updatedAt: "2020-12-28T15:29:36.449Z",
   },
   {
-    _id: "5fc8dcfedc518d002fc2f65a",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcfedc518d002fc2f65c",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcfedc518d002fc2f65d",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 999000000,
+    countInStock: 3,
+    _id: "5feb56db155c740037c4ea94",
+    name: "Mercedes Benz CLA45 AMG 4Matic",
+    description:
+      "Mercedes Benz CLA 45 AMG 4Matic model 2015\nXe nhập khẩu nguyên chiếc từ châu âu.\nBản động cơ hiệu suất cao AMG 355Hp.\nMô-men xoắn cực đại 450Nm.\nHộp số ly hợp kép 7 cấp AMG.\nDẫn động hai cầu 4 bánh toàn thời gian.\nSử dụng phanh hiệu suất cao AMG.\nĐộ Body kit & Pô tăng tốc gần 100tr.\nMáy móc nguyên bản ko lỗi chưa mở.\nXe zin ko va chạm, ko ngập nước.\nBao thợ thầy đến test thoải mái.",
     image: [
       {
-        _id: "5fc8dcfedc518d002fc2f65e",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5feb56db155c740037c4ea96",
+        link: "8407a6ea506932ac4d74f057e55313fb29122020.jpg",
+        alt: "23ba91e5f7eb10042c2624b89b61c48e-2699395178858644961.jpg",
+      },
+      {
+        _id: "5feb56db155c740037c4ea97",
+        link: "30fcf80f64b7435ba0b72010741eac5529122020.jpg",
+        alt: "94d0a14054cf6048327491989d55d16b-2699395176640898922.jpg",
+      },
+      {
+        _id: "5feb56db155c740037c4ea98",
+        link: "1dd35578ad986ede21ad1bfedac6ed3529122020.jpg",
+        alt: "9bc1848fc79d0d179cfd792cacf8f8ac-2699395177563389478.jpg",
+      },
+      {
+        _id: "5feb56db155c740037c4ea99",
+        link: "d7c48839c74cc6bce25c143084941d3a29122020.jpg",
+        alt: "d9e03261effe8655d9ee19d23f150320-2699395177389640417.jpg",
+      },
+      {
+        _id: "5feb56db155c740037c4ea9a",
+        link: "95ca5cdb3fbcc4bbd97a5f0a03dacbec29122020.jpg",
+        alt: "e20cc0e59c59c995c72adad664be6012-2699395178240952306.jpg",
+      },
+      {
+        _id: "5feb56db155c740037c4ea9b",
+        link: "b9a735088dcf85e22dc03a77005853b929122020.jpg",
+        alt: "f7984f9ecce76ddf2c40837e7049a71f-2699395178989774698.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Mercedes Benz" },
+      { _id: "5fe949edbce39a002f0175d3", value: "CLA Class" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2015" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "61000" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Sedan" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:18:35.342Z",
+    updatedAt: "2020-12-29T16:18:35.342Z",
   },
   {
-    _id: "5fc8dcffdc518d002fc2f65f",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcffdc518d002fc2f661",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcffdc518d002fc2f662",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 649000000,
+    countInStock: 1,
+    _id: "5feb57b2155c740037c4eaa5",
+    name: "Toyota Innova 2017 Tự động, Chạy ít, Xe chất đẹp",
+    description:
+      "Mới về Toyota innova 2.0G 2017 số tự động 6 cấp, xe cá nhân, đi ít giữ gìn, xe rất đẹp, quý khách hàng quan tâm liên hệ ngay nhé",
     image: [
       {
-        _id: "5fc8dcffdc518d002fc2f663",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5feb57b2155c740037c4eaa7",
+        link: "64a7c069280d5f8754ac04a6f04652b229122020.jpg",
+        alt: "41b61f5b79e47dd0c81fbaebf18fb7d7-2697485206282235028.jpg",
+      },
+      {
+        _id: "5feb57b2155c740037c4eaa8",
+        link: "6ca3a3c88f194289146f0992d5c93b2829122020.jpg",
+        alt: "796dcdb1209e465aa31a24ced523c732-2697485206613197923.jpg",
+      },
+      {
+        _id: "5feb57b2155c740037c4eaa9",
+        link: "cf386979ffb2193a7404185a061e8fd629122020.jpg",
+        alt: "87543654faf1223848390a0abd4a43bb-2697485206214344564.jpg",
+      },
+      {
+        _id: "5feb57b2155c740037c4eaaa",
+        link: "b060ad13e4948a324ce6cd169b8b6c9c29122020.jpg",
+        alt: "b60523ab227581e5430ac1ca943185a3-2697485206347337517.jpg",
+      },
+      {
+        _id: "5feb57b2155c740037c4eaab",
+        link: "5e8587fa009f304dfe899acd295ad59229122020.jpg",
+        alt: "c16aead8d21dec98526c2cebcecc45b2-2697485206967824268.jpg",
+      },
+      {
+        _id: "5feb57b2155c740037c4eaac",
+        link: "6c20ccffda563260d72d020a7954a7b829122020.jpg",
+        alt: "e82d37e81a7fc4a11f835671e86edb49-2697485206779759793.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Toyota" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Innova" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2017" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Minivan (MPV)" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Việt Nam" },
+      { _id: "5fe949edbce39a002f0175da", value: "8" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:22:10.163Z",
+    updatedAt: "2020-12-29T16:22:10.163Z",
   },
   {
-    _id: "5fc8dcffdc518d002fc2f664",
-
-    price: 200000,
-    countInStock: 7,
-    properties: [
-      {
-        _id: "5fc8dcffdc518d002fc2f666",
-
-        key: "company",
-        value: "Apple",
-      },
-      {
-        _id: "5fc8dcffdc518d002fc2f667",
-
-        key: "status",
-        value: "99%",
-      },
-    ],
-    name: "iPhone 6",
+    price: 635000000,
+    countInStock: 1,
+    _id: "5feb582c155c740037c4eab6",
+    name: "Toyota Rush 2019 Tự động, chạy 12.000km",
+    description:
+      "Cửa hàng mới về xe Toyota Rush đk cuối T12/2018 xe cá nhân, biển HN, sơn zin 100%, rất giữ gìn, xe đẹp và chất, giá cả có thương lượng",
     image: [
       {
-        _id: "5fc8dcffdc518d002fc2f668",
-
-        link: "7d217d5239c9b1efffe0f3231f615d4325112020.jpg",
-        alt: "iPhone 11",
+        _id: "5feb582c155c740037c4eab8",
+        link: "808df1dc739ee663721db89c0790538329122020.jpg",
+        alt: "137c04ad69e563e6d94d5937e3e7d9e4-2697484103151505378.jpg",
+      },
+      {
+        _id: "5feb582c155c740037c4eab9",
+        link: "2042ac5bd5656c3384d8278be589a7b029122020.jpg",
+        alt: "24293dea303604e4320a7155c30386f6-2697484103784680091.jpg",
+      },
+      {
+        _id: "5feb582c155c740037c4eaba",
+        link: "16bc979aac32d9b12cece5668be45e2c29122020.jpg",
+        alt: "2a0c2cb8a856e5f09a7295bcf021729d-2697484102906328301.jpg",
+      },
+      {
+        _id: "5feb582c155c740037c4eabb",
+        link: "8574bb006cc5e8d07bc485c3b9e4113929122020.jpg",
+        alt: "96fd09dfa8e3d88f91e7b6e36d636800-2697484104533889050.jpg",
+      },
+      {
+        _id: "5feb582c155c740037c4eabc",
+        link: "78b2cfa3e946505a51781c4f39b45cb129122020.jpg",
+        alt: "b02f2e47cd9da628d043b73d9580efa8-2697484102928976539.jpg",
+      },
+      {
+        _id: "5feb582c155c740037c4eabd",
+        link: "6b06a89f3fd10c54ebf9e3fcb2615a3d29122020.jpg",
+        alt: "e590d00458028f7bab87f8e8299051fc-2697484103638710272.jpg",
       },
     ],
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    category: "/xe-co/o-to",
     user: "5fa7fb0a62083e11ace57490",
-
-    category: "5fbe86f25bbb0a002ed59e37",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Toyota" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Rush" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2019" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "SUV / Cross over" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:24:12.195Z",
+    updatedAt: "2020-12-29T16:24:12.195Z",
+  },
+  {
+    price: 550000000,
+    countInStock: 1,
+    _id: "5feb58e4155c740037c4eac7",
+    name: "Mitsubishi Xpander 2020",
+    description:
+      "Mitsubishi Xpander 2020 - kinh tế và tiết kiệm hơn.\nMitsubishi Xpander 2020 mang tính kinh tế cao, không chỉ phù hợp cho cả gia đình mà cho cả hoạt động kinh doanh.\nPhiên bản số sàn mới được thay đổi một số chi tiết nội - ngoại thất hiện đại hơn:\n- Ngôn ngữ Dynamic Shield với mặt ca-lăng thiết kế mới.\n- Mâm xe hợp kim 2 tông màu 16-inch hiện đại.\n- Nội thất 7 chỗ với tông màu tối tạo cảm giác thanh lịch.\nMItsubishi Xpander 2020 với 4 màu trắng | bạc | nâu | đen cho khách hàng thêm nhiều lựa chọn.",
+    image: [
+      {
+        _id: "5feb58e4155c740037c4eac9",
+        link: "6e215ebbbe3e74001295f3320e5aeffe29122020.jpg",
+        alt: "19e953dad60e73b8e62df2460e6edd3d-2686760112597574193.jpg",
+      },
+      {
+        _id: "5feb58e4155c740037c4eaca",
+        link: "906af9b447ac4bf50666a0e7f402331829122020.jpg",
+        alt: "30ef16525284db43372e2597fb5ca66e-2686760136752438867.jpg",
+      },
+      {
+        _id: "5feb58e4155c740037c4eacb",
+        link: "ce12ac77319c02badd5cc72f2a06384429122020.jpg",
+        alt: "80de884be8cf1c8a28962060d6a99561-2686760123705864266.jpg",
+      },
+      {
+        _id: "5feb58e4155c740037c4eacc",
+        link: "1044911f27e99db0a9a5211f15202d6d29122020.jpg",
+        alt: "8412f2d3b91ae718c3a4cef9c0a23f12-2686760151047282259.jpg",
+      },
+      {
+        _id: "5feb58e4155c740037c4eacd",
+        link: "ac2f5271afad83a4b6d0558eee7408a329122020.jpg",
+        alt: "c6cb6697cd6b586e40f273d97432a81d-2686760187743266741.jpg",
+      },
+      {
+        _id: "5feb58e4155c740037c4eace",
+        link: "8df9193f92a43415750040416cf6b22129122020.jpg",
+        alt: "fb9aca3f4b0bf5c91a811906b306eff5-2686760200980764002.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Mitsubishi" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Xpander" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2020" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Mới" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Số sàn" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Minivan (MPV)" },
+      { _id: "5fe949edbce39a002f0175da", value: "7" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:27:16.848Z",
+    updatedAt: "2020-12-29T16:27:16.848Z",
+  },
+  {
+    price: 1202000000,
+    countInStock: 1,
+    _id: "5feb596a155c740037c4ead8",
+    name: "Ford Raptor Mẫu Mới 2021",
+    description:
+      "SIÊU ƯU ĐÃI !!!\nSỐ LƯỢNG CÓ HẠN\nTrả trước 300 triệu nhận xe ( ĐÃ BAO GỒM CHI PHÍ LĂNG BÁNH)\nTặng: Bao da tay lái, nước hoa, dù, tappi sàn\nƯu đãi 20 TRIỆU tiền mặt và PHỤ KIỆN chỉ trong tháng 12 này\n\nDỊCH VỤ CHU ĐÁO – CHUYÊN NGHIỆP\n📌 Cam kết chương trình khuyến mãi tốt\n📌 Hỗ trợ vay lên đến 70% - 95% giá trị xe, thời hạn từ 3 - 8 năm\n📌 Đảm bảo lãi suất ưu đãi 0% 6 tháng đầu , thủ tục nhanh gọn\n📌 Hỗ trợ khách hàng chứng minh thu nhập, cty mới thành lập, nợ chú ý, nợ xấu...\n📌 Đăng ký xem xe & lái thử tại nhà\n📌 Hỗ trợ thủ tục đăng ký, đăng kiểm xe\n",
+    image: [
+      {
+        _id: "5feb596a155c740037c4eada",
+        link: "5b79ccda6cd8675cdce3323d3e5fe3df29122020.jpg",
+        alt: "39c0052244ccd1142280cba7fdd3b6f9-2697639285189170507.jpg",
+      },
+      {
+        _id: "5feb596a155c740037c4eadb",
+        link: "51463cb791deb5d7cb8b06183c857e9c29122020.jpg",
+        alt: "3a5a7efb7d28ba4d97f0c437ce136445-2697639286735754431.jpg",
+      },
+      {
+        _id: "5feb596a155c740037c4eadc",
+        link: "c232345592aa3f2d653993b81487ffaf29122020.jpg",
+        alt: "5cef62b952dc6b92b32c641f9f4f9767-2697639283977723300.jpg",
+      },
+      {
+        _id: "5feb596a155c740037c4eadd",
+        link: "3c3d7740be399acc40678817232d668329122020.jpg",
+        alt: "909d8de92735235107bb5b9b45634de4-2697639282323738167.jpg",
+      },
+      {
+        _id: "5feb596a155c740037c4eade",
+        link: "763f9de56ebe978592e53907071d7ff729122020.jpg",
+        alt: "b38718b2d08278dfd1ed4b4afa650e5d-2697639287228507876.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [],
+    __v: 0,
+    createdAt: "2020-12-29T16:29:30.156Z",
+    updatedAt: "2020-12-29T16:29:30.156Z",
+  },
+  {
+    price: 790000000,
+    countInStock: 1,
+    _id: "5feb59d8155c740037c4eadf",
+    name: "Honda Hr-V L - Bản Full",
+    description:
+      "💥 Honda Hr-v L Bản Full - Siêu lướt 17.000km\n🔹 Hiếm Sài Gòn\n🔹 Nhập khẩu Thái Lan\n🔹 Xe cá nhân, 01 chủ từ đầu\n🔹 4 lốp zin theo xe\n🔹 Sơ cua chưa hạ\n🔹 Xe nữa chạy rất ít\n🔹 Còn bảo hành hãnh 3 năm\n\nTrang bị Option :\n🔅 Cửa sổ trời panorama toàn cảnh\n🔅 Dán Phim cách nhiệt Mỹ\n🔅 Lót sàn simili\n🔅 DVD 7in, camera de, cảm biến quanh xe.\n🔅 Camera hành trình vietmap tích hợp trên gương chiếu hậu\n🔅 Đề Star/Stop\n🔅Nẹp bước chân mạ Crom\n🔅 Bệ bước chân Full kịch\n🔅 Ốp chống trầy cốp sau\n\n💯 Cam kết không đâm đụng, ngập nước\n💯 Hổ trợ rút hồ sơ và sang tên trong ngày\n💯 Hỗ trợ trả góp toàn quốc lãi suất cực thấp\n👉 Trả trước 200 triệu nhận xe ngay\n",
+    image: [
+      {
+        _id: "5feb59d8155c740037c4eae1",
+        link: "a1bc54f0b3b398fbffadaa65b3d1bf6829122020.jpg",
+        alt: "421fff3317645305ec72bf80e6c6aaf4-2696829324699051069.jpg",
+      },
+      {
+        _id: "5feb59d8155c740037c4eae2",
+        link: "4a906f8e97bf6d99020e331df69585f229122020.jpg",
+        alt: "54a7dd2acc6652a66f10eb957f244d98-2696829308275507266.jpg",
+      },
+      {
+        _id: "5feb59d8155c740037c4eae3",
+        link: "42518dd2e2afb2519d0960890b62dcad29122020.jpg",
+        alt: "5fff9524249afc49ab78180d10fd6fb3-2696829323819577037.jpg",
+      },
+      {
+        _id: "5feb59d8155c740037c4eae4",
+        link: "df122d414143c697af813c69a78e43bd29122020.jpg",
+        alt: "d8f356e278938d50202728b2f8d07859-2696829316698584274.jpg",
+      },
+      {
+        _id: "5feb59d8155c740037c4eae5",
+        link: "3b317e51888ffc3ffe469cec7298860a29122020.jpg",
+        alt: "e50046809183c98bda3b2e0cc45e0e3a-2696829322620092482.jpg",
+      },
+      {
+        _id: "5feb59d8155c740037c4eae6",
+        link: "ecd95100302b152c7c204e7c9c1724ae29122020.jpg",
+        alt: "fc8641ec59c1dd749a4eeff0a0548890-2696829320725247186.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Honda" },
+      { _id: "5fe949edbce39a002f0175d3", value: "HR-V" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2019" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Thái Lan" },
+      { _id: "5fe949edbce39a002f0175d9", value: "SUV / Cross over" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:31:20.772Z",
+    updatedAt: "2020-12-29T16:31:20.772Z",
+  },
+  {
+    price: 525000000,
+    countInStock: 6,
+    _id: "5feb5a63155c740037c4eaf0",
+    name: "Mitsubishi Xpander Số sàn 2019",
+    description:
+      "🚘 𝐌𝐢𝐭𝐬𝐮𝐛𝐢𝐬𝐡𝐢 𝐗𝐩𝐚𝐧𝐝𝐞𝐫 𝐌𝐓 𝟐𝟎𝟐𝟎 𝐦𝐨̛́𝐢 𝟗𝟖%\n🔹 𝐒𝐚̉𝐧 𝐱𝐮𝐚̂́𝐭: 2019 model 2020\n🔹 𝙊𝙙𝙤: 2,8 vạn Kilometer\n🔹 𝑷𝒉𝒂́𝒑 𝒍𝒚́ : Cá nhân một chủ từ mới\n🔹 𝐏𝐡𝐢𝐞̂𝐧 𝐛𝐚̉𝐧 : Xpander MT 2020 trang bị phanh abs, eba, ebd, ghế da, đèn led ban ngày.....\n🔹 𝐓𝐢̀𝐧𝐡 𝐭𝐫𝐚̣𝐧𝐠 𝐭𝐡𝐮̛̣𝐜 𝐭𝐞̂́: Còn rất mới, nội ngoại thất đẹp, sơn zin 99%, máy móc, thân vỏ nguyên bản, lốp sử dụng tốt không phải thay thế, đầy đủ phụ kiện theo xe.\n💵 𝑮𝒊𝒂́ 𝒃𝒂́𝒏: 𝟱𝟮𝟱.𝟎𝟎𝟎.𝟎𝟎𝟎 𝐯𝐧đ\n🏦 Hỗ trợ ngân hàng: 350.𝟎𝟎𝟎.𝟎𝟎𝟎 vnđ\n\n————————————————\n❌Nói không với xe đâm đụng ngập nước.\n💯Được ký hợp đồng mua bán như chính hãng bảo đảm quyền lợi, nếu vi phạm cam kết trong hợp đồng kinh tế, khách hàng có thể khởi kiện ra toà.\n💯Bao check toàn quốc.\n💯 Xe bán được công ty bảo hành 03- 24 tháng, trước giao xe cty tặng gói bảo dưỡng cơ bản bao gồm: thay dầu, lọc các loại và bảo dưỡng gầm, phanh, nước làm mát....\n- Miễn phí thay dầu 1 năm\n- Miễn phí kiểm tra định kỳ 1 năm\n💯Hỗ trợ sang tên chính chủ.",
+    image: [
+      {
+        _id: "5feb5a63155c740037c4eaf2",
+        link: "734028d4017ad4cd35ed0bf81726300f29122020.jpg",
+        alt: "090e5cd826adeb37e69e87edeb0a43de-2699229444241114428.jpg",
+      },
+      {
+        _id: "5feb5a63155c740037c4eaf3",
+        link: "155f4c6ae6d0115fc3f5b7ca2e1d5d4329122020.jpg",
+        alt: "45319085040aef97ef536e532734fda0-2699229457213298950.jpg",
+      },
+      {
+        _id: "5feb5a63155c740037c4eaf4",
+        link: "6004428d2dd9ebba1c3799e84e6dac9129122020.jpg",
+        alt: "712c973e8d040402eff2f5d2eba182ad-2699229457358222305.jpg",
+      },
+      {
+        _id: "5feb5a63155c740037c4eaf5",
+        link: "076199cc409e8f46422fbac18e64360629122020.jpg",
+        alt: "a92604fc71f4d47c54f4e96d4fb94a7a-2699229456013770677.jpg",
+      },
+      {
+        _id: "5feb5a63155c740037c4eaf6",
+        link: "f67281d43e49484cf533678f0052a34a29122020.jpg",
+        alt: "c8fd60e1740eaf99d14b165f99186a75-2699229443380002741.jpg",
+      },
+      {
+        _id: "5feb5a63155c740037c4eaf7",
+        link: "2fc5f2e04e3286941e4b82838690003029122020.jpg",
+        alt: "cf6b1f5cc1c145535f0ea71b664ef74c-2699229455802554883.jpg",
+      },
+      {
+        _id: "5feb5a63155c740037c4eaf8",
+        link: "6c41cb56c9db234bcc56a958a328fb3229122020.jpg",
+        alt: "d3813c89b3bc1b7590403b295ccc6b6b-2699229454374880572.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Mitsubishi" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Xpander" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2019" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Số sàn" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Minivan (MPV)" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:33:39.777Z",
+    updatedAt: "2020-12-29T16:33:39.777Z",
+  },
+  {
+    price: 2199000000,
+    countInStock: 1,
+    _id: "5feb5ad9155c740037c4eb02",
+    name: "Mercedes E200 Sport đậm chất thể thao",
+    description:
+      "#E200_Sport: Mẫu xe cao cấp với sự đột phá công nghệ sẽ là mẫu xe mà bạn không nên bỏ lỡ!!!\n- SX: 2019\n- Đăng ký: 2020\n- Bảo hành mọi miền tổ quốc đến 2023 không giới hạn km\n- Màu đen nội thất đen đậm chất thể thao\n- Lăn bánh: 4000km\n- Xe trang bị: Cửa sổ trời panorama cho cả hai hàng ghế, Camera 360, Ghế trước chỉnh điện toàn bộ kèm nhớ 3 vị trí, vô lăng bọc da 3 chấu tích hợp nhiều chức năng, điều hòa tự động 3 vùng. Gương chiếu hậu chống chói, chỉnh gập điện. Hệ thống giải trí với màn hình kích thước 12,3 inch có thể kết nối Bluetooth, USB đi kèm dàn loa Burmester cao cấp.",
+    image: [
+      {
+        _id: "5feb5ada155c740037c4eb04",
+        link: "d38dee2e34791c74c6357898daa98a6f29122020.jpg",
+        alt: "1d5a7fd0bc180fefa4f399f8249ca43d-2698410416071113449.jpg",
+      },
+      {
+        _id: "5feb5ada155c740037c4eb05",
+        link: "55dda13cfa184249e7cd01424605b4be29122020.jpg",
+        alt: "2303b1e4f01de8c123c134ccfeafc517-2698410415391613379.jpg",
+      },
+      {
+        _id: "5feb5ada155c740037c4eb06",
+        link: "7bed6eee41e9d8b65634c7bdbfcc1e6229122020.jpg",
+        alt: "657c98ad9ffbf4c8c0345f7774af87c2-2698410416522889127.jpg",
+      },
+      {
+        _id: "5feb5ada155c740037c4eb07",
+        link: "ee06e2c6a78f2581ab4f743f12d24a8d29122020.jpg",
+        alt: "6cd2502412f03fbe6660ef2f8b20317c-2698410415758013420.jpg",
+      },
+      {
+        _id: "5feb5ada155c740037c4eb08",
+        link: "4fc69d8d95df0f38ab762d93b2b15a9829122020.jpg",
+        alt: "8e8df87dbf5f38f0fb189159a6bd3e4c-2698410417857929667.jpg",
+      },
+      {
+        _id: "5feb5ada155c740037c4eb09",
+        link: "1d4bf9486beb83153fb8ac7c21dbce6729122020.jpg",
+        alt: "9ee7f158aa8b2cd0295b5a9a54688a6b-2698410418436690395.jpg",
+      },
+      {
+        _id: "5feb5ada155c740037c4eb0a",
+        link: "cd3f542683d5cbf5ac705095df99019029122020.jpg",
+        alt: "f9adc2aa781de9967a21970e7bc807dc-2698410416154923483.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Mercedes Benz" },
+      { _id: "5fe949edbce39a002f0175d3", value: "E Class" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2020" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Việt Nam" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Sedan" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:35:38.001Z",
+    updatedAt: "2020-12-29T16:35:38.001Z",
+  },
+  {
+    price: 499000000,
+    countInStock: 1,
+    _id: "5feb5b76155c740037c4eb14",
+    name: "Kia K3 2016 Tự động 2.0 full",
+    description:
+      "🚘#Kia K3 _ 2.0 AT _ Modell 2016 🚘\nXe tư nhân một chủ sử dụng, k một lỗi nhỏ.\n👉Hệ thống đèn trước Halogen, đèn sau Led, hệ thống 6 loa, ghế múi, lazang fay\n👉Chống bó cứng phanh ABS, Ghế lái chỉnh điện, cửa sổ trời, 7 túi khí quanh xe, vô lăng gảy số.\n👍 xe bán ra cam kết bảo hành dài hạn sâu về chất lượng, xe cam kết ko va chạm ko ngập nước\n👍Hỗ trợ trả góp ngân hàng 70% giá trị xe\n👍Uy tín tạo nên thương hiệu\n👍Thủ tục sang tên trong vòng 24h",
+    image: [
+      {
+        _id: "5feb5b76155c740037c4eb16",
+        link: "c0a74708191e7cafb074f0aa94e9a3d829122020.jpg",
+        alt: "191c7a309f400e50a88fc1b80125d3b3-2699888296923754935.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb17",
+        link: "d6fdb93ffa0c0d29265005296cd12a4829122020.jpg",
+        alt: "29fda3c251d7a3ed0163c5b14c5185b9-2699888293174822008.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb18",
+        link: "39c9218de1fe98e302437b4147ca92ad29122020.jpg",
+        alt: "4307dbd1a3499c47bc86a166e846c67c-2699888295221707896.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb19",
+        link: "b1264ee036a2b183ce7cf67cb922591b29122020.jpg",
+        alt: "6f44087403f32864bdd44dd6c299c4f5-2699888293803127223.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb1a",
+        link: "a7a32bc342aa1050caa7a78fcc738b4029122020.jpg",
+        alt: "99b1d1fe16467cf5c2d800523afc628a-2699888298835532286.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb1b",
+        link: "c113a650d35c91a3498d6f2b6ab5491229122020.jpg",
+        alt: "9b09a0e68d409c3882407a83f3b589cf-2699888293309454861.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb1c",
+        link: "195ec18622095c1705b626019d26dccb29122020.jpg",
+        alt: "b2cd563af41e1de9b0fa65c936b95da0-2699888293666996782.jpg",
+      },
+      {
+        _id: "5feb5b76155c740037c4eb1d",
+        link: "1aa2c564b7576f8d17d20dd855e223af29122020.jpg",
+        alt: "b67767b175a739ea44b0de4c5b96603a-2699888292117791864.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Kia" },
+      { _id: "5fe949edbce39a002f0175d3", value: "K3" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2016" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Hàn Quốc" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Sedan" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:38:14.775Z",
+    updatedAt: "2020-12-29T16:38:14.775Z",
+  },
+  {
+    price: 330000000,
+    countInStock: 1,
+    _id: "5feb5be2155c740037c4eb27",
+    name: "Suzuki Celerio 2018 Tự động nhập khẩu",
+    description:
+      "🚘 𝐒𝐮𝐳𝐮𝐤𝐢 𝐂𝐞𝐥𝐞𝐫𝐢𝐨 𝟏.𝟎 𝐀𝐓 𝐧𝐡𝐚̣̂𝐩 𝐤𝐡𝐚̂̉𝐮 𝟐𝟎𝟏𝟖 𝐫𝐚̂́𝐭 đ𝐞̣𝐩\n🔹 𝐒𝐚̉𝐧 𝐱𝐮𝐚̂́𝐭: 2018 đăng ký 2019\n🔹 𝙊𝙙𝙤: 3,8 vạn Kilometer\n🔹 𝑷𝒉𝒂́𝒑 𝒍𝒚́ : Cá nhân một chủ từ mới\n🔹 𝐏𝐡𝐢𝐞̂𝐧 𝐛𝐚̉𝐧 : Suzuki Celerio 1.0 AT trang bị ghế da, smart key, Star/Stop, Camera lùi, cảm biến lùi, phanh abs, eba, đề nổ từ xa....\n🔹 𝐓𝐢̀𝐧𝐡 𝐭𝐫𝐚̣𝐧𝐠 𝐭𝐡𝐮̛̣𝐜 𝐭𝐞̂́: Còn rất mới, nội ngoại thất đẹp, sơn zin 99%, máy móc, thân vỏ nguyên bản, lốp sử dụng tốt không phải thay thế, đầy đủ phụ kiện theo xe, mua thêm bảo hiểm thân vỏ\n💵 𝑮𝒊𝒂́ 𝒃𝒂́𝒏: 329.000.000\n🏦 Hỗ trợ ngân hàng: 160.𝟎𝟎𝟎.𝟎𝟎𝟎 vnđ\n\n————————————————\n❌Nói không với xe đâm đụng ngập nước.\n💯Được ký hợp đồng mua bán như chính hãng bảo đảm quyền lợi, nếu vi phạm cam kết trong hợp đồng kinh tế, khách hàng có thể khởi kiện ra toà.\n💯Bao check toàn quốc.\n💯 Xe bán được công ty bảo hành 03- 24 tháng, trước giao xe cty tặng gói bảo dưỡng cơ bản bao gồm: thay dầu, lọc các loại và bảo dưỡng gầm, phanh, nước làm mát....\n- Miễn phí thay dầu 1 năm\n- Miễn phí kiểm tra định kỳ 1 năm\n💯Hỗ trợ sang tên chính chủ.",
+    image: [
+      {
+        _id: "5feb5be2155c740037c4eb29",
+        link: "0e35c3e8eaff2067a69c2b0573b227ac29122020.jpg",
+        alt: "3a7dfb532775ac7b4aff345a4480f4f0-2693302932316264825.jpg",
+      },
+      {
+        _id: "5feb5be2155c740037c4eb2a",
+        link: "2a3bb4d2a8e66805dc5744a289d2d4d629122020.jpg",
+        alt: "5d04e5403f83efed1672e5ade9be268d-2693302932011348841.jpg",
+      },
+      {
+        _id: "5feb5be2155c740037c4eb2b",
+        link: "4cd4e778e9d0aadce9d4e4df9426d15129122020.jpg",
+        alt: "b8bcdfdc2fdef44c8e0e9a26d81536ce-2693302932145032911.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Suzuki" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2018" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Celerio" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Hatchback" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:40:02.688Z",
+    updatedAt: "2020-12-29T16:40:02.688Z",
+  },
+  {
+    price: 523000000,
+    countInStock: 4,
+    _id: "5feb5c90155c740037c4eb35",
+    name: "Mitsubishi Xpander Số sàn 2019",
+    description:
+      "🚘 𝐌𝐢𝐭𝐬𝐮𝐛𝐢𝐬𝐡𝐢 𝐗𝐩𝐚𝐧𝐝𝐞𝐫 𝐌𝐓 𝟐𝟎𝟐𝟎 𝐦𝐨̛́𝐢 𝟗𝟖%\n🔹 𝐒𝐚̉𝐧 𝐱𝐮𝐚̂́𝐭: 2019 model 2020\n🔹 𝙊𝙙𝙤: 2,8 vạn Kilometer\n🔹 𝑷𝒉𝒂́𝒑 𝒍𝒚́ : Cá nhân một chủ từ mới\n🔹 𝐏𝐡𝐢𝐞̂𝐧 𝐛𝐚̉𝐧 : Xpander MT 2020 trang bị phanh abs, eba, ebd, ghế da, đèn led ban ngày.....\n🔹 𝐓𝐢̀𝐧𝐡 𝐭𝐫𝐚̣𝐧𝐠 𝐭𝐡𝐮̛̣𝐜 𝐭𝐞̂́: Còn rất mới, nội ngoại thất đẹp, sơn zin 99%, máy móc, thân vỏ nguyên bản, lốp sử dụng tốt không phải thay thế, đầy đủ phụ kiện theo xe.\n💵 𝑮𝒊𝒂́ 𝒃𝒂́𝒏: 𝟱𝟮𝟱.𝟎𝟎𝟎.𝟎𝟎𝟎 𝐯𝐧đ\n🏦 Hỗ trợ ngân hàng: 350.𝟎𝟎𝟎.𝟎𝟎𝟎 vnđ\n\n————————————————\n❌Nói không với xe đâm đụng ngập nước.\n💯Được ký hợp đồng mua bán như chính hãng bảo đảm quyền lợi, nếu vi phạm cam kết trong hợp đồng kinh tế, khách hàng có thể khởi kiện ra toà.\n💯Bao check toàn quốc.\n💯 Xe bán được công ty bảo hành 03- 24 tháng, trước giao xe cty tặng gói bảo dưỡng cơ bản bao gồm: thay dầu, lọc các loại và bảo dưỡng gầm, phanh, nước làm mát....\n- Miễn phí thay dầu 1 năm\n- Miễn phí kiểm tra định kỳ 1 năm\n💯Hỗ trợ sang tên chính chủ.",
+    image: [
+      {
+        _id: "5feb5c90155c740037c4eb37",
+        link: "36a84e98a9a8ac83c1cb8253092f9e0d29122020.jpg",
+        alt: "45319085040aef97ef536e532734fda0-2699229457213298950.jpg",
+      },
+      {
+        _id: "5feb5c90155c740037c4eb38",
+        link: "8f17b60e2562e23296555693c3c4017729122020.jpg",
+        alt: "712c973e8d040402eff2f5d2eba182ad-2699229457358222305.jpg",
+      },
+      {
+        _id: "5feb5c90155c740037c4eb39",
+        link: "7afaf8d1c251334cd4ed744916b188c129122020.jpg",
+        alt: "c8fd60e1740eaf99d14b165f99186a75-2699229443380002741.jpg",
+      },
+      {
+        _id: "5feb5c90155c740037c4eb3a",
+        link: "cbc3011d1e99c5287e691b79df879e3229122020.jpg",
+        alt: "cf6b1f5cc1c145535f0ea71b664ef74c-2699229455802554883.jpg",
+      },
+      {
+        _id: "5feb5c90155c740037c4eb3b",
+        link: "df4f0e9e1fc98f0eda2342d58000b3e329122020.jpg",
+        alt: "d3813c89b3bc1b7590403b295ccc6b6b-2699229454374880572.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Mitsubishi" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2019" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Số sàn" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Xpander" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Minivan (MPV)" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:42:56.617Z",
+    updatedAt: "2020-12-29T16:42:56.617Z",
+  },
+  {
+    price: 495000000,
+    countInStock: 1,
+    _id: "5feb5d01155c740037c4eb45",
+    name: "Teana 200XE nhập NHẬT 2011 siêu mới",
+    description:
+      "🚘 𝐍𝐢𝐬𝐬𝐚𝐧 𝐓𝐞𝐚𝐧𝐚 𝟐𝟎𝟎𝟎𝐗𝐄 𝐧𝐡𝐚̣̂𝐩 𝐍𝐇𝐀̣̂𝐓 𝟐𝟎𝟏𝟏 𝐦𝐨̛́𝐢 𝐧𝐡𝐚̂́𝐭 𝐭𝐡𝐮̉ đ𝐨̂\n🔹 𝐒𝐚̉𝐧 𝐱𝐮𝐚̂́𝐭: 2010 đăng ký 2011\n🔹 𝙊𝙙𝙤: 8,8 vạn Kilometer\n🔹 𝑷𝒉𝒂́𝒑 𝒍𝒚́ : Cá nhân một chủ từ mới\n🔹 𝐏𝐡𝐢𝐞̂𝐧 𝐛𝐚̉𝐧 : Teana 2000XE nhập NHẬT trang bị ghế da cao cấp, phanh abs, ebd, điều hoà tự động, hộp số CVT\n🔹 𝐓𝐢̀𝐧𝐡 𝐭𝐫𝐚̣𝐧𝐠 𝐭𝐡𝐮̛̣𝐜 𝐭𝐞̂́: Còn rất mới, nội ngoại thất đẹp, rất ít xe cùng đời có được độ mới như xe này, bảo dưỡng chính hãng đầy đủ, máy móc, thân vỏ nguyên bản tuyệt đối....\n💵 𝑮𝒊𝒂́ 𝒃𝒂́𝒏: 499.𝟎𝟎𝟎.𝟎𝟎𝟎 𝐯𝐧đ\n🏦 Hỗ trợ ngân hàng: 200.𝟎𝟎𝟎.𝟎𝟎𝟎 vnđ\n\n————————————————\n❌Nói không với xe đâm đụng ngập nước.\n💯Được ký hợp đồng mua bán như chính hãng bảo đảm quyền lợi, nếu vi phạm cam kết trong hợp đồng kinh tế, khách hàng có thể khởi kiện ra toà.\n💯Bao check toàn quốc.\n💯 Xe bán được công ty bảo hành 03- 24 tháng, trước giao xe cty tặng gói bảo dưỡng cơ bản bao gồm: thay dầu, lọc các loại và bảo dưỡng gầm, phanh, nước làm mát....\n- Miễn phí thay dầu 1 năm\n- Miễn phí kiểm tra định kỳ 1 năm\n💯Hỗ trợ sang tên chính chủ.",
+    image: [
+      {
+        _id: "5feb5d01155c740037c4eb47",
+        link: "e914f823e4ba0dc247832707cf9d7fb029122020.jpg",
+        alt: "11fa2c725f64c6debf1ab76239e53044-2691264936289983248.jpg",
+      },
+      {
+        _id: "5feb5d01155c740037c4eb48",
+        link: "f9bb2b227446708594fd223356412b2129122020.jpg",
+        alt: "251c4cbbad4de0096893c83333612ed5-2691264942061088758.jpg",
+      },
+      {
+        _id: "5feb5d01155c740037c4eb49",
+        link: "9405b90bc98799782df8a1b2a31315be29122020.jpg",
+        alt: "35e21dde0bfbc58313753cca7192c9bc-2691264941357409921.jpg",
+      },
+      {
+        _id: "5feb5d01155c740037c4eb4a",
+        link: "e00ceafe1e7ac6bd463baebbf94811b629122020.jpg",
+        alt: "ef4f0728162617ee7882a7d4455d457e-2691264938655634353.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Nissan" },
+      { _id: "5fe949edbce39a002f0175d3", value: "Teana" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2011" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "Sedan" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:44:49.696Z",
+    updatedAt: "2020-12-29T16:44:49.696Z",
+  },
+  {
+    price: 769000000,
+    countInStock: 3,
+    _id: "5feb5d67155c740037c4eb54",
+    name: "Audi A5 Sline Sportback 2011",
+    description:
+      "Đẳng cấp Từ xe cho đến biển\nAudi A5 S-line 2011 full kịch cỡ- hàng cực hiếm, 211 mã lực\n- phiên bản A5 2.0 TFS tăng áp kết hợp gói S-Line fulloption: Túi khí quanh xe, ghế điện 2 ghế, 12 loa Bang of Olufsen, cửa nóc Pranonama toàn cảnh, khởi động Star/Stop, dẫn động 4 bánh",
+    image: [
+      {
+        _id: "5feb5d67155c740037c4eb56",
+        link: "379fb5577eb89c1f4e9d6c347527000329122020.jpg",
+        alt: "03f5d05aa1611d64a5c39c9ec56cee1d-2675483194431343750.jpg",
+      },
+      {
+        _id: "5feb5d67155c740037c4eb57",
+        link: "aab155ab731103755834ffd7191ecafc29122020.jpg",
+        alt: "5ec2b734c71006917dd4bcf219d83504-2675483188928192430.jpg",
+      },
+      {
+        _id: "5feb5d67155c740037c4eb58",
+        link: "d21b559bc68bd120290f1ffedf711e1e29122020.jpg",
+        alt: "8ab591824d6acf559776b4871fe83a77-2675483189802016104.jpg",
+      },
+      {
+        _id: "5feb5d67155c740037c4eb59",
+        link: "fcfe8e935255561937abd68b5edaa90c29122020.jpg",
+        alt: "9d6e23372557a21df20df31a2ce5ae46-2675483187704798568.jpg",
+      },
+      {
+        _id: "5feb5d67155c740037c4eb5a",
+        link: "28e3eb7a68f34df53989475efa6a1b5229122020.jpg",
+        alt: "c24306acbaba60643a936de78fc2120d-2675483191983119720.jpg",
+      },
+    ],
+    category: "/xe-co/o-to",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94907bce39a002f0175cf", value: "Audi" },
+      { _id: "5fe949edbce39a002f0175d3", value: "A5" },
+      { _id: "5fe949edbce39a002f0175d4", value: "2011" },
+      { _id: "5fe949edbce39a002f0175d5", value: "Đã sử dụng" },
+      { _id: "5fe949edbce39a002f0175d6", value: "Tự động" },
+      { _id: "5fe949edbce39a002f0175d7", value: "Xăng" },
+      { _id: "5fe949edbce39a002f0175d8", value: "Nước khác" },
+      { _id: "5fe949edbce39a002f0175d9", value: "SUV" },
+      { _id: "5fe949edbce39a002f0175da", value: "5" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:46:31.835Z",
+    updatedAt: "2020-12-29T16:46:31.835Z",
+  },
+  {
+    price: 22000000,
+    countInStock: 20,
+    _id: "5feb5e08155c740037c4eb64",
+    name: "Exciter+ Winner đủ các loại",
+    description:
+      "Shop có đầy đủ các loại\n- Exciter 150 cc, Winner 150, giá thấp chỉ 22tr.\n- bao test 7 gày, bảo hành máy 3-12 tháng/. lỗi 1 đổi 1\n- có hỗ trợ sang tên đổi chủ cho khách có nhu cầu sử dụng\n- có dịch vụ trả góp,\n- SDT+Zalo liên hệ",
+    image: [
+      {
+        _id: "5feb5e08155c740037c4eb66",
+        link: "104529d7534cd1157afeeb09b03c684429122020.jpg",
+        alt: "857b15d0bc50a867bbf66f197044fed6-2683017146309492847.jpg",
+      },
+      {
+        _id: "5feb5e08155c740037c4eb67",
+        link: "3d5fa7b6920db77827da8baf60b4994129122020.jpg",
+        alt: "aa4197a1043a41ee0935c000c8c80173-2683017146312046231.jpg",
+      },
+      {
+        _id: "5feb5e08155c740037c4eb68",
+        link: "876b064e5a9329d8a02c4551655f261b29122020.jpg",
+        alt: "cda383eea9cc20186ab76534cfc00551-2683017146963124374.jpg",
+      },
+      {
+        _id: "5feb5e08155c740037c4eb69",
+        link: "0afea0f9aa5bde7f4757bd49da010aad29122020.jpg",
+        alt: "cdf1372e5e5599f3d1475f84c5612136-2683017109121699516.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Yamaha" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "Exciter" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2017" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "10000" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay côn/Moto" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:49:12.870Z",
+    updatedAt: "2020-12-29T16:49:12.870Z",
+  },
+  {
+    price: 64000000,
+    countInStock: 1,
+    _id: "5feb5e83155c740037c4eb70",
+    name: "SH 150i nâu 2009",
+    description:
+      '❤XE ĐẸP - CHÀO BÁN❤️\n‼SH Nhập Italia 150i 2009 đăng kí năm 2009 màu nâu biển 29L5-193.58\n✔️Xe sản xuất và đăng ký 2009 màu nâu đẳng cấp sang trọng\n✔️Xe quá mới, cam kết không thể mới hơn máy zil tuyệt đối👍🏻.\n✔️Chất lượng xe miễn bàn, máy cực êm, cực bốc.\n✔️Xe mua chính chủ viết giấy, đầy đủ giấy tờ, phụ kiện theo xe, an ninh tuyệt đối.\n\n-----------💎💎💎-----------\n✅ Quyền Lợi Khách Hàng Khi Mua Xe"\n1️⃣ Bảo hành xe 1 năm về động cơ và máy.\n2️⃣ Bảo hành an ninh và giấy tờ xe trọn đời.\n3️⃣ Bao test xe đổi tẹt ga trong vòng 7 ngày, có đội ngũ kĩ thuật hỗ trợ 24/24\n4️⃣ Hỗ trợ đổi các xe.\n5️⃣ Mua lại xe giá cao khi khách không có nhu cầu sử dụng.\n6️⃣ Có hỗ trợ thủ tục sang tên đổi chủ( nếu khách hàng có nhu cầu.)',
+    image: [
+      {
+        _id: "5feb5e83155c740037c4eb72",
+        link: "6e0bbc07ddc323c9d6c813e1ab98c10b29122020.jpg",
+        alt: "1bf3e76376f894a055de63d0549249dd-2697957411577349601.jpg",
+      },
+      {
+        _id: "5feb5e83155c740037c4eb73",
+        link: "890171bae271718e082902efb986202b29122020.jpg",
+        alt: "77b0e6a917fa074229d9e0a842ded7ac-2697957395856508385.jpg",
+      },
+      {
+        _id: "5feb5e83155c740037c4eb74",
+        link: "866e8f2b7e69131256cfe3e70452c1b029122020.jpg",
+        alt: "deeb26c3d48b3895bd534d172ff36170-2697957405485007128.jpg",
+      },
+      {
+        _id: "5feb5e83155c740037c4eb75",
+        link: "67ce3320f665e2a27baba119b3843e6629122020.jpg",
+        alt: "f433924442708d8f650b7ed378c7f1ff-2697957404698494433.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Honda" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "SH" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2009" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "18000" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay ga" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:51:15.093Z",
+    updatedAt: "2020-12-29T16:51:15.093Z",
+  },
+  {
+    price: 95000000,
+    countInStock: 1,
+    _id: "5feb5ede155c740037c4eb7c",
+    name: "Spacy Nhật trắng",
+    description:
+      '❤XE ĐẸP - CHÀO BÁN❤️\n‼Spacy Nhập Japan 2009 đăng kí năm 2009 màu trắng biển 30H4-1975\n✔️Xe sản xuất và đăng ký 2009 số máy chót 222 màu trắng đẳng cấp sang trọng\n✔️Xe quá mới, cam kết không thể mới hơn máy zil tuyệt đối👍🏻.\n✔️Chất lượng xe miễn bàn, máy cực êm, cực bốc.\n✔️Xe mua chính chủ viết giấy, đầy đủ giấy tờ, phụ kiện theo xe, an ninh tuyệt đối.\n\n-----------💎💎💎-----------\n✅ Quyền Lợi Khách Hàng Khi Mua Xe"\n1️⃣ Bảo hành xe 1 năm về động cơ và máy.\n2️⃣ Bảo hành an ninh và giấy tờ xe trọn đời.\n3️⃣ Bao test xe đổi tẹt ga trong vòng 7 ngày, có đội ngũ kĩ thuật hỗ trợ 24/24\n4️⃣ Hỗ trợ đổi các xe.\n5️⃣ Mua lại xe giá cao khi khách không có nhu cầu sử dụng.\n6️⃣ Có hỗ trợ thủ tục sang tên đổi chủ( nếu khách hàng có nhu cầu.)',
+    image: [
+      {
+        _id: "5feb5ede155c740037c4eb7e",
+        link: "21b557a5b4deeb2f5875f5e6708981f429122020.jpg",
+        alt: "38049e7187b4b1ba6a18a053981c89b3-2697271255986707114.jpg",
+      },
+      {
+        _id: "5feb5ede155c740037c4eb7f",
+        link: "c89dc06c463c4a18d911aeca3e817eb529122020.jpg",
+        alt: "d8ac13015ca5874f98380be0d715d9f2-2697271256402859758.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Honda" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "Spacy" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2009" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "16000" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay ga" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:52:46.081Z",
+    updatedAt: "2020-12-29T16:52:46.081Z",
+  },
+  {
+    price: 52000000,
+    countInStock: 1,
+    _id: "5feb5f1f155c740037c4eb86",
+    name: "SH 150i đen 2008",
+    description:
+      '❤XE ĐẸP - CHÀO BÁN❤️\n‼SH Nhập Italia 150i 2008 đăng kí năm 2008 màu đen biển 29X4-7168\n✔️Xe sản xuất và đăng ký 2008 màu đen đẳng cấp sang trọng\n✔️Xe quá mới, cam kết không thể mới hơn máy zil tuyệt đối👍🏻.\n✔️Chất lượng xe miễn bàn, máy cực êm, cực bốc.\n✔️Xe mua chính chủ viết giấy, đầy đủ giấy tờ, phụ kiện theo xe, an ninh tuyệt đối.\n\n-----------💎💎💎-----------\n✅ Quyền Lợi Khách Hàng Khi Mua Xe"\n1️⃣ Bảo hành xe 1 năm về động cơ và máy.\n2️⃣ Bảo hành an ninh và giấy tờ xe trọn đời.\n3️⃣ Bao test xe đổi tẹt ga trong vòng 7 ngày, có đội ngũ kĩ thuật hỗ trợ 24/24\n4️⃣ Hỗ trợ đổi các xe.\n5️⃣ Mua lại xe giá cao khi khách không có nhu cầu sử dụng.\n6️⃣ Có hỗ trợ thủ tục sang tên đổi chủ( nếu khách hàng có nhu cầu.)',
+    image: [
+      {
+        _id: "5feb5f1f155c740037c4eb88",
+        link: "1f96c83c9654e0adbef33bd34a0b606429122020.jpg",
+        alt: "38049e7187b4b1ba6a18a053981c89b3-2697271255986707114.jpg",
+      },
+      {
+        _id: "5feb5f1f155c740037c4eb89",
+        link: "b2b2d492ff7b97dd6b93dd9af4f47f9129122020.jpg",
+        alt: "d8ac13015ca5874f98380be0d715d9f2-2697271256402859758.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Honda" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "SH" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2008" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "19000" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay ga" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:53:51.151Z",
+    updatedAt: "2020-12-29T16:53:51.151Z",
+  },
+  {
+    price: 82000000,
+    countInStock: 1,
+    _id: "5feb5f7d155c740037c4eb90",
+    name: "Honda SH 300i 2008 chính chủ",
+    description:
+      "Xe SH 300i 12/2008 máy rin 100% bao sang tên\n- mua mới 1đời chủ bao sang tên liền trong ngày\n- cam đoan 100% rin. Khi mua bao ra hãng kiểm tra\n- xe đẹp keng.quá ngầu và sang chảnh\n- tổng thể xe đẹp nức lòng người.xem xe kết ngay\n- mua mới rất ích sử dụng.nên còn keng.\n- máy rin 100% ko đụng đến 1con ốc nhỏ nào",
+    image: [
+      {
+        _id: "5feb5f7d155c740037c4eb92",
+        link: "256bfcb9dc99d0c2455ff6d5f6878b4329122020.jpg",
+        alt: "54a1fe8a8be7505cc8a8d18e7624c6b8-2697932823333783009.jpg",
+      },
+      {
+        _id: "5feb5f7d155c740037c4eb93",
+        link: "8f26fddd72a6a85ff8978c24e939c0c729122020.jpg",
+        alt: "855b871b7741997a8d0d24ecfdeb5cf8-2697932823205425883.jpg",
+      },
+      {
+        _id: "5feb5f7d155c740037c4eb94",
+        link: "3dcb6aad3238545d59c837248562411229122020.jpg",
+        alt: "ddae5af0e76f6f1a63c45881099bf285-2697932823356238602.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Honda" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "SH" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2008" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "25" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay ga" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:55:25.124Z",
+    updatedAt: "2020-12-29T16:55:25.124Z",
+  },
+  {
+    price: 29000000,
+    countInStock: 1,
+    _id: "5feb5ffa155c740037c4eb9b",
+    name: "Air Blade Fi màu cam đen 2016",
+    description:
+      "Air Blade mẫu mới 2016,màu đen cam,động cơ Fi mạnh vọt,êm ái,tiết kiệm,máy móc zin nguyên bản,đã lắp thêm chip báo động và khóa thắng đĩa chống trộm,vỏ xe mới tinh.",
+    image: [
+      {
+        _id: "5feb5ffa155c740037c4eb9d",
+        link: "15b2ce63dbbd5fe347451e478630bf9629122020.jpg",
+        alt: "61257cd5aa2089a7dcbc5a20810edc69-2697827375082140331.jpg",
+      },
+      {
+        _id: "5feb5ffa155c740037c4eb9e",
+        link: "db258f249fbf6d794e3917c759d1cb2929122020.jpg",
+        alt: "7fd8ccbaa0f26f693a9b27d8de7658a4-2697827393638068907.jpg",
+      },
+      {
+        _id: "5feb5ffa155c740037c4eb9f",
+        link: "6694e3904ec049773bfada290423452329122020.jpg",
+        alt: "8023b9c1c9eebec26b30d5b3c0050f92-2697827388255812064.jpg",
+      },
+      {
+        _id: "5feb5ffa155c740037c4eba0",
+        link: "5efe35fdc702c02b5af5f56093e8527729122020.jpg",
+        alt: "855f6d7958a1f17024bbd7f54d3c8914-2697827383641030212.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Honda" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "Air Blade" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "2016" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "25000" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Tay ga" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:57:30.058Z",
+    updatedAt: "2020-12-29T16:57:30.058Z",
+  },
+  {
+    price: 168000000,
+    countInStock: 1,
+    _id: "5feb6057155c740037c4eba7",
+    name: "Suzuki Sport / Xipo satria đời 99",
+    description:
+      "Xe ngay mình đứng tên biển đồng nai.\n-xe satria 99 lên dull 2003 ngay chủ xe hải quan\n-số khung số máy rin đã qua giám định kĩ\n-bao ae mua tỉnh thành nào sang tên ko được 1đền 2khỏi lăn tăng suy nghĩ nhé.\n-cam đoan xe bên ngoài keng hơn trong hình giọn từng con ốc.từng chi tiết nhỏ nha ae.\n-cục máy siêu nhẹ.êm bốc và chất..\n-phuộc trước sau bao ko sàng lắc.chạy rất thích.\n-dàn ngoài keng.ko trầy nhìn rất mới....",
+    image: [
+      {
+        _id: "5feb6057155c740037c4eba9",
+        link: "5a84e5559575d0c2c1cb7243671a0d4129122020.jpg",
+        alt: "36a0b9465c137fc58eed57dac7570206-2694727221435994412.jpg",
+      },
+      {
+        _id: "5feb6057155c740037c4ebaa",
+        link: "2b5deafb8ab3837aedba0843f28c7dec29122020.jpg",
+        alt: "6b866dab4ed0e94ae95b0c2291ca8eba-2694727214408524478.jpg",
+      },
+      {
+        _id: "5feb6057155c740037c4ebab",
+        link: "fd2e3e4019c71351158c2852fb287e6329122020.jpg",
+        alt: "900fe0c729bd65a175ff522723806283-2694727227405179230.jpg",
+      },
+      {
+        _id: "5feb6057155c740037c4ebac",
+        link: "560f57c8ba64e8e0d5e6ea18604703cf29122020.jpg",
+        alt: "a8b18c9f4a7169115b81c0ef4fe6334c-2694727220944823577.jpg",
+      },
+    ],
+    category: "/xe-co/xe-may",
+    user: "5fa7fb0a62083e11ace57490",
+    properties: [
+      { _id: "5fe94b1fbce39a002f0175e5", value: "Suzuki" },
+      { _id: "5fe94b1fbce39a002f0175e6", value: "Sport / Xipo" },
+      { _id: "5fe94b1fbce39a002f0175e7", value: "1999" },
+      { _id: "5fe94b1fbce39a002f0175e8", value: "5525" },
+      { _id: "5fe94b1fbce39a002f0175e9", value: "Đã sử dụng" },
+      { _id: "5fe94b1fbce39a002f0175ea", value: "Xe số" },
+    ],
+    __v: 0,
+    createdAt: "2020-12-29T16:59:03.885Z",
+    updatedAt: "2020-12-29T16:59:03.885Z",
   },
 ];
