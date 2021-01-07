@@ -14,7 +14,7 @@ import {
   categoryUpdateReducer,
 } from "./reducers/categoryReducer";
 import { profileReducer } from "./reducers/profileReducer";
-import { accountReducer } from "./reducers/accountReducer";
+import { accountReducer, confirmTelAccount } from "./reducers/accountReducer";
 import { notifyReducer } from "./reducers/notifyReducer";
 import { walletReducer } from "./reducers/walletReducer";
 import { imagesUploadReducer } from "./reducers/imageReducer";
@@ -40,7 +40,8 @@ const reducer = combineReducers({
   getSlider:getsliderReducer,
   addSlider:addsliderReducer,
   removeSlider:removeSliderReducer,
-  editSlider:editSliderReducer
+  editSlider:editSliderReducer,
+  confirmTelAccount:confirmTelAccount
 });
 export type AppState = ReturnType<typeof reducer>;
 

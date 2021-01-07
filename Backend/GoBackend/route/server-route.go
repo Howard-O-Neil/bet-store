@@ -30,8 +30,7 @@ func RouteAccount(app *gin.Engine) {
 	app.POST("api/account/signup", controller.SignupHandle)
 
 	app.POST("api/account/password", middlewares.AuthorizeJWT(), controller.ChangePasswordHandle)
-	//app.POST("api/account/sendsms", controller.ConfirmTelbySMS)
-
+	app.POST("api/account/sendsms", controller.ConfirmTelbySMS)
 	//app.POST("api/account/checkkeycode", controller.CheckTelbySMS)
 }
 
