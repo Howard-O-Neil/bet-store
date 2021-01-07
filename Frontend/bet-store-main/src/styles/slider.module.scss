@@ -25,6 +25,13 @@
     .BodyList {
         .BtnErase{
             position: absolute;
+            cursor: pointer;
+            >i{
+                font-size: 24px;
+                margin: 0px !important;
+                background-color: white;
+                color: brown;
+            }
         }
     }
 

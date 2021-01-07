@@ -6,7 +6,6 @@ export const UploadImage = (file: File) => async (dispatch: React.Dispatch<Actio
     dispatch(UploadImage_Request());
     var data = new FormData();
     data.append('files', file);
-
     var config: AxiosRequestConfig = {
         method: 'post',
         url: '/cdn/upload',

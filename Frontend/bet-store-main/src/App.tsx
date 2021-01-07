@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Switch, useHistory, useLocation } from "react-router";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 //import Login from './components/Login';
 import "../src/resource/font-awesome/css/font-awesome.min.css";
@@ -13,24 +13,12 @@ import Header from "./components/header/Header";
 import Home from "./screen/home/home";
 import FooterView from "./components/footer/Footer";
 import ProductScreen from "./screen/ProductScreen";
-import AddProductScreen from "./screen/AddProductScreen";
-import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
-import {
-  accountInfoReducer,
-  conversationControlReducer,
-  messageControlReducer,
-  socketInfoReducer,
-  viewControlReducer,
-} from "./reducers/chatBoxReducer";
 
 import ProductEditScreen from "./screen/ProductEditScreen";
 
-import ChatBox from "./components/ChatBox";
 import Profile from "./screen/profile/profile";
 import NotifyContainer from "./components/NotifyContainer";
 import { useDispatch } from "react-redux";
-import { AddNotify } from "./actions/notifyAction";
 import CategoryListScreen from "./screen/CategoryListScreen";
 import CategoryViewScreen from "./screen/CategoryViewScreen";
 import CategoryEditScreen from "./screen/CategoryEditScreen";
@@ -38,7 +26,6 @@ import { AdminScreen } from "./screen/AdminScreen";
 import { Page404Screen } from "./screen/404Screen";
 
 function App() {
-  const dispatch = useDispatch();
   return (
     <div>
       <BrowserRouter>
@@ -75,8 +62,9 @@ function App() {
             edit={false}
           ></Route>
           <Route path="/profile" component={Profile} exact></Route>
-          <Route path="/admin/:tabname" component={AdminScreen}>
+          <Route path="/admin/:tabname" component={AdminScreen} exact>
           </Route>
+          <Route path="/admin" exact> <Redirect to="/admin/slider" /></Route>
           <Route path="/NotFound" component={Page404Screen} exact />
         </Switch>
         {/* <Provider

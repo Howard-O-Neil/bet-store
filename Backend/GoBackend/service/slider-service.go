@@ -15,8 +15,8 @@ const SliderCollection = "Slider"
 type SliderService interface {
 	AddSlider(enti entity.SliderEntity) (bson.ObjectId, error)
 	GetAllSlider() ([]entity.SliderEntity, error)
-	EditSlider() (bool, error)
-	DelSlider(string) (bson.ObjectId, error)
+	EditSlider(enti entity.SliderEntity) (bson.ObjectId, error)
+	DelSlider(id string) (bson.ObjectId, error)
 }
 
 type SliderDataService struct {
@@ -60,12 +60,14 @@ func (c *SliderDataService) AddSlider(enti entity.SliderEntity) (bson.ObjectId, 
 	return _id, nil
 }
 
-func (c *SliderDataService) EditSlider() (bool, error) {
-	return false, nil
+func (c *SliderDataService) EditSlider(enti entity.SliderEntity) (bson.ObjectId, error) {
+	err := c.collection.Update(bson.M{"_id": enti.ID}, bson.M{"$set": bson.M{"link": enti.Link, "alt": enti.Alt, "href": enti.Href}})
+	return enti.ID, err
 }
 
 func (c *SliderDataService) DelSlider(id string) (bson.ObjectId, error) {
 
+	fmt.Println(id)
 	objectId := bson.ObjectIdHex(id)
 
 	err := c.collection.Remove(bson.M{"_id": objectId})
