@@ -4,6 +4,8 @@ import (
 	"GoBackend/entity"
 	"GoBackend/service"
 	mongodbservice "GoBackend/service/repository-service"
+	"GoBackend/utility"
+	"regexp"
 
 	"fmt"
 	"net/http"
@@ -67,8 +69,11 @@ type BsonAccountEntity struct {
 func SignupHandle(ctx *gin.Context) {
 	var account entity.AccountEntity
 	ctx.BindJSON(&account)
+
+	fmt.Println(account.Tel)
+
 	account.Password, _ = HashPassword(account.Password)
-	//fmt.Println(account.Password)
+	fmt.Println(account)
 	sec, err := mongodbservice.NewDBService()
 	if err != nil {
 		msg := fmt.Sprintf("[ERROR] Database connect faile: %s", err.Error())
@@ -85,6 +90,25 @@ func SignupHandle(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(1007, "Username already exists"))
 		return
 	}
+
+	//check keycode
+
+	{
+		c1 := sec.GetSession().DB(os.Getenv("NAME_DATABASE")).C("KeyCodeTel")
+
+		var keyCodeTel KeyCodeTel
+		fmt.Println("[csdcsdcsdc]" + account.Tel + " " + account.Keycode)
+		c1.Find(bson.M{"tel": account.Tel, "key": account.Keycode}).One(&keyCodeTel)
+		if keyCodeTel == (KeyCodeTel{}) {
+			ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(1007, "Keycode wrong or expired!!!"))
+			return
+		}
+		err = c.Remove(keyCodeTel)
+		if err != nil {
+			fmt.Errorf("%s\n", err)
+		}
+	}
+
 	account.ID = bson.NewObjectId()
 	savedata := BsonAccountEntity{
 		ID:       account.ID,
@@ -99,14 +123,17 @@ func SignupHandle(ctx *gin.Context) {
 	}
 	account.Profile.AccountID = account.ID
 	account.Profile.Username = account.Username
-	_, err = Profileservice.AddProfile(account.Profile)
+	idProfile, err := Profileservice.AddProfile(account.Profile)
 
 	if err != nil {
 		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusConflict, err.Error()))
 	} else {
+		_, err = Walletservice.NewWalletforProfile(idProfile)
+		if err != nil {
+			fmt.Println("[AccountSignup] Create wallet fail: " + err.Error())
+		}
 		ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"msg": "Account created"}))
 	}
-
 }
 
 func HashPassword(password string) (string, error) {
@@ -122,9 +149,6 @@ func CheckPasswordHash(password, hash string) bool {
 func ChangePasswordHandle(ctx *gin.Context) {
 	var passwordChangeEntity entity.PasswordChangeEntity
 	err := ctx.BindJSON(&passwordChangeEntity)
-
-	// passHashed, err := HashPassword(passwordChangeEntity.NewPassword)
-	// fmt.Println(passHashed)
 	if err != nil {
 		ctx.JSON(200, service.CreateMsgErrorJsonResponse(http.StatusBadRequest, "format body wrong"))
 		return
@@ -155,13 +179,28 @@ func ChangePasswordHandle(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusFound, "Password wrong"))
 		return
 	}
-
 }
 
-/*
 func ConfirmTelbySMS(ctx *gin.Context) {
 	var account entity.AccountEntity
 	ctx.BindJSON(&account)
+
+	if account.Username == "" {
+		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(1008, "Username already exists"))
+		return
+	}
+
+	if account.Tel == "" {
+		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(1009, "Phone null"))
+		return
+	}
+
+	//check username exist
+	if res, _ := AccountService.CheckUsernameExist(account.Username); res == true {
+		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(1007, "Username already exists"))
+		return
+	}
+
 	sec, err := mongodbservice.NewDBService()
 	if err != nil {
 		msg := fmt.Sprintf("[ERROR] Database connect faile: %s", err.Error())
@@ -176,12 +215,19 @@ func ConfirmTelbySMS(ctx *gin.Context) {
 		return
 	}
 
-	c := sec.GetSession().DB(utility.GetConfigServerbyKey(utility.Database).(utility.DatabaseStruct).NAME_DATABASE).C("KeyCodeTel")
+	c := sec.GetSession().DB(os.Getenv("NAME_DATABASE")).C("KeyCodeTel")
 
 	keyCodeTel := KeyCodeTel{Tel: account.Tel, Time: time.Now(), Key: utility.GenerateKeycode()}
 
 	if n, _ := c.Find(bson.M{"tel": account.Tel}).Count(); n > 5 {
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "You have been limited to the number of submissions!!!"})
+		return
+	}
+
+	err = c.Insert(&keyCodeTel)
+
+	if err != nil {
+		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(1009, "Database Error!!!"))
 		return
 	}
 
@@ -192,12 +238,8 @@ func ConfirmTelbySMS(ctx *gin.Context) {
 		return
 	}
 
-	err = c.Insert(&keyCodeTel)
-	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err})
-	} else {
-		ctx.JSON(200, gin.H{"msg": "Send keycode success"})
-	}
+	ctx.JSON(200, gin.H{"msg": "Send keycode success"})
+
 }
 
 func CheckTelbySMS(ctx *gin.Context) {
@@ -211,7 +253,7 @@ func CheckTelbySMS(ctx *gin.Context) {
 		return
 	}
 
-	c := sec.GetSession().DB(utility.GetConfigServerbyKey(utility.Database).(utility.DatabaseStruct).NAME_DATABASE).C("KeyCodeTel")
+	c := sec.GetSession().DB(os.Getenv("NAME_DATABASE")).C("KeyCodeTel")
 
 	var keyCodeTel KeyCodeTel
 	c.Find(bson.M{"tel": account.Tel, "key": account.Keycode}).One(&keyCodeTel)
@@ -226,4 +268,3 @@ func CheckTelbySMS(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, gin.H{"msg": "Confirm tel success"})
 }
-*/

@@ -5,25 +5,19 @@ import {
   getProductById,
   deleteProduct,
   updateProduct,
+  getRamdomProduct,
 } from "../controller/productController.js";
+import authenticate from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-// @desc Fetch all products
-// @route GET /api/products
-// @access Public
 router.route("/").get(getProducts).post(createProduct);
 
-// @desc Fetch single product
-// @route GET /api/products/:id
-// @access Public
+router.route("/random").get(getRamdomProduct);
+
 router
   .route("/:id")
   .get(getProductById)
-  .delete(deleteProduct)
-  .put(updateProduct);
-
-// @desc Create single product
-// @route POST /api/products/
-// @access User only
+  .delete(authenticate, deleteProduct)
+  .put(authenticate, updateProduct);
 
 export default router;

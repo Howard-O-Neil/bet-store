@@ -70,6 +70,7 @@
 [2020-12-13 22:31:37] [main] INFO  com.helper.LogUtils  - 
 ========== Service Restarted ==========
 
+<<<<<<< HEAD
 [2020-12-14 12:26:25] [main] INFO  com.helper.LogUtils  - 
 ========== Service Restarted ==========
 
@@ -184,5 +185,89 @@ Caused by: java.lang.IllegalArgumentException: invalid hexadecimal representatio
 ========== Service Restarted ==========
 
 [2020-12-30 05:45:27] [main] INFO  com.helper.LogUtils  - 
+=======
+[2020-12-16 07:19:23] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-20 07:37:55] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-20 07:59:22] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-21 15:49:49] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-21 15:53:35] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-22 04:48:33] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-23 01:08:03] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-28 09:34:32] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-29 07:54:58] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-29 13:22:30] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-30 03:20:29] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-30 03:32:50] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-30 03:41:18] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2020-12-30 03:52:20] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-02 06:06:15] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-02 06:17:49] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-03 05:20:01] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-03 08:10:04] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-04 08:31:20] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-06 07:15:03] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 00:54:26] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 02:19:05] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 04:02:02] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 08:13:52] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 12:59:26] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 14:31:13] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 14:38:43] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 16:05:51] [main] INFO  com.helper.LogUtils  - 
+>>>>>>> bf6a23dfbcd7916ac31acb5be47beea77a76775a
 ========== Service Restarted ==========
 

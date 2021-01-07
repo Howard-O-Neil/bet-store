@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Card, CardGroup, Container } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import Product from "../../components/Product";
 import Category from "../../components/Category";
-import { listProducts } from "../../actions/productActions";
+import { listRandomProducts } from "../../actions/productActions";
 import style from "../../styles/ProductDisplay.module.scss";
 import { listCategories } from "../../actions/categoryActions";
+import Carousel from "react-grid-carousel";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import { LinkContainer } from "react-router-bootstrap";
+
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
@@ -20,46 +25,76 @@ const HomeScreen = () => {
   } = categoryList;
 
   useEffect(() => {
-    dispatch(listProducts());
-    dispatch(listCategories());
+    document.title = "Bet Store";
+    dispatch(listRandomProducts({}));
+    dispatch(listCategories({ parent: "" }));
   }, [dispatch]);
 
   return (
     <>
-      <Container className={style.categoryContainer}>
-        <Row>
-          <h4>Danh mục</h4>
-        </Row>
-        <Row>
+      <div className="container">
+        <div className={style.categoryContainer}>
+          <div className={style.category_header}>
+            <h4 className={style.title}>Danh mục</h4>
+          </div>
+
           {loadingCategories ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : errorCategories ? (
-            <h3>{errorCategories}</h3>
+            <Message variant="danger">{errorCategories}</Message>
           ) : (
-            <Container>
-              <Row className={style.categoryDisplay}>
-                {categories.map((category) => (
-                  <Category className={style.category} category={category} />
+            <Carousel
+              cols={5}
+              rows={2}
+              gap={10}
+              responsiveLayout={[
+                {
+                  breakpoint: 1200,
+                  cols: 3,
+                },
+                {
+                  breakpoint: 990,
+                  cols: 2,
+                },
+                {
+                  breakpoint: 500,
+                  cols: 1,
+                },
+              ]}
+              loop
+            >
+              {categories.map((category) => (
+                <Carousel.Item>
+                  <Category category={category} />
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
+        </div>
+        <div className={`${style.productContainer} container`}>
+          <div className={style.titleGroup}>
+            <h4 className={style.title}>Sản phẩm</h4>
+          </div>
+          <div>
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
+              <Row>
+                {products.map((product) => (
+                  <Product product={product} />
                 ))}
               </Row>
-            </Container>
-          )}
-        </Row>
-      </Container>
-      <h4>Sản phẩm</h4>
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : error ? (
-        <h3>{error}</h3>
-      ) : (
-        <Container className={style.productContainer}>
-          <Row>
-            {products.map((product) => (
-              <Product className={style.product} product={product} />
-            ))}
-          </Row>
-        </Container>
-      )}
+            )}
+          </div>
+        </div>
+      </div>
+      <LinkContainer to="/mua-ban">
+        <Button className={style.button} type="button" variant="primary">
+          Xem Thêm
+        </Button>
+      </LinkContainer>
     </>
   );
 };

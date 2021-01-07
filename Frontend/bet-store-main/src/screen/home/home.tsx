@@ -11,8 +11,6 @@ export default function Home() {
     <div className="hello">
       <SliderView />
       <div className="container">
-        <i className="fas fa-bell"></i>
-
         <MainPage></MainPage>
       </div>
     </div>

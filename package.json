@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@types/sockjs-client": "^1.5.0",
-    "sockjs-client": "^1.5.0"
+    "@types/sockjs-client": "^1.5.0"
   }
 }

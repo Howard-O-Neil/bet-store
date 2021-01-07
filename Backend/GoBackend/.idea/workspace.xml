@@ -19,12 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0dbaac41-6d64-45f3-8f4e-38f1ce0c1143" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/server.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/server.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/bet-store-main/src/components/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/bet-store-main/src/components/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/bet-store-main/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/bet-store-main/src/store.js" afterDir="false" />
-    </list>
+    <list default="true" id="0dbaac41-6d64-45f3-8f4e-38f1ce0c1143" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

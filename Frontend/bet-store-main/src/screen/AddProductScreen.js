@@ -1,31 +1,50 @@
 import React, { useState, useEffect } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button, FormControl } from "react-bootstrap";
 
 import axios from "axios";
+import {
+  listCategories,
+  listCategoryDetails,
+} from "../actions/categoryActions";
 
-const nodeServer = process.env.REACT_APP_NODE_SERVER;
-const cdnServer = process.env.REACT_APP_CDN_SERVER;
+import { createProduct } from "../actions/productActions";
+import { uploadImage } from "../actions/imageActions";
+const AddProductScreen = ({ history }) => {
+  const dispatch = useDispatch();
 
-const ProductScreen = () => {
-  const [categories, setCategories] = useState([]);
-  const [categoryProperties, setPropertiesLabel] = useState([]);
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = categoryList;
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingProductCreate,
+    error: errorProductCreate,
+    success: successProductCreate,
+  } = productCreate;
+
+  //const [category, setCategory] = useState({});
+
+  let [categoryProperties, setPropertiesLabel] = useState([]);
   const [selectedFile, setFile] = useState(null);
   const [properties, setProperties] = useState([]);
-  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [countInStock, setCountInStock] = useState(0);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const { data } = await axios.get(`${nodeServer}/api/categories/`);
-      setCategories(data);
-    };
-    fetchCategories();
-  }, []);
+    dispatch(listCategories());
+  }, [dispatch]);
 
+  /* useEffect(() => {
+    setPropertiesLabel(category.properties);
+  }, [category]);*/
   useEffect(() => {
     categoryProperties.map((catProp) => {
       properties.push({
@@ -35,25 +54,29 @@ const ProductScreen = () => {
     });
   }, [categoryProperties]);
 
-  const fetchProperties = async (catId) => {
-    const { data } = await axios.get(`${nodeServer}/api/categories/${catId}`);
-    setPropertiesLabel(data.properties);
-    //console.log(data.properties);
-  };
-
   const onCategoryChange = async (event) => {
-    setCategory(event.target.value);
-    fetchProperties(event.target.value);
+    //console.log(event.target.value);
+
+    const selectedCat = categories.find((x) => x._id === event.target.value);
+    setProperties([]);
+    setPropertiesLabel(selectedCat.properties);
+    setCategoryId(event.target.value);
+
+    // console.log(categoryProperties);
+
+    // setCategory(categories.find((cat) => cat._id == event.target.value));
   };
 
   const onFileChange = (event) => {
     setFile(event.target.files);
+    console.log(selectedFile);
   };
 
   const onPropertyChange = (event) => {
+    console.log(properties);
+
     properties.find((prop) => prop.key === event.target.name).value =
       event.target.value;
-    console.log(properties);
   };
 
   const onSubmit = async (event) => {
@@ -69,29 +92,38 @@ const ProductScreen = () => {
       price: price,
       countInStock: countInStock,
       image: [],
-      category: category,
+      category: categoryId,
       user: "5fa7fb0a62083e11ace57490",
       properties: properties,
     };
-    await axios.post(`${cdnServer}/upload`, uploadFiledata, {}).then((res) => {
+    console.log(uploadFiledata.get("files"));
+    //console.log(uploadFiledata);
+    //dispatch(uploadImage(uploadFiledata));
+    //dispatch(createProduct(product, uploadFiledata));
+
+    /* await axios.post(`${cdnServer}/upload`, uploadFiledata, {}).then((res) => {
       Object.values(res.data).map((filename) => {
         product.image.push({
           link: filename,
           alt: null,
         });
       });
-    });
+    });*/
 
-    console.log(product);
-    axios
+    //console.log(product);
+    /* axios
       .post(`${nodeServer}/api/products`, product, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       })
-      .then((res) => console.log(res.data));
+      .then((res) => console.log(res.data));*/
   };
+
+  useEffect(() => {
+    if (successProductCreate) history.goBack();
+  }, [successProductCreate]);
 
   return (
     <>
@@ -139,13 +171,10 @@ const ProductScreen = () => {
         <Row>
           <Col>Loại sản phẩm</Col>
           <Col>
-            <Form.Control
-              as="select"
-              defaultValue="2"
-              name="category"
-              onChange={(e) => onCategoryChange(e)}
-            >
-              <option>Default select</option>
+            <Form.Control as="select" onChange={(e) => onCategoryChange(e)}>
+              <option selected disabled hidden>
+                Hãy chọn loại sản phẩm
+              </option>
               {categories.map((x) => (
                 <option key={x._id} value={x._id}>
                   {x.name}
@@ -187,4 +216,4 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default AddProductScreen;

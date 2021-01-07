@@ -15,6 +15,7 @@ const AccountCollection = "Account"
 type AccountService interface {
 	ChangePassword(id string, password string) error
 	GetPassword(id string) (string, error)
+	CheckUsernameExist(username string) (bool, error)
 }
 
 type AccountDataService struct {
@@ -54,4 +55,12 @@ func (c *AccountDataService) GetPassword(id string) (string, error) {
 		return "", err
 	}
 	return result.Password, nil
+}
+
+func (c *AccountDataService) CheckUsernameExist(username string) (bool, error) {
+	query := c.collection.Find(bson.M{"username": username})
+	if n, _ := query.Count(); n >= 1 {
+		return true, nil
+	}
+	return false, nil
 }
