@@ -7,6 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import style from "../styles/CategoryList.module.scss";
 
 const CategoryListScreen = ({ history }) => {
+  console.log(history);
   const dispatch = useDispatch();
 
   const [sortedCategory, setSortedCategory] = useState([]);
@@ -60,11 +61,11 @@ const CategoryListScreen = ({ history }) => {
           {sortedCategory.map((category, index) => (
             <tr key={category._id}>
               <th scope="row">
-                {[...Array(category.path.split("/").length - 2)].map(
+                {/* {[...Array(category.path.split("/").length - 2)].map(
                   (value) => (
                     <i class="fas fa-arrow-circle-right">&nbsp;</i>
                   )
-                )}
+                )} */}
               </th>
               <td className={`${category.parent === "" ? style.root_cat : ""}`}>
                 {category.name}

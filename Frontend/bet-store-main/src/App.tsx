@@ -34,21 +34,20 @@ import { AddNotify } from "./actions/notifyAction";
 import CategoryListScreen from "./screen/CategoryListScreen";
 import CategoryViewScreen from "./screen/CategoryViewScreen";
 import CategoryEditScreen from "./screen/CategoryEditScreen";
+import { AdminScreen } from "./screen/AdminScreen";
+import { Page404Screen } from "./screen/404Screen";
 
 function App() {
   const dispatch = useDispatch();
   return (
     <div>
       <BrowserRouter>
-        {/* <button onClick = {()=>{dispatch(AddNotify({path:"ddd",destination:"hahah",title:"betstore"}))}}>
-          test
-        </button> */}
-
         <NotifyContainer />
         <div className="headermain">
           <Header></Header>
         </div>
         <Switch>
+
           <Route path="/" exact>
             {Home}
           </Route>
@@ -61,24 +60,11 @@ function App() {
             <Login islogin={false} />
           </Route>
           <Route path="/product/:id" component={ProductScreen} exact></Route>
-          <Route
-            path="/profile/product"
-            component={ProductListScreen}
-            exact
-          ></Route>
+          <Route path="/profile/product" component={ProductListScreen} exact />
           <Route path="/categoryList" component={CategoryListScreen}></Route>
-          <Route
-            path="/profile/product/new"
-            render={(props) => <ProductEditScreen {...props} edit={false} />}
-          ></Route>
-          <Route
-            path="/profile/product/:id/edit"
-            render={(props) => <ProductEditScreen {...props} edit={true} />}
-          ></Route>
-          <Route
-            path="/mua-ban/:category"
-            component={CategoryViewScreen}
-          ></Route>
+          <Route path="/profile/product/new" render={(props) => <ProductEditScreen {...props} edit={false} />} />
+          <Route path="/profile/product/:id/edit" render={(props) => <ProductEditScreen {...props} edit={true} />} />
+          <Route path="/mua-ban/:category" component={CategoryViewScreen} />
           <Route path="/mua-ban" component={CategoryViewScreen}></Route>
           <Route
             path="/category/:id/edit"
@@ -90,8 +76,11 @@ function App() {
             edit={false}
           ></Route>
           <Route path="/profile" component={Profile} exact></Route>
+          <Route path="/admin/:tabname" component={AdminScreen}>
+          </Route>
+          <Route path="/NotFound" component={Page404Screen} exact />
         </Switch>
-        <Provider
+        {/* <Provider
           store={createStore(
             combineReducers({
               conversationControl: conversationControlReducer,
@@ -103,7 +92,7 @@ function App() {
           )}
         >
           <ChatBox></ChatBox>
-        </Provider>
+        </Provider> */}
         <FooterView></FooterView>
       </BrowserRouter>
     </div>

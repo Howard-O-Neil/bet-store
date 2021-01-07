@@ -41,3 +41,28 @@ func CreateSlider(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"_id": id}))
 }
+
+type ID_Slider struct {
+	ID string `json:"_id,omitempty" bson:"_id,omitempty"`
+}
+
+func DelSlider(ctx *gin.Context) {
+	var enti ID_Slider
+
+	err := ctx.BindJSON(&enti)
+
+	if err != nil {
+		fmt.Printf("[DelSlider] Map data failre: %s\n", err.Error())
+		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusBadRequest, "Map data failre"))
+		return
+	}
+
+	id, err := Sliderservice.DelSlider(enti.ID)
+
+	if err != nil {
+		fmt.Printf("[DelSlider] Not delete: %s\n", err.Error())
+		ctx.JSON(http.StatusOK, service.CreateMsgErrorJsonResponse(http.StatusBadRequest, "Create error: "+err.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"_id": id}))
+}

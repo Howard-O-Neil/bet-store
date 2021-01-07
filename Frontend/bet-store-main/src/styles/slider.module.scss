@@ -1,0 +1,59 @@
+.Container {
+    padding: 20px;
+
+    h4 {
+        border-bottom: 4px solid gray;
+        width: fit-content;
+    }
+
+    .Title {
+        display: flex;
+        justify-content: space-between;
+
+        >div {
+            >h5 {
+                padding: 5px;
+                background-color: green;
+                margin-left: 5px;
+                color: white;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    }
+
+    .BodyList {
+        .BtnErase{
+            position: absolute;
+        }
+    }
+
+    .BtnControl{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        input{
+            background-color: orange;
+            border: 0;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}
+
+
+.BTNSaveAdd{
+    position: absolute;
+    background-color: orange;
+    border: 0;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 3;
+    
+}
