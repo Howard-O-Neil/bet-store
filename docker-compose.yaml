@@ -97,9 +97,27 @@ services:
     networks:
       backend:
         ipv4_address: "10.1.0.6"
+
+  reactfrontend:
+    container_name: "reactfrontend"
+    build:
+      context: ./Frontend/bet-store-main
+      dockerfile: dockerfile.react
+    ports:
+      - "8087:80"
+    depends_on:
+      - cdnserver
+      - database
+      - javabackend
+      - nodebackend
+      - gobackend
+    networks:
+      - frontend
 networks:
   backend:
     ipam:
       driver: default
       config:
         - subnet: "10.1.0.0/27"
+  
+  frontend:
