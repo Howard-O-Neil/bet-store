@@ -1,3 +1,4 @@
+import Axios from "axios";
 import {
   ChatActionType,
   SET_ACCOUNT_INFO,
@@ -69,7 +70,8 @@ export interface MessageControl {
 const initConversationControl: ConversationControl = {
   conversationList: [],
   requestIndex: 0,
-};
+}; 
+
 const initMessageControl : MessageControl = {
   messageList: [],
   requestIndex: 0,
@@ -103,6 +105,7 @@ export const conversationControlReducer: React.Reducer<ConversationControl, Chat
   switch (action.type) {
     case LOAD_CONVERSATION: {
       let list = action.value as Conversation[];
+
       return {
         conversationList: list,
         requestIndex: list.length,
@@ -110,11 +113,11 @@ export const conversationControlReducer: React.Reducer<ConversationControl, Chat
     }
     case LOAD_PREV_CONVERSATION: {
       let list = action.value as Conversation[];
+
       if (list.length == 0) {
         return state;
       }
       state.conversationList.push(...list);
-
       return {
         conversationList: state.conversationList,
         requestIndex: state.requestIndex + list.length,
@@ -122,7 +125,7 @@ export const conversationControlReducer: React.Reducer<ConversationControl, Chat
     }
     case RECEIVE_CONVERSATION: {
       state.conversationList.splice(0, 0, action.value);
-
+  
       return {
         conversationList: state.conversationList,
         requestIndex: state.requestIndex + 1,

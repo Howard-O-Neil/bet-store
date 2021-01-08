@@ -18,10 +18,18 @@ import {
   switchToConversation,
   switchToMessage,
 } from "../actions/chatBoxAction";
-import { ChatAccountInfo, Conversation, ConversationControl } from "../reducers/chatBoxReducer";
+
+import { ChatAccountInfo, Conversation, ConversationControl,Message } from "../reducers/chatBoxReducer";
 import style from "../styles/ChatBox.module.scss";
 import { ChatApiUtils } from "./ChatApiUtils";
+import { CONTENT_FILE, CONTENT_GIF, CONTENT_IMAGE, CONTENT_NONE } from "./ChatMessage";
 import SocketManager from "./SocketManager";
+
+import noAvatar from "../resource/images/icons/noAvatar.png";
+import { Button } from "react-bootstrap";
+
+
+export var searchString = "";
 
 const ChatConversation = React.memo(() => {
   // state + dispatch
@@ -31,7 +39,8 @@ const ChatConversation = React.memo(() => {
   const conversationState = useSelector(
     (state: { conversationControl: ConversationControl }) => state.conversationControl
   );
-  const [conversationFilter, setConversationFilter] = useState<Conversation[]>();
+  
+  const [conversationFilter, setConversationFilter] = useState<Conversation[]>([]);
 
   const dispatch = useDispatch();
 
@@ -66,11 +75,13 @@ const ChatConversation = React.memo(() => {
 
   useEffect(() => {
     if (accountState.id == "") return;
+    
     getConversationThunk(dispatch, () => null, {
       senderId: accountState.id,
       index: 0,
       loadPrev: false,
     });
+    
   }, [accountState]);
 
   return (
@@ -79,7 +90,10 @@ const ChatConversation = React.memo(() => {
         <h1>Message</h1>
         <div className={style.searchBar}>
           <i className="fas fa-search fa-2x"></i>
-          <input type="text" placeholder="Search" spellCheck="false"></input>
+          <input type="text" placeholder="Search" spellCheck="false"
+            onChange={e => {
+              // filterConversation(e.target.value);
+            }}></input>
         </div>
       </div>
       <div className={style.conversationBody} onScroll={onscrollDown}>
@@ -96,10 +110,16 @@ const ChatConversation = React.memo(() => {
 
 export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
   const [userInfo, setUserInfo] = useState<ChatAccountInfo>(null);
+  const [messageThumpnail, setMessageThumbnail] = useState<string>("Loading...");
   const dispatch = useDispatch();
 
   const getReceiverInfo = async () : Promise<ChatAccountInfo> => {
     let response = await Axios.get(`/java/api/profile/get?accountid=${conversation.receiverId}`);
+
+    if (response.data.data == null) {
+      return null;
+    }
+
     return {
       id: conversation.receiverId,
       avatar: response.data.data.avatar,
@@ -107,9 +127,37 @@ export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
     } 
   }
 
+  const loadThumbnailTextMessage = () => {
+    Axios.get(
+      `/java/api/message/get?senderid=${conversation.senderId}&receiverid=${conversation.receiverId}&index=${0}`
+    ).then(res => {
+      let result: Message[] = res.data.data;
+
+      if (result.length == 0) {
+        setMessageThumbnail("Bạn chưa có tin nhắn");
+        return;
+      }
+
+      if (result[0].fileContentType != CONTENT_NONE) {
+        if (result[0].fileContentType == CONTENT_IMAGE) {
+          setMessageThumbnail("Bạn đã gửi 1 ảnh");
+        }
+        else if (result[0].fileContentType == CONTENT_GIF) {
+          setMessageThumbnail("Bạn đã gửi 1 ảnh động");
+        }
+        else if (result[0].fileContentType == CONTENT_FILE) {
+          setMessageThumbnail("Bạn đã gửi 1 File");
+        }
+        else setMessageThumbnail("File không nhận dạng");
+      }
+      else setMessageThumbnail(result[0].textContent);
+    })
+  }
+
   useEffect(() => {
     getReceiverInfo().then(x => {
       setUserInfo(x);
+      loadThumbnailTextMessage();
     });
   }, []);
 
@@ -120,6 +168,13 @@ export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
     }
     return text;
   };
+
+  const handleAvatar = () => {
+    if (userInfo.avatar == "") {
+      return noAvatar;
+    } 
+    return `/cdn/cdn/${userInfo.avatar}`;
+  }
 
   if (userInfo == null) {
     return <div></div>;
@@ -132,10 +187,10 @@ export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
         dispatch(switchToMessage());
       }}
     >
-      <img src={`/cdn/cdn/${userInfo.avatar}`}></img>
+      <img src={handleAvatar()}></img>
       <div>
         <h4>{userInfo.user}</h4>
-        <p> {textHandle("Bạn: Ohaiyo Itadakimashu ouohueiuheiufh")}</p>
+        <p> {textHandle(messageThumpnail)}</p>
         <hr></hr>
         <h5>2 gio truoc</h5>
       </div>

@@ -271,3 +271,15 @@ Caused by: java.lang.IllegalArgumentException: invalid hexadecimal representatio
 >>>>>>> bf6a23dfbcd7916ac31acb5be47beea77a76775a
 ========== Service Restarted ==========
 
+[2021-01-07 19:21:47] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 19:25:22] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 19:35:46] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-07 23:55:51] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+

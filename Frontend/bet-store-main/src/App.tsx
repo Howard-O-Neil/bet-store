@@ -7,12 +7,6 @@ import "../node_modules/popper.js/dist/popper";
 import "../node_modules/bootstrap/dist/js/bootstrap";
 import "../node_modules/jquery/dist/jquery";
 import "./App.css";
-import Login from "./components/Login";
-import { BrowserRouter } from "react-router-dom";
-import Header from "./components/header/Header";
-import Home from "./screen/home/home";
-import FooterView from "./components/footer/Footer";
-import ProductScreen from "./screen/ProductScreen";
 import "../src/resource/font-awesome/css/font-awesome.min.css"
 import "../node_modules/popper.js/dist/popper"
 import "../node_modules/bootstrap/dist/js/bootstrap"
@@ -27,8 +21,6 @@ import ProductScreen from './screen/ProductScreen';
 import AddProductScreen from './screen/AddProductScreen';
 import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
-import { accountInfoReducer, conversationControlReducer, gifControlReducer, messageControlReducer, socketInfoReducer, viewControlReducer } from "./reducers/chatBoxReducer";
-import ProductListScreen from "./screen/ProductListScreen";
 import ProductEditScreen from "./screen/ProductEditScreen";
 import Profile from "./screen/profile/profile";
 import NotifyContainer from "./components/NotifyContainer";
@@ -38,6 +30,7 @@ import CategoryViewScreen from "./screen/CategoryViewScreen";
 import CategoryEditScreen from "./screen/CategoryEditScreen";
 import { AdminScreen } from "./screen/AdminScreen";
 import { Page404Screen } from "./screen/404Screen";
+import ChatBox from "./components/ChatBox";
 
 function App() {
   return (
@@ -81,19 +74,7 @@ function App() {
           <Route path="/admin" exact> <Redirect to="/admin/slider" /></Route>
           <Route path="/NotFound" component={Page404Screen} exact />
         </Switch>
-        {/* <Provider
-          store={createStore(
-            combineReducers({
-              conversationControl: conversationControlReducer,
-              messageControl: messageControlReducer,
-              chatAccountInfo: accountInfoReducer,
-              viewControl: viewControlReducer,
-              socketInfo: socketInfoReducer,
-            })
-          )}
-        >
-          <ChatBox></ChatBox>
-        </Provider> */}
+        <ChatBox></ChatBox>
         <FooterView></FooterView>
       </BrowserRouter>
     </div>

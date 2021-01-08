@@ -24,7 +24,8 @@ print("###################### End Conversation Collection ######################
 db.Conversation.find();
 db.Conversation.deleteMany({});
 db.Conversation.find({ _id: ObjectId("5fb8083ccda5c41790c0b067") });
-db.Conversation.deleteOne({ _id: ObjectId("5fb7ffdfed6e86392ceab1d6") });
+db.Conversation.deleteOne({ _id: ObjectId("5ff7a0d0123f9c57fcb34710") });
+db.Conversation.deleteOne({ _id: ObjectId("5ff7a0d0123f9c57fcb3470f") });
 
 db.Message.find();
 db.Message.deleteMany({});
@@ -38,7 +39,25 @@ db.Message.find({
 
 db.Message.find({ _id: ObjectId("5fb9362e1279553053ca4ed9") });
 
-db.Account.find({_id: ObjectId("5fbd3a3970cb4d0161112b1d")});
+db.Account.find({_id: ObjectId("5fa7fb0a62083e11ace57490")});
+
+// fuck
+// store the document in a variable
+doc = db.Account.findOne({_id: ObjectId("5fd7c3e51afadc006643efca")})
+
+// set a new _id on the document
+doc._id = ObjectId("5fa7fb0a62083e11ace57490")
+
+// insert the document, using the new _id
+db.Account.insert(doc)
+
+// remove the document with the old _id
+db.Account.remove({_id: ObjectId("5fd7c3e51afadc006643efca")})
+//
+
+db.Account.updateOne({
+  _id: ObjectId("5fd7c3e51afadc006643efca") 
+}, {_id: ObjectId("5fa7fb0a62083e11ace57490")})
 db.Message.deleteMany({$where: "this.textContent.length <= 2"})
 
 db.Account.find();

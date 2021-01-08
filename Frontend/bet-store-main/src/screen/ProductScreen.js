@@ -17,9 +17,17 @@ import style from "../styles/ProductDetails.module.scss";
 import { listCategories } from "../actions/categoryActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Axios from "axios";
+
+import {openChatBox} from "../actions/chatBoxAction";
 
 const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
+  // chat support
+  const accountState = useSelector((state) => state.chatAccountInfo);
+  const view = useSelector((state) => state.viewControl);
+
+  //
   const dispatch = useDispatch();
 
   const [properties, setProperties] = useState([]);
@@ -69,6 +77,11 @@ const ProductScreen = ({ match }) => {
     }
   }, [product, categories]);
 
+
+
+
+  const profile = useSelector( state=>state);
+
   return (
     <div className={style.body}>
       {/*<Link className="btn btn-light my-3" to="/">
@@ -103,7 +116,19 @@ const ProductScreen = ({ match }) => {
               <Card>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
-                    <Row>*Profile*</Row>
+                    <Row>
+                      {/* profile */}
+                      <div className = {style.UserInfo}>
+                        <div className = {style.img}>
+                          <img src = "/cdn/cdn/c387df599abe8b4ba76377abb3f81db515122020.svg"></img>                          
+                        </div>
+                        <div className = {style.info}>
+                          <p>Người bán</p>
+                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"MinhTien":"MinhKhoi"}</p>
+                        </div>
+                      </div>
+
+                    </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
@@ -118,6 +143,18 @@ const ProductScreen = ({ match }) => {
                       className="btn-block"
                       type="button"
                       disabled={product.countInStock === 0}
+                      onClick={e => {
+                        if (sessionStorage.getItem("token") == null) {
+                          alert("Ban phải đăng nhập trước");
+                          return;
+                        }
+                        console.log(product.user);
+                        if (accountState.id != product.user) {
+                          Axios.post("/java/api/conversation/add", {senderId: accountState.id, receiverId:product.user});
+                          dispatch(openChatBox(true));
+                        }
+                        else alert("Bạn không thể chat với chính bạn")
+                      }}
                     >
                       Liên lạc với người bán
                     </Button>

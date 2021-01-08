@@ -44,6 +44,7 @@ export const getAccountInfoThunk: ThunkAction<
 > = async (dispatch, getState, token) => {
   //
   let response = await Axios.get(`/go/profile/`);
+  console.log(response);
   dispatch(setAccountInfo(response.data.data));
 };
 
