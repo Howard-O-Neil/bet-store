@@ -9,11 +9,11 @@ import fs from 'fs'
 import { PasswordChangeType } from "../types/passwordchangeType";
 import { AddNotify } from "./notifyAction";
 import { NotifyType } from "../types/notifyType";
-import {ReponseAPI as ResponseAPI} from "../types/ReponseAPI"
+import { ReponseAPI as ResponseAPI } from "../types/ReponseAPI"
 
 
 
-export const GetProfile = () =>async (dispatch: React.Dispatch<ActionType<Profile>>) => {
+export const GetProfile = () => async (dispatch: React.Dispatch<ActionType<Profile>>) => {
     dispatch(setStateGetProfile())
     Axios.defaults.headers.common['Authentication'] = 'Bearer ' + sessionStorage.getItem("token")// for all requests
     let response = await Axios.get<ReponseAPI<Profile>>(
@@ -33,7 +33,7 @@ export const GetProfile = () =>async (dispatch: React.Dispatch<ActionType<Profil
 }
 
 
-export const EditProfile = (profile:Profile) =>async (dispatch: React.Dispatch<ActionType<Profile>>) => {
+export const EditProfile = (profile: Profile) => async (dispatch: React.Dispatch<ActionType<Profile>>) => {
     //console.log(profile);
     dispatch(EditProfileAction())
     //Object.entries(profile).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
@@ -223,7 +223,7 @@ const SaveChangeAvatarFail = (): ActionType<any> => {
 }
 
 
-export const ChangePassword = (pass:PasswordChangeType) => async (dispatch: React.Dispatch<ActionType<Profile>>,
+export const ChangePassword = (pass: PasswordChangeType) => async (dispatch: React.Dispatch<ActionType<Profile>>,
     dispatchnoti: React.Dispatch<ActionType<NotifyType>>) => {
     dispatch(ChangePasswordAction());
 
@@ -268,7 +268,7 @@ const ChangePasswordAction_SUCCESS = (): ActionType<any> => {
     }
 }
 
-const ChangePasswordAction_FAIL = (msg:string): ActionType<any> => {
+const ChangePasswordAction_FAIL = (msg: string): ActionType<any> => {
     return {
         type: CHANGE_PASSWORD_FAIL,
         payload: msg
@@ -277,21 +277,31 @@ const ChangePasswordAction_FAIL = (msg:string): ActionType<any> => {
 
 
 
-export const GetProfilebyAccountID = (id:string) =>async (dispatch: React.Dispatch<ActionType<Profile>>) => {
+export const GetProfilebyAccountID = (id: string) => async (dispatch: React.Dispatch<ActionType<Profile>>) => {
     dispatch(GetProfilebyAccountID_Request())
-    let response = await Axios.get<ResponseAPI<Profile>>(
-        `/go/profile/getinfo?id=${id}`
-    );
-    if (response.status === 200) {
-        if (response.data.status === 200) {
-            dispatch(GetProfilebyAccountID_SUCCESS(response.data.data));
+    Axios.get<ResponseAPI<any>>(
+        `/go/profile/getinfo?id=${id}`)
+        .then(
+            response => {
+                console.log(response)
+                if (response.status === 200) {
+                    if (response.data.status === 200) {
+                        dispatch(GetProfilebyAccountID_SUCCESS(response.data.data));
+                    }
+                    else {
+                        dispatch(GetProfilebyAccountID_FAIL(response.data.message))
+                    }
+                }
+            }
+        ).catch(
+            err => {
+            dispatch(GetProfilebyAccountID_FAIL(err.statusText))
         }
-        else {
-            dispatch(GetProfilebyAccountID_FAIL(response.data.message))
-        }
-    } else {
-        dispatch(GetProfilebyAccountID_FAIL(response.statusText))
-    }
+
+
+        )
+
+
 }
 
 const GetProfilebyAccountID_Request = (): ActionType<any> => {
@@ -308,7 +318,7 @@ const GetProfilebyAccountID_SUCCESS = (data: Profile): ActionType<Profile> => {
     }
 }
 
-const GetProfilebyAccountID_FAIL = (msg:string): ActionType<any> => {
+const GetProfilebyAccountID_FAIL = (msg: string): ActionType<any> => {
     return {
         type: GET_PROFILE_GLOBAL_FAIL,
         payload: msg
