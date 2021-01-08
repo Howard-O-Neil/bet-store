@@ -120,11 +120,11 @@ const ProductScreen = ({ match }) => {
                       {/* profile */}
                       <div className = {style.UserInfo}>
                         <div className = {style.img}>
-                          <img src = "/cdn/cdn/c387df599abe8b4ba76377abb3f81db515122020.svg"></img>                          
+                          <img src = "/cdn/cdn/10b51ddc2fdc2b3dfc078dfbe252e0e315122020.svg"></img>                          
                         </div>
                         <div className = {style.info}>
                           <p>Người bán</p>
-                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"MinhTien":"MinhKhoi"}</p>
+                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin19":"admin19"}</p>
                         </div>
                       </div>
 
