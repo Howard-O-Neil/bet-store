@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig } from "axios";
 import { useDispatch } from "react-redux";
-import { CHANGE_AVATAR, CHANGE_AVATAR_FAIL, CHANGE_AVATAR_SUCCESS, CHANGE_PASSWORD, CHANGE_PASSWORD_FAIL, CHANGE_PASSWORD_SUCCESS, EDIT_PROFILE, EDIT_PROFILE_FAIL, EDIT_PROFILE_SUCCESS, GET_PROFILE, GET_PROFILE_FAIL, GET_PROFILE_SUCCESS, REMOVE_PROFILE, SAVE_CHANGE_AVATAR } from "../constants/profileConstants";
+import { CHANGE_AVATAR, CHANGE_AVATAR_FAIL, CHANGE_AVATAR_SUCCESS, CHANGE_PASSWORD, CHANGE_PASSWORD_FAIL, CHANGE_PASSWORD_SUCCESS, EDIT_PROFILE, EDIT_PROFILE_FAIL, EDIT_PROFILE_SUCCESS, GET_PROFILE, GET_PROFILE_FAIL, GET_PROFILE_GLOBAL, GET_PROFILE_GLOBAL_FAIL, GET_PROFILE_GLOBAL_SUCCESS, GET_PROFILE_SUCCESS, REMOVE_PROFILE, SAVE_CHANGE_AVATAR } from "../constants/profileConstants";
 import { ActionType } from "../types/actionType";
 import { Profile } from "../types/profile";
 import { Messenger, ReponseAPI } from "../types/ReponseAPI";
@@ -9,6 +9,7 @@ import fs from 'fs'
 import { PasswordChangeType } from "../types/passwordchangeType";
 import { AddNotify } from "./notifyAction";
 import { NotifyType } from "../types/notifyType";
+import {ReponseAPI as ResponseAPI} from "../types/ReponseAPI"
 
 
 
@@ -270,6 +271,46 @@ const ChangePasswordAction_SUCCESS = (): ActionType<any> => {
 const ChangePasswordAction_FAIL = (msg:string): ActionType<any> => {
     return {
         type: CHANGE_PASSWORD_FAIL,
+        payload: msg
+    }
+}
+
+
+
+export const GetProfilebyAccountID = (id:string) =>async (dispatch: React.Dispatch<ActionType<Profile>>) => {
+    dispatch(GetProfilebyAccountID_Request())
+    let response = await Axios.get<ResponseAPI<Profile>>(
+        `/go/profile/getinfo?id=${id}`
+    );
+    if (response.status === 200) {
+        if (response.data.status === 200) {
+            dispatch(GetProfilebyAccountID_SUCCESS(response.data.data));
+        }
+        else {
+            dispatch(GetProfilebyAccountID_FAIL(response.data.message))
+        }
+    } else {
+        dispatch(GetProfilebyAccountID_FAIL(response.statusText))
+    }
+}
+
+const GetProfilebyAccountID_Request = (): ActionType<any> => {
+    return {
+        type: GET_PROFILE_GLOBAL,
+        payload: null
+    }
+}
+
+const GetProfilebyAccountID_SUCCESS = (data: Profile): ActionType<Profile> => {
+    return {
+        type: GET_PROFILE_GLOBAL_SUCCESS,
+        payload: data
+    }
+}
+
+const GetProfilebyAccountID_FAIL = (msg:string): ActionType<any> => {
+    return {
+        type: GET_PROFILE_GLOBAL_FAIL,
         payload: msg
     }
 }
