@@ -17,6 +17,7 @@ import style from "../styles/ProductDetails.module.scss";
 import { listCategories } from "../actions/categoryActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import {GetProfilebyAccountID} from "../actions/profileAction"
 
 const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
@@ -50,6 +51,7 @@ const ProductScreen = ({ match }) => {
   };
   useEffect(() => {
     dispatch(listCategories());
+    
   }, []);
   useEffect(() => {
     if (!product.name || product._id !== match.params.id) {
@@ -69,6 +71,28 @@ const ProductScreen = ({ match }) => {
     }
   }, [product, categories]);
 
+
+
+  /// minh handle
+
+  const [infoSeller, setinfoSeller] = useState({isLoadding:true});
+  const getProfileGlobal = useSelector(state => state.getProfileGlobal);
+
+  useEffect(() => {
+    if(productDetails.loading === false && productDetails.product !== { image: [], properties: [] } && productDetails.error !== null){
+      dispatch(GetProfilebyAccountID(product.user)) // dien id vao day
+    }
+    
+  }, [dispatch, product.user, productDetails.error, productDetails.loading, productDetails.product])
+  
+  useEffect(() => {
+    if(infoSeller.isLoadding === true && getProfileGlobal.IsFetching === true&&infoSeller.payload === null){
+      setinfoSeller({isLoadding:false, payload:getProfileGlobal.Payload})
+    }
+  }, [getProfileGlobal.IsFetching, getProfileGlobal.Payload, infoSeller.isLoadding, infoSeller.payload])
+  
+
+  ///
   return (
     <div className={style.body}>
       {/*<Link className="btn btn-light my-3" to="/">
@@ -103,7 +127,24 @@ const ProductScreen = ({ match }) => {
               <Card>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
-                    <Row>*Profile*</Row>
+                    <Row>
+                      { infoSeller.isLoadding === false
+                      ?<div>
+                        <div>
+                          <img alt = "avatar" src = {`/cdn/cdn/${infoSeller.payload.avatar}`}/>
+                        </div>
+                        <div>
+                          <p>
+                            Thông tin người bán
+                          </p>
+                          <p>
+                            {infoSeller.payload.name + " " + infoSeller.payload.surname}
+                          </p>
+                        </div>
+                      </div>
+                      :<p>Đang tải ...</p>
+                      }
+                    </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
