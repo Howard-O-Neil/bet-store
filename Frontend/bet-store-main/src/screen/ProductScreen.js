@@ -17,10 +17,19 @@ import style from "../styles/ProductDetails.module.scss";
 import { listCategories } from "../actions/categoryActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Axios from "axios";
+import {switchToMessage, repalceCurrentReceiver} from "../actions/chatBoxAction";
+
+import {openChatBox} from "../actions/chatBoxAction";
 import {GetProfilebyAccountID} from "../actions/profileAction"
 
 const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
+  // chat support
+  const accountState = useSelector((state) => state.chatAccountInfo);
+  const view = useSelector((state) => state.viewControl);
+
+  //
   const dispatch = useDispatch();
 
   const [properties, setProperties] = useState([]);
@@ -73,6 +82,8 @@ const ProductScreen = ({ match }) => {
 
 
 
+  const profile = useSelector( state=>state);
+
   /// minh handle
 
   const [infoSeller, setinfoSeller] = useState({isLoadding:true});
@@ -91,8 +102,7 @@ const ProductScreen = ({ match }) => {
     }
   }, [getProfileGlobal.IsFetching, getProfileGlobal.Payload, infoSeller.isLoadding, infoSeller.payload])
   
-
-  ///
+  
   return (
     <div className={style.body}>
       {/*<Link className="btn btn-light my-3" to="/">
@@ -128,6 +138,17 @@ const ProductScreen = ({ match }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
+                      {/* profile */}
+                      <div className = {style.UserInfo}>
+                        <div className = {style.img}>
+                          <img src = "/cdn/cdn/10b51ddc2fdc2b3dfc078dfbe252e0e315122020.svg"></img>                          
+                        </div>
+                        <div className = {style.info}>
+                          <p>Người bán</p>
+                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin20":"admin20"}</p>
+                        </div>
+                      </div>
+
                       { infoSeller.isLoadding === false
                       ?<div>
                         <div>
@@ -159,6 +180,18 @@ const ProductScreen = ({ match }) => {
                       className="btn-block"
                       type="button"
                       disabled={product.countInStock === 0}
+                      onClick={e => {
+                        if (sessionStorage.getItem("token") == null) {
+                          alert("Ban phải đăng nhập trước");
+                          return;
+                        }
+                        if (accountState.id == product.user) {
+                          alert("Bạn không thể chat với chính bạn")
+                        }
+                        dispatch(openChatBox(true));
+                        dispatch(repalceCurrentReceiver(product.user));
+                        dispatch(switchToMessage());
+                      }}
                     >
                       Liên lạc với người bán
                     </Button>

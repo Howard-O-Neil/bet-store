@@ -45,7 +45,7 @@ public class ConversationDaoImpl implements IConversationDao {
           var filter = new Document("senderId", senderId);
           var res = new ArrayList<Conversation>();
 
-          for (var doc : collection.find(filter)) {
+          for (var doc : collection.find(filter).sort(new Document("_id", -1))) {
             res.add(this.parseWithId(doc, Conversation.class));
           }
           return res;

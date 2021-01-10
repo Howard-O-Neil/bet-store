@@ -1,7 +1,7 @@
 import { IMessage } from "@stomp/stompjs";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAccountInfoThunk, messageReceive, openChatBox, setSocketInfo } from "../actions/chatBoxAction";
+import { conversationReceive, getAccountInfoThunk, messageReceive, openChatBox, setSocketInfo } from "../actions/chatBoxAction";
   import { ChatAccountInfo, ChatViewControl, CONVERSATION_VIEW, EMPTY_VIEW, MESSAGE_VIEW } from "../reducers/chatBoxReducer";
 import style from "../styles/ChatBox.module.scss";
 import ChatConversation from "./ChatConversation";
@@ -9,6 +9,7 @@ import ChatMessage from "./ChatMessage";
 import { ISocket } from "./SocketManager";
 
 export const CHAT_KEY = "CHAT_BOX";
+export const CDN_SERVER_PREFIX = "http://localhost:8082/cdn/";
 export const CHAT_HANDLER = "/chat/handle";
 
 const ChatBox: React.FC = () => {
@@ -28,11 +29,9 @@ const ChatBox: React.FC = () => {
   const messageReceiveHandler = (payload: IMessage) => {
     dispatch(messageReceive(JSON.parse(payload.body).data));
   };
-  const conversationReceiveHandler = (payload: IMessage) => {
 
-  };
-  const testReceiveHandler = (payload: IMessage) => {
-    alert(payload);
+  const conversationReceiveHandler = (payload: IMessage) => {
+    dispatch(conversationReceive(JSON.parse(payload.body).data));
   };
 
   const initSocketConnectionString = (): ISocket => {
@@ -47,10 +46,6 @@ const ChatBox: React.FC = () => {
         {
           brocker: `/chat/room/${accountState.id}`,
           receiveHandler: conversationReceiveHandler,
-        },
-        {
-          brocker: `/testChannel`,
-          receiveHandler: testReceiveHandler,
         },
       ],
     };
@@ -68,7 +63,7 @@ const ChatBox: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (intervalId == null) {
+    if (intervalId == null && sessionStorage.getItem("token")) {
       getAccountInfoThunk(dispatch, () => null, sessionStorage.getItem("token"));
     }
   }, [intervalId])
@@ -91,6 +86,18 @@ const ChatBox: React.FC = () => {
     }
   }, [view]);
 
+  const turnOnPanel = () => {
+    if ((pannel.current[0]) == null) return true;
+    (pannel.current[0] as HTMLDivElement).style.display = "block"
+    return true;
+  }
+
+  const turnOffPanel = () => {
+    if ((pannel.current[0]) == null) return true;
+    (pannel.current[0] as HTMLDivElement).style.display = "none";
+    return true;
+  }
+
   if (sessionStorage.getItem("token") == null) {
     return <div />;
   }
@@ -105,24 +112,24 @@ const ChatBox: React.FC = () => {
           <ChatMessage></ChatMessage>
         </div>
       </div>
-      {view.isOpen === false && (
+      {view.isOpen === false && turnOffPanel() && (
         <div
           className={style.chatBox}
           onClick={() => {
             dispatch(openChatBox(true));
-            (pannel.current[0] as HTMLDivElement).style.display = "block";
+            // (pannel.current[0] as HTMLDivElement).style.display = "block";
           }}
         >
           <i style={{ color: "#ffffff" }} className="fas fa-comments fa-3x"></i>
         </div>
       )}
-      {view.isOpen === true && (
+      {view.isOpen === true && turnOnPanel() &&  (
         <div>
           <div
             className={style.chatBox}
             onClick={() => {
               dispatch(openChatBox(false));
-              (pannel.current[0] as HTMLDivElement).style.display = "none";
+              // (pannel.current[0] as HTMLDivElement).style.display = "none";
             }}
           >
             <i style={{ color: "#ffffff" }} className="fas fa-close fa-3x"></i>

@@ -19,6 +19,14 @@ export function fromPxToOffset(x : String) {
   return Number.parseInt(x.slice(0, index), 10);
 }
 
+export function getMeta(url: string, callback: Function) {
+  let img = new Image();
+  img.src = url;
+  img.onload = () => {
+    callback(img.width, img.height);
+  }
+}
+
 export const getTextWidth = (text: string, font: string) => {
   let canvas = document.createElement("canvas");
   canvas.style.visibility = "hidden";
@@ -28,3 +36,14 @@ export const getTextWidth = (text: string, font: string) => {
   let metrics = context.measureText(text);
   return metrics.width;
 };
+
+export const removeAllChild = (parent: HTMLElement) => {
+  let size = parent.children.length;
+  let childNode = [];
+  for (let i = 0; i < size; i++) {
+    childNode.push(parent.children[i]);
+  }
+  for (let i = 0; i < size; i++) {
+    parent.removeChild(childNode[i]);
+  }
+}

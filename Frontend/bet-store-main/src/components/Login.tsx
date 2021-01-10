@@ -143,7 +143,7 @@ const Login: React.FC<{ islogin: boolean }> = ({ islogin }) => {
 
 	useEffect(() => {
 		if (confirmTelAccount.IsFetching === false && loadingConfirm === true) {
-			if (confirmTelAccount.Error === "")
+			if (confirmTelAccount.Payload === false&&confirmTelAccount.Error === "")
 				dispatch(AddNotify({ path: "", destination: confirmTelAccount.Error, title: "BetStore" }));
 			else {
 				dispatch(AddNotify({ path: "", destination: "Một mã OTP đã được gửi tới số điện thoại "+ account.tel, title: "BetStore" }));

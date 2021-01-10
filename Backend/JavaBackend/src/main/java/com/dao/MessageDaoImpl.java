@@ -63,10 +63,10 @@ public class MessageDaoImpl implements IMessageDao {
         PropertyHelper.getMongoDBChat(),
         "Message",
         collection -> {
-          var con1 = 
-            this.createFilterConversation(conversation.getSenderId(), conversation.getReceiverId());
-          var con2 =
-            this.createFilterConversation(conversation.getReceiverId(), conversation.getSenderId());
+          var con1 = this.createFilterConversation(conversation.getSenderId(), 
+            conversation.getReceiverId());
+          var con2 = this.createFilterConversation(conversation.getReceiverId(), 
+            conversation.getSenderId());
           var filter = Document.parse(
             String.format("{$or: [%s, %s]}", con1.toJson(), con2.toJson())
           );
@@ -87,7 +87,7 @@ public class MessageDaoImpl implements IMessageDao {
         "Message",
         collection -> {
           var res = new ArrayList<Message>();
-          for (var doc : collection.find(new Document("_id", new ObjectId(_id)))) {
+          for (var doc : collection.find(new Document("_id", new ObjectId(_id)))) { 
             res.add(this.parseWithId(doc, Message.class));
           }
           return res;

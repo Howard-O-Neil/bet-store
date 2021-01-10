@@ -20,8 +20,14 @@ import { walletReducer } from "./reducers/walletReducer";
 import { imagesUploadReducer } from "./reducers/imageReducer";
 import { addsliderReducer, editSliderReducer, getsliderReducer, removeSliderReducer } from "./reducers/sliderReducer";
 import { uploadImageReducer } from "./reducers/imageReducerts";
+import { accountInfoReducer, conversationControlReducer, gifControlReducer, messageControlReducer, socketInfoReducer, viewControlReducer } from "./reducers/chatBoxReducer";
 
 const reducer = combineReducers({
+  conversationControl: conversationControlReducer,
+  messageControl: messageControlReducer,
+  chatAccountInfo: accountInfoReducer,
+  viewControl: viewControlReducer,
+  socketInfo: socketInfoReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
