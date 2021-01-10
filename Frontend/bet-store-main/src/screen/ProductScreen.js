@@ -18,6 +18,7 @@ import { listCategories } from "../actions/categoryActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Axios from "axios";
+import {switchToMessage, repalceCurrentReceiver} from "../actions/chatBoxAction";
 
 import {openChatBox} from "../actions/chatBoxAction";
 
@@ -124,7 +125,7 @@ const ProductScreen = ({ match }) => {
                         </div>
                         <div className = {style.info}>
                           <p>Người bán</p>
-                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin19":"admin19"}</p>
+                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin20":"admin20"}</p>
                         </div>
                       </div>
 
@@ -148,12 +149,12 @@ const ProductScreen = ({ match }) => {
                           alert("Ban phải đăng nhập trước");
                           return;
                         }
-                        console.log(product.user);
-                        if (accountState.id != product.user) {
-                          Axios.post("/java/api/conversation/add", {senderId: accountState.id, receiverId:product.user});
-                          dispatch(openChatBox(true));
+                        if (accountState.id == product.user) {
+                          alert("Bạn không thể chat với chính bạn")
                         }
-                        else alert("Bạn không thể chat với chính bạn")
+                        dispatch(openChatBox(true));
+                        dispatch(repalceCurrentReceiver(product.user));
+                        dispatch(switchToMessage());
                       }}
                     >
                       Liên lạc với người bán

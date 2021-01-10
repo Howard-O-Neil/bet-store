@@ -124,10 +124,11 @@ export const conversationControlReducer: React.Reducer<ConversationControl, Chat
       }
     }
     case RECEIVE_CONVERSATION: {
+      alert("receive");
       state.conversationList.splice(0, 0, action.value);
   
       return {
-        conversationList: [...state.conversationList],
+        conversationList: state.conversationList,
         requestIndex: state.requestIndex + 1,
       }
     }

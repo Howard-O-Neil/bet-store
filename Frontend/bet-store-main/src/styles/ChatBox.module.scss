@@ -86,6 +86,7 @@ $white-smoke: #E8E8E8;
   box-shadow: 5px 10px 18px 2px rgb(128, 128, 128);
   animation-name: slideInFromRight;
   animation-duration: 0.8s;
+  z-index: 1000;
   display: none;
 }
 

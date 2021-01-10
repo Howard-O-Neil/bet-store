@@ -26,7 +26,6 @@ import { CONTENT_FILE, CONTENT_GIF, CONTENT_IMAGE, CONTENT_NONE } from "./ChatMe
 import SocketManager from "./SocketManager";
 
 import noAvatar from "../resource/images/icons/noAvatar.png";
-import { Button } from "react-bootstrap";
 
 
 export var searchString = "";
@@ -97,7 +96,7 @@ const ChatConversation = React.memo(() => {
         </div>
       </div>
       <div className={style.conversationBody} onScroll={onscrollDown}>
-        {listConversationHandle()}
+        {[listConversationHandle()]}
         {() => {
           if (conversationState.conversationList.length <= 0) {
             return <h5>Bạn chưa có cuộc hội thoại nào</h5>;
@@ -117,7 +116,11 @@ export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
     let response = await Axios.get(`/java/api/profile/get?accountid=${conversation.receiverId}`);
 
     if (response.data.data == null) {
-      return null;
+      return {
+        id: conversation.receiverId,
+        avatar: noAvatar,
+        user: `User-${conversation.receiverId.substr(0, 10)}`
+      } 
     }
 
     return {
@@ -170,8 +173,8 @@ export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
   };
 
   const handleAvatar = () => {
-    if (userInfo.avatar == "") {
-      return noAvatar;
+    if (userInfo.avatar == noAvatar) {
+      return userInfo.avatar
     } 
     return `/cdn/cdn/${userInfo.avatar}`;
   }

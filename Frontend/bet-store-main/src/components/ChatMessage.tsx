@@ -17,12 +17,13 @@ import { CDN_SERVER_PREFIX, CHAT_KEY } from "./ChatBox";
 import Axios, { AxiosRequestConfig } from "axios";
 import { GifPicker, gifWidthDisplay, giphyFetch } from "./GifPicker";
 import { getMeta } from "./Utils";
-
-const TEXT_EDITOR_MAX_ROW = 5;
-const INPUT_TEXT_HANDLER_DELAY = 5;
+import noAvatar from "../resource/images/icons/noAvatar.png";
 
 const imageThumbnailMessageWidth = 320;
 const imageThumbnailMessageHeight = 266;
+const messageInputWidth = "290px";
+const messageInputHeight = "130px";
+
 
 export const CONTENT_NONE = "CONTENT_NONE";
 export const CONTENT_PRODUCT_INFO = "CONTENT_PRODUCT_INFO";
@@ -42,7 +43,7 @@ const ChatMessage = React.memo(() => {
   const gifControlState = useSelector((state: {gifControl: {isClearGif: boolean}}) => state.gifControl);
 
   const [chosenEmoji, setChosenEmoji] = useState<any>(null);
-  const [receiverInfo, setSenderInfo] = useState<ChatAccountInfo>(null);
+  const [receiverInfo, setReceiverInfo] = useState<ChatAccountInfo>(null);
   let prevMessageSize = 0;
 
   const dispatch = useDispatch();
@@ -68,8 +69,8 @@ const ChatMessage = React.memo(() => {
     hiddenDiv.current.style.fontFamily = "inherit";
     hiddenDiv.current.style.fontSize = "inherit";
     hiddenDiv.current.style.lineHeight = "inherit";
-    hiddenDiv.current.style.width = "290px";
-    hiddenDiv.current.style.maxHeight = "130px";
+    hiddenDiv.current.style.width = messageInputWidth;
+    hiddenDiv.current.style.maxHeight = messageInputHeight;
     hiddenDiv.current.style.padding = "2px";
     hiddenDiv.current.style.minHeight = "20px";
     hiddenDiv.current.style.whiteSpace = "pre-wrap";
@@ -263,13 +264,14 @@ const ChatMessage = React.memo(() => {
   }
 
   const messageListHandle = () => {
-    const scrollScale = 1.5;
+    const scrollScale = 1;
 
     let node_t = messageBody.current as HTMLDivElement;
     let result: JSX.Element[] = [];
 
-    for (let i = messageControlState.messageList.length - 1; i >= 0; i--) {
+    for (let i = messageControlState.messageList.length - 1; i >= prevMessageSize; i--) {
       let x = messageControlState.messageList[i];
+
       result.push((
         <div onLoad={e => {
           let x = e.target as HTMLDivElement;
@@ -297,6 +299,13 @@ const ChatMessage = React.memo(() => {
     return result;
   }
 
+  const handleAvatar = () => {
+    if (receiverInfo.avatar == noAvatar) {
+      return receiverInfo.avatar
+    } 
+    return `/cdn/cdn/${receiverInfo.avatar}`;
+  }
+
   const onToolBarClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (toolBar.current.style.display == "none") {
       toolBar.current.style.display = "flex";
@@ -310,6 +319,14 @@ const ChatMessage = React.memo(() => {
 
   const getReceiverInfo = async () : Promise<ChatAccountInfo> => {
     let response = await Axios.get(`/java/api/profile/get?accountid=${view.currentReceiver}`);
+
+    if (response.data.data == null) {
+      return {
+        id: view.currentReceiver,
+        avatar: noAvatar,
+        user: `User-${view.currentReceiver.substr(0, 10)}`
+      } 
+    }
     return {
       id: view.currentReceiver,
       avatar: response.data.data.avatar,
@@ -371,7 +388,7 @@ const ChatMessage = React.memo(() => {
 
     if (view.viewId == MESSAGE_VIEW) {
       getReceiverInfo().then(x => {
-        setSenderInfo(x);
+        setReceiverInfo(x);
       });
     }
     
@@ -393,6 +410,8 @@ const ChatMessage = React.memo(() => {
   useEffect(() => {
     if (messageBody.current == null) return;
 
+    messageListHandle();
+
     if (messageControlState.messageList.length == 15 || messageControlState.appendMessage) {
       let node_t = messageBody.current as HTMLDivElement;
       node_t.scrollTop = node_t.scrollHeight;
@@ -412,7 +431,7 @@ const ChatMessage = React.memo(() => {
               dispatch(switchToConversation());
             }}
           ></i>
-          <img src={`/cdn/cdn/${receiverInfo.avatar}`}></img>
+          <img src={handleAvatar()}></img>
           <div>
             <h3>{receiverInfo.user}</h3>
             <br></br>
@@ -426,6 +445,7 @@ const ChatMessage = React.memo(() => {
           onScroll={(e) => {
             messageBodyScrollup(e);
           }}>
+          
           {messageListHandle()}
         </div>
 
@@ -543,6 +563,33 @@ const ChatMessageBox: React.FC<Message> = (message) => {
     return txt.replace(/\n/g, "<br>");
   }
 
+  const imgHandle = () => {
+    let fullSizeUrl = `${CDN_SERVER_PREFIX}${message.fileContent}`;
+    let maxDisplayWidth = imageThumbnailMessageWidth;
+    let maxDisplayHeight = imageThumbnailMessageHeight;
+
+    let minDisplayHeight = 20;
+    let minDisplayWidth = 29;
+
+    getMeta(fullSizeUrl, (width: number, height: number) => {
+      let displayWidth = maxDisplayWidth;
+      let displayHeight = height * (maxDisplayWidth / width);
+
+      if (displayHeight > maxDisplayHeight) {
+        displayWidth -= displayHeight - maxDisplayHeight;
+        displayHeight = maxDisplayHeight;
+      }
+      if (displayHeight < minDisplayHeight) displayHeight = minDisplayHeight;
+      if (displayWidth < minDisplayWidth) displayWidth = minDisplayWidth;
+
+      imgDisplay.current = (
+        <img src={`${fullSizeUrl}?width=${displayWidth}&height=${displayHeight}`} alt={CONTENT_IMAGE}>
+        </img>
+      )
+      setToggle(!toggle);
+    });
+  }
+
   const renderOnContent = () => {
     if (message.fileContentType == CONTENT_NONE) {
       return (
@@ -558,22 +605,7 @@ const ChatMessageBox: React.FC<Message> = (message) => {
           win.focus();
         }}> 
           {(() => {
-            let fullSizeUrl = `${CDN_SERVER_PREFIX}${message.fileContent}`;
-            let displayWidth = imageThumbnailMessageWidth;
-            let displayHeight = imageThumbnailMessageHeight;
-
-            getMeta(fullSizeUrl, (width: number, height: number) => {
-              if (height < displayHeight) {
-                displayHeight = height * (displayWidth / width);
-              } else if (width < displayWidth) {
-                displayWidth = displayHeight * (width / height);
-              }
-              imgDisplay.current = (
-                <img src={`${fullSizeUrl}?width=${displayWidth}&height=${displayHeight}`} alt={CONTENT_IMAGE}>
-                </img>
-              )
-              setToggle(!toggle);
-            });
+            imgHandle();
 
             if (imgDisplay.current == null) {
               return (
