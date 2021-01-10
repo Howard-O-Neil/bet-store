@@ -1,28 +1,28 @@
 #ignore CDNServer
-Backend/CDNServer/log/*
-Backend/CDNServer/database/*
+Backend/CDNServer/log
+Backend/CDNServer/database
 
 #golang
 gin-bin
 go.sum
-Backend/GoBackend/.idea/*
-Backend/GoBackend/log/*
-Backend/CDNServer/.idea/*
+Backend/GoBackend/.idea
+Backend/GoBackend/log
+Backend/CDNServer/.idea
 Backend/GoBackend/.env
 
 #datamongo
-Backend/Database/data/*
-Backend/Database/log/*
+Backend/Database/data
+Backend/Database/log
 
 #javabackend
-Backend/JavaBackend/.vscode/*
-Backend/JavaBackend/target/*
-Backend/JavaBackend/node_modules/*
-Backend/JavaBackend/logs/*
+Backend/JavaBackend/.vscode
+Backend/JavaBackend/target
+Backend/JavaBackend/node_modules
+Backend/JavaBackend/logs
 
 #frontend
-Frontend/**/node_modules/*
-
+Frontend/**/node_modules
+Frontend/**/build
 #nodejsbackend
-node_modules/
-logs/
+Backend/NodeJSBackend/node_modules
+Backend/NodeJSBackend/logs
