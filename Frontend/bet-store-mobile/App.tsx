@@ -1,16 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import FlashMessage from 'react-native-flash-message';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
+import FlashMessage from "react-native-flash-message";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
 
-import useCachedResources from './src/hooks/useCachedResources';
-import useColorScheme from './src/hooks/useColorScheme';
-import Navigation from './src/navigation';
-import store from './src/store';
-import * as Permissions  from 'expo-permissions';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { Provider as StoreProvider } from 'react-redux';
+import useCachedResources from "./src/hooks/useCachedResources";
+import useColorScheme from "./src/hooks/useColorScheme";
+import Navigation from "./src/navigation";
+import store from "./src/store";
+import * as Permissions from "expo-permissions";
+import { Provider as PaperProvider } from "react-native-paper";
+import { Provider as StoreProvider } from "react-redux";
+import TimeAgo from "javascript-time-ago";
+import vi from "javascript-time-ago/locale/vi";
+TimeAgo.addLocale(vi);
+TimeAgo.setDefaultLocale("vi");
 
 export default function App() {
   //const [statusCam, setstatusCam] = useState(false);
@@ -25,7 +29,6 @@ export default function App() {
   //     setmedia(statusMedila.status=='granted');
   //   };
   // }, [])
-  
 
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -45,7 +48,7 @@ export default function App() {
     return (
       <StoreProvider store={store}>
         <PaperProvider>
-          <Provider store = {store}>
+          <Provider store={store}>
             <SafeAreaProvider>
               <Navigation colorScheme={colorScheme} />
               <StatusBar />

@@ -20,6 +20,7 @@
     "@react-navigation/native": "^5.8.9",
     "@react-navigation/stack": "^5.12.6",
     "@stomp/stompjs": "^6.0.0",
+    "@types/javascript-time-ago": "^2.0.1",
     "@types/react-native-table-component": "^1.2.0",
     "@types/react-redux": "^7.1.14",
     "@types/sockjs-client": "^1.5.0",
@@ -36,6 +37,7 @@
     "expo-web-browser": "~8.6.0",
     "form-data": "^3.0.0",
     "http-proxy-middleware": "^1.0.6",
+    "intl": "^1.2.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
@@ -50,6 +52,7 @@
     "react-native-svg": "^12.1.0",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.2",
+    "react-time-ago": "^6.2.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
