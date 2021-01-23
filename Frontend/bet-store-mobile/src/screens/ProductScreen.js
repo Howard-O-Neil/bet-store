@@ -10,6 +10,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import TimeAgo from "../components/TimeAgo";
 import { ScrollView } from "react-native-gesture-handler";
 import { listCategories } from "../actions/categoryActions";
+import { listProducts, listRandomProducts } from "../actions/productActions";
+import ProductCard from "../components/ProductCard";
 const ProductScreen = () => {
   const route = useRoute();
   const product = route.params.product;
@@ -18,8 +20,12 @@ const ProductScreen = () => {
 
   const [properties, setProperties] = useState([]);
   const [images, setImages] = useState([]);
-
   const [propertyLabel, setPropertyLabel] = useState([]);
+
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
+  const [randProducts, setRandProduct] = useState([]);
+
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -37,15 +43,22 @@ const ProductScreen = () => {
     setProperties(product.properties);
     handleImage(product.image);
     dispatch(listCategories({ path: product.category }));
+    dispatch(
+      listRandomProducts({ category: product.category, countPerPage: 5 })
+    );
   }, [product]);
 
   useEffect(() => {
     if (categories && categories.length)
       setPropertyLabel(categories[0].properties);
   }, [categories]);
+
+  useEffect(() => {
+    if (products) setRandProduct(products);
+  }, [products]);
   return (
     <Screen style={{ backgroundColor: "#fff" }}>
-      <ScrollView>
+      <ScrollView onS>
         <SliderBox
           images={images}
           sliderBoxHeight={320}
@@ -89,6 +102,13 @@ const ProductScreen = () => {
               ))}
           </View>
         </View>
+        <ScrollView horizontal>
+          {randProducts &&
+            randProducts.length > 0 &&
+            randProducts.map((product) => (
+              <ProductCard {...product}></ProductCard>
+            ))}
+        </ScrollView>
       </ScrollView>
     </Screen>
   );

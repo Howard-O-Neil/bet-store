@@ -51,7 +51,7 @@ export const listProducts = (body) => async (dispatch) => {
   }
 };
 
-export const listRandomProducts = ({ countPerPage = 10 }) => async (
+export const listRandomProducts = ({ countPerPage = 10, ...body }) => async (
   dispatch
 ) => {
   try {
@@ -60,7 +60,7 @@ export const listRandomProducts = ({ countPerPage = 10 }) => async (
     });
 
     const { data } = await axios.get(`${NodeAPI}/api/products/random`, {
-      params: { num: countPerPage },
+      params: { num: countPerPage, ...body },
     });
 
     dispatch({
