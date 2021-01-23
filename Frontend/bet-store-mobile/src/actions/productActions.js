@@ -115,7 +115,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };*/
     //
-    await axios.delete(`/node/api/products/${id}`);
+    await axios.delete(`${NodeAPI}/api/products/${id}`);
 
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
@@ -139,30 +139,24 @@ export const createProduct = (product, imagesToUpload) => async (
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
     });
-
+    console.log("start upload");
     await dispatch(uploadImage(imagesToUpload));
-
+    console.log("end upload");
     const {
       imageUpload: { images },
     } = getState();
-
+    let handledImage = [];
     Object.entries(images).map((filename) => {
-      product.image.push({
+      handledImage.push({
         link: filename[1],
         alt: filename[0],
       });
     });
 
-    //get user info
-    //const {userLogin: {userInfo}} = getState()
-    /*const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };*/
-    //
-    const { data } = await axios.post(`/node/api/products/`, product);
-
+    let tempProduct = { ...product, image: handledImage };
+    const { data } = await axios.post(`${NodeAPI}/api/products/`, tempProduct);
+    console.log("success");
+    console.log(data);
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,

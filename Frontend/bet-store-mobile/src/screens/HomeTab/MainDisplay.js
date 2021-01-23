@@ -5,14 +5,19 @@ import { listRandomProducts } from "../../actions/productActions";
 import { listCategories } from "../../actions/categoryActions";
 import { NodeAPI, CDNAPI } from "../../../define";
 import ReactTimeAgo from "react-time-ago";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import "intl";
 import "intl/locale-data/jsonp/vi";
 import TimeAgo from "../../components/TimeAgo";
+import { useNavigation } from "@react-navigation/native";
 
 const MainDisplay = () => {
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
@@ -36,6 +41,13 @@ const MainDisplay = () => {
     return name;
   };
 
+  const handleCategoryClick = (id) => {
+    navigation.navigate("Category", { category: id });
+  };
+  const handleProductClick = (product) => {
+    navigation.navigate("Product", { product: product });
+  };
+
   useEffect(() => {
     dispatch(listRandomProducts({}));
     dispatch(listCategories({ parent: "" }));
@@ -53,7 +65,11 @@ const MainDisplay = () => {
           <View style={styles.categories}>
             {categories &&
               categories.map((category) => (
-                <View style={styles.category} key={category._id}>
+                <TouchableOpacity
+                  style={styles.category}
+                  key={category._id}
+                  onPress={() => handleCategoryClick(category.path)}
+                >
                   <Image
                     style={styles.categoryImage}
                     source={{ uri: `${CDNAPI}/cdn/${category.image.link}` }}
@@ -61,7 +77,7 @@ const MainDisplay = () => {
                   <Text style={styles.categoryText}>
                     {trimCategoryName(category.name)}
                   </Text>
-                </View>
+                </TouchableOpacity>
               ))}
           </View>
         </ScrollView>
@@ -74,22 +90,28 @@ const MainDisplay = () => {
               {products &&
                 products.map((product) => (
                   <View style={styles.product} key={product._id}>
-                    <Image
-                      style={styles.productImage}
-                      source={{ uri: `${CDNAPI}/cdn/${product.image[0].link}` }}
-                    ></Image>
-                    <Text style={styles.productText}>
-                      {trimProductName(product.name)}
-                    </Text>
-                    <Text style={styles.price}>
-                      {new Intl.NumberFormat("vi-VI", {
-                        style: "currency",
-                        currency: "VND",
-                      }).format(product.price)}
-                    </Text>
-                    <Text style={styles.time}>
-                      <TimeAgo date={product.updatedAt} locale="vi"></TimeAgo>
-                    </Text>
+                    <TouchableOpacity
+                      onPress={() => handleProductClick(product)}
+                    >
+                      <Image
+                        style={styles.productImage}
+                        source={{
+                          uri: `${CDNAPI}/cdn/${product.image[0].link}`,
+                        }}
+                      ></Image>
+                      <Text style={styles.productText}>
+                        {trimProductName(product.name)}
+                      </Text>
+                      <Text style={styles.price}>
+                        {new Intl.NumberFormat("vi-VI", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(product.price)}
+                      </Text>
+                      <Text style={styles.time}>
+                        <TimeAgo date={product.updatedAt} locale="vi"></TimeAgo>
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 ))}
             </View>
@@ -180,6 +202,7 @@ const styles = StyleSheet.create({
   time: {
     marginVertical: 5,
     marginLeft: 10,
+    color: "grey",
   },
 });
 
