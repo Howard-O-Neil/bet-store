@@ -28,6 +28,7 @@ import {
   sortByPrice,
 } from "../actions/productActions";
 import TimeAgo from "../components/TimeAgo";
+import { PRODUCT_LIST_RESET } from "../constants/productConstants";
 
 const GRID_MODE = "0";
 const LIST_MODE = "1";
@@ -35,8 +36,8 @@ const LIST_MODE = "1";
 const CategoryDetailsScreen = () => {
   const route = useRoute();
   const dispatch = useDispatch();
-  const category = route.params.category || "";
-  const keyword = route.params.keyword || "";
+  const category = route.params.category ? route.params.category : "";
+  const keyword = route.params.keyword ? route.params.keyword : "";
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -55,6 +56,7 @@ const CategoryDetailsScreen = () => {
   } = productList;
 
   const [currentProducts, setCurrentProducts] = useState([]);
+  const [currentCategories, setCurrentCategories] = useState([]);
 
   const isCloseToBottom = ({
     layoutMeasurement,
@@ -71,26 +73,28 @@ const CategoryDetailsScreen = () => {
   const [viewMode, setViewMode] = useState(GRID_MODE);
   useEffect(() => {
     dispatch(loadDataIntoFilter({ countPerPage: 10 }));
-    dispatch(shuffleProduct);
     dispatch(loadExactPage({ page: 1 }));
   }, [products]);
+  useEffect(() => {
+    dispatch({ type: PRODUCT_LIST_RESET });
+    setCurrentProducts([]);
+
+    dispatch(listProducts({ category: category, keyword: keyword }));
+  }, [keyword]);
   useEffect(() => {
     dispatch(listCategories({ parent: category }));
-    dispatch(listProducts({ category: category, keyword: keyword }));
-  }, [dispatch, keyword]);
-
-  useEffect(() => {
-    dispatch(loadDataIntoFilter({ countPerPage: 10 }));
-    dispatch(shuffleProduct);
-    dispatch(loadExactPage({ page: 1 }));
-  }, [products]);
-
+  }, []);
   useEffect(() => {
     if (filteredProducts)
       setCurrentProducts([...currentProducts, ...filteredProducts]);
   }, [filteredProducts]);
 
-  const handleSubCategoryClick = (path) => {
+  useEffect(() => {
+    if (categories && categories.length) setCurrentCategories([...categories]);
+  }, [categories]);
+
+  const handleCategoryClick = (path) => {
+    setCurrentProducts([]);
     dispatch(listCategories({ parent: path }));
     dispatch(listProducts({ category: path }));
   };
@@ -127,6 +131,37 @@ const CategoryDetailsScreen = () => {
   };
   return (
     <Screen>
+      <View style={styles.categoryContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.categories}>
+            {currentCategories &&
+              currentCategories.map((category) => (
+                <TouchableOpacity
+                  style={styles.category}
+                  key={category._id}
+                  onPress={() => handleCategoryClick(category.path)}
+                >
+                  {category.image.link.slice(-4) !== ".svg" ? (
+                    <Image
+                      style={styles.categoryImage}
+                      source={{
+                        uri: `${CDNAPI}/cdn/${category.image.link}`,
+                      }}
+                    ></Image>
+                  ) : (
+                    <SvgUri
+                      style={styles.categoryImage}
+                      uri={`${CDNAPI}/cdn/${category.image.link}`}
+                    />
+                  )}
+                  <Text style={styles.categoryText}>
+                    {trimCategoryName(category.name)}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+          </View>
+        </ScrollView>
+      </View>
       <ScrollView
         style={{ backgroundColor: "#f4f4f4" }}
         onScroll={({ nativeEvent }) => {
@@ -136,37 +171,6 @@ const CategoryDetailsScreen = () => {
         }}
         scrollEventThrottle={400}
       >
-        <View style={styles.categoryContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.categories}>
-              {categories &&
-                categories.map((category) => (
-                  <TouchableOpacity
-                    style={styles.category}
-                    key={category._id}
-                    onPress={() => handleCategoryClick(category.path)}
-                  >
-                    {category.image.link.slice(-4) !== ".svg" ? (
-                      <Image
-                        style={styles.categoryImage}
-                        source={{
-                          uri: `${CDNAPI}/cdn/${category.image.link}`,
-                        }}
-                      ></Image>
-                    ) : (
-                      <SvgUri
-                        style={styles.categoryImage}
-                        uri={`${CDNAPI}/cdn/${category.image.link}`}
-                      />
-                    )}
-                    <Text style={styles.categoryText}>
-                      {trimCategoryName(category.name)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-            </View>
-          </ScrollView>
-        </View>
         <View style={styles.optionsContainer}>
           <DropDownPicker
             items={[

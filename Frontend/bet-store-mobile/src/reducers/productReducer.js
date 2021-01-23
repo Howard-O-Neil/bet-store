@@ -24,6 +24,7 @@ import {
   LOAD_EXACT_PAGE,
   LOAD_DATA_INTO_FILTER,
   SHUFFLE_PRODUCT,
+  PRODUCT_LIST_RESET,
 } from "../constants/productConstants";
 
 export const productListReducer = (
@@ -32,6 +33,8 @@ export const productListReducer = (
 ) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_LIST_RESET:
       return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
       return { loading: false, products: action.payload };

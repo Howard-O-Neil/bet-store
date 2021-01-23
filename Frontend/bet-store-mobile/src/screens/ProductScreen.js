@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
@@ -8,12 +8,13 @@ import { SliderBox } from "react-native-image-slider-box";
 import { CDNAPI } from "../../define";
 import { FontAwesome } from "@expo/vector-icons";
 import TimeAgo from "../components/TimeAgo";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { listCategories } from "../actions/categoryActions";
 import { listProducts, listRandomProducts } from "../actions/productActions";
 import ProductCard from "../components/ProductCard";
 const ProductScreen = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const product = route.params.product;
 
   const dispatch = useDispatch();
@@ -56,6 +57,10 @@ const ProductScreen = () => {
   useEffect(() => {
     if (products) setRandProduct(products);
   }, [products]);
+
+  const handleProductClick = (product) => {
+    navigation.push("Product", { product: product });
+  };
   return (
     <Screen style={{ backgroundColor: "#fff" }}>
       <ScrollView onS>
@@ -88,7 +93,7 @@ const ProductScreen = () => {
           <View style={styles.propertyContainer}>
             {propertyLabel &&
               propertyLabel.map((label) => (
-                <View style={styles.property}>
+                <View style={styles.property} key={label._id}>
                   <Image
                     style={styles.propertiesImage}
                     source={{ uri: `${CDNAPI}/cdn/${label.image.link}` }}
@@ -106,7 +111,12 @@ const ProductScreen = () => {
           {randProducts &&
             randProducts.length > 0 &&
             randProducts.map((product) => (
-              <ProductCard {...product}></ProductCard>
+              <TouchableOpacity
+                key={product._id}
+                onPress={() => handleProductClick(product)}
+              >
+                <ProductCard {...product}></ProductCard>
+              </TouchableOpacity>
             ))}
         </ScrollView>
       </ScrollView>

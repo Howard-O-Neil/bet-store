@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { listRandomProducts } from "../../actions/productActions";
@@ -14,13 +14,17 @@ import "intl";
 import "intl/locale-data/jsonp/vi";
 import TimeAgo from "../../components/TimeAgo";
 import { useNavigation } from "@react-navigation/native";
+import { PRODUCT_LIST_RESET } from "../../constants/productConstants";
 
 const MainDisplay = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
-
+  const [initialProductLoad, setInitialProductlLoad] = useState(false);
+  const [initialCategoryLoad, setInitialCategorylLoad] = useState(false);
+  const [screenProducts, setScreenProducts] = useState([]);
+  const [screenCategories, setScreenCategories] = useState([]);
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -42,6 +46,7 @@ const MainDisplay = () => {
   };
 
   const handleCategoryClick = (id) => {
+    dispatch({ type: PRODUCT_LIST_RESET });
     navigation.navigate("Category", { category: id });
   };
   const handleProductClick = (product) => {
@@ -52,6 +57,19 @@ const MainDisplay = () => {
     dispatch(listRandomProducts({}));
     dispatch(listCategories({ parent: "" }));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (products && products.length > 0 && !initialProductLoad) {
+      setScreenProducts([...products]);
+      setInitialProductlLoad(true);
+    }
+  }, [products]);
+  useEffect(() => {
+    if (categories && categories.length > 0 && !initialCategoryLoad) {
+      setScreenCategories([...categories]);
+      setInitialCategorylLoad(true);
+    }
+  }, [categories]);
   return (
     <ScrollView style={{ backgroundColor: "#f4f4f4" }}>
       <View style={styles.categoryContainer}>
@@ -63,8 +81,8 @@ const MainDisplay = () => {
           contentContainerStyle={{ flexGrow: 1 }}
         >
           <View style={styles.categories}>
-            {categories &&
-              categories.map((category) => (
+            {screenCategories &&
+              screenCategories.map((category) => (
                 <TouchableOpacity
                   style={styles.category}
                   key={category._id}
@@ -87,8 +105,8 @@ const MainDisplay = () => {
           <Text style={styles.header}>Tin đăng mới</Text>
           <View>
             <View style={styles.products}>
-              {products &&
-                products.map((product) => (
+              {screenProducts &&
+                screenProducts.map((product) => (
                   <View style={styles.product} key={product._id}>
                     <TouchableOpacity
                       onPress={() => handleProductClick(product)}
