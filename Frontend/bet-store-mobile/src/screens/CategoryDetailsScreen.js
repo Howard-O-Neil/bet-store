@@ -54,6 +54,20 @@ const CategoryDetailsScreen = () => {
     totalPages,
   } = productList;
 
+  const [currentProducts, setCurrentProducts] = useState([]);
+
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
   const [viewMode, setViewMode] = useState(GRID_MODE);
   useEffect(() => {
     dispatch(loadDataIntoFilter({ countPerPage: 10 }));
@@ -71,6 +85,11 @@ const CategoryDetailsScreen = () => {
     dispatch(loadExactPage({ page: 1 }));
   }, [products]);
 
+  useEffect(() => {
+    if (filteredProducts)
+      setCurrentProducts([...currentProducts, ...filteredProducts]);
+  }, [filteredProducts]);
+
   const handleSubCategoryClick = (path) => {
     dispatch(listCategories({ parent: path }));
     dispatch(listProducts({ category: path }));
@@ -80,13 +99,6 @@ const CategoryDetailsScreen = () => {
     dispatch(loadNewPage({ page: 1 }));
   };
 
-  const previousPage = () => {
-    dispatch(loadNewPage({ page: -1 }));
-  };
-
-  const goToPage = (page) => {
-    dispatch(loadExactPage({ page }));
-  };
   const sortByInput = (value) => {
     let direction = value.endsWith("asc") ? "asc" : "desc";
 
@@ -115,7 +127,15 @@ const CategoryDetailsScreen = () => {
   };
   return (
     <Screen>
-      <ScrollView style={{ backgroundColor: "#f4f4f4" }}>
+      <ScrollView
+        style={{ backgroundColor: "#f4f4f4" }}
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent) && currentPage < filteredPages) {
+            nextPage();
+          }
+        }}
+        scrollEventThrottle={400}
+      >
         <View style={styles.categoryContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.categories}>
@@ -174,8 +194,8 @@ const CategoryDetailsScreen = () => {
         <View style={styles.productContainer}>
           <View>
             <View style={styles.products}>
-              {filteredProducts &&
-                filteredProducts.map((product) => (
+              {currentProducts &&
+                currentProducts.map((product) => (
                   <View
                     style={
                       viewMode === GRID_MODE
