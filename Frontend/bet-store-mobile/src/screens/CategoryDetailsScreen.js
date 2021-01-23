@@ -14,6 +14,7 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 import { Screen } from "react-native-screens";
+import { SvgUri } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { CDNAPI } from "../../define";
 import { listCategories } from "../actions/categoryActions";
@@ -125,12 +126,19 @@ const CategoryDetailsScreen = () => {
                     key={category._id}
                     onPress={() => handleCategoryClick(category.path)}
                   >
-                    <Image
-                      style={styles.categoryImage}
-                      source={{
-                        uri: `${CDNAPI}/cdn/${category.image.link}`,
-                      }}
-                    ></Image>
+                    {category.image.link.slice(-4) !== ".svg" ? (
+                      <Image
+                        style={styles.categoryImage}
+                        source={{
+                          uri: `${CDNAPI}/cdn/${category.image.link}`,
+                        }}
+                      ></Image>
+                    ) : (
+                      <SvgUri
+                        style={styles.categoryImage}
+                        uri={`${CDNAPI}/cdn/${category.image.link}`}
+                      />
+                    )}
                     <Text style={styles.categoryText}>
                       {trimCategoryName(category.name)}
                     </Text>
