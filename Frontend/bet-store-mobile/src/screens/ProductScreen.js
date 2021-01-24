@@ -12,6 +12,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { listCategories } from "../actions/categoryActions";
 import { listProducts, listRandomProducts } from "../actions/productActions";
 import ProductCard from "../components/ProductCard";
+import ChildProfile from "../components/ProfileChild";
 const ProductScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
@@ -84,7 +85,11 @@ const ProductScreen = () => {
           </Text>
         </View>
         <View style={styles.section}>
-          <Text>Profile</Text>
+          <ChildProfile idProfile = "5fa7fb0a62083e11ace57490"/>
+
+
+
+
         </View>
         <View style={styles.section}>
           <Text>{product.description}</Text>
