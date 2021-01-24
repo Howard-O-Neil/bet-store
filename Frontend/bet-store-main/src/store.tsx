@@ -13,15 +13,21 @@ import {
   categoryCreateReducer,
   categoryUpdateReducer,
 } from "./reducers/categoryReducer";
-import { profileReducer } from "./reducers/profileReducer";
+import { getProfileGlobalReducer, profileReducer } from "./reducers/profileReducer";
 import { accountReducer, confirmTelAccount } from "./reducers/accountReducer";
 import { notifyReducer } from "./reducers/notifyReducer";
 import { walletReducer } from "./reducers/walletReducer";
 import { imagesUploadReducer } from "./reducers/imageReducer";
 import { addsliderReducer, editSliderReducer, getsliderReducer, removeSliderReducer } from "./reducers/sliderReducer";
 import { uploadImageReducer } from "./reducers/imageReducerts";
+import { accountInfoReducer, conversationControlReducer, gifControlReducer, messageControlReducer, socketInfoReducer, viewControlReducer } from "./reducers/chatBoxReducer";
 
 const reducer = combineReducers({
+  conversationControl: conversationControlReducer,
+  messageControl: messageControlReducer,
+  chatAccountInfo: accountInfoReducer,
+  viewControl: viewControlReducer,
+  socketInfo: socketInfoReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
@@ -41,7 +47,8 @@ const reducer = combineReducers({
   addSlider:addsliderReducer,
   removeSlider:removeSliderReducer,
   editSlider:editSliderReducer,
-  confirmTelAccount:confirmTelAccount
+  confirmTelAccount:confirmTelAccount,
+  getProfileGlobal:getProfileGlobalReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 

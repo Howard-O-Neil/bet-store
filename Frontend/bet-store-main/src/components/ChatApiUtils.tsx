@@ -18,26 +18,31 @@ export class ChatApiUtils {
     let userList: ChatAccountInfo[] = [];
     userList.push(
       {
-        id: "5fbc0b21d32481017a769f16",
+        id: "",
         avatar: ChatApiUtils.randomImg(),
         user: "fuck",
       },
       {
-        id: "5fbd3a3970cb4d0161112b1d",
+        id: "",
         avatar: ChatApiUtils.randomImg(),
         user: "mingkhoi",
       },
       {
-        id: "5fbd43bb76af190165ad3f21",
+        id: "",
         avatar: ChatApiUtils.randomImg(),
         user: "MrSnoop",
       },
       {
-        id: "5fbf6df930e7f6015fbdb1a1",
+        id: "",
         avatar: ChatApiUtils.randomImg(),
         user: "ert",
       }
     );
-    return userList.find(x => x.id === id);
+
+    let index = Math.floor(Math.random() * userList.length)
+    let res = userList[index];
+    res.id = id;
+    
+    return res;
   };
 }

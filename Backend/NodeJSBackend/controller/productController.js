@@ -91,8 +91,19 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 const getRamdomProduct = asyncHandler(async (req, res) => {
-  const number = req.query.keyword || 20;
-  const product = await Product.aggregate([{ $sample: { size: number } }]);
+  const number = req.query.num || 20;
+  const category = req.query.category || undefined;
+  let product;
+  if (category) {
+    product = await Product.aggregate([
+      { $sample: { size: parseInt(number) } },
+      { $match: { category: category } },
+    ]);
+  } else {
+    product = await Product.aggregate([
+      { $sample: { size: parseInt(number) } },
+    ]);
+  }
 
   if (product) {
     res.json(product);

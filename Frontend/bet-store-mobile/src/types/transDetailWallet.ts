@@ -1,10 +1,10 @@
 export interface TransDetailWallet {
     signature: string;
     phone: string;
-    tranId: number;
-    ackTime: number;
+    tranId: string;
+    ackTime: string;
     partnerId: string;
     partnerName: string;
-    amount: number;
+    amount: string;
     comment: string;
 }

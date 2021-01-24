@@ -25,8 +25,8 @@ router.get(
             },
           }
         : {};
-
-    const categories = await Category.find({ ...parent });
+    const path = req.query.path ? { path: req.query.path } : {};
+    const categories = await Category.find({ ...parent, ...path });
     res.status(200).json(categories);
   })
 );

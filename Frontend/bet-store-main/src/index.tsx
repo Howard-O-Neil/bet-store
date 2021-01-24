@@ -8,6 +8,7 @@ import TimeAgo from "javascript-time-ago";
 import vi from "javascript-time-ago/locale/vi";
 TimeAgo.addLocale(vi);
 TimeAgo.setDefaultLocale("vi");
+
 ReactDOM.render(
   <Provider store={store} >
     <App />

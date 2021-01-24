@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import User from "./models/userModel.js";
 import Product from "./models/productModel.js";
 import Category from "./models/categoryModel.js";
 import connectDB from "./config/db.js";
@@ -11,10 +12,10 @@ dotenv.config();
 connectDB();
 
 const importData = async () => {
-  
   try {
     await Product.deleteMany();
     await Category.deleteMany();
+
     await Product.insertMany(products);
     await Category.insertMany(categories);
     console.log("Data imported!");

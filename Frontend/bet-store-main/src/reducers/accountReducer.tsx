@@ -48,11 +48,11 @@ export const accountReducer: React.Reducer<StateType<AccountReduxType>, ActionTy
 export const confirmTelAccount: React.Reducer<StateType<boolean>, ActionType<any>> = (state = { Error: "", IsFetching: false, Payload: false }, action) => {
     switch (action.type) {
         case CONFIRM_TEL_ACCOUNT:
-            return { ...state, IsFetching: true };
+            return { ...state, IsFetching: true,Payload: false };
         case CONFIRM_TEL_ACCOUNT_SUCCESS:
-            return { ...state, IsFetching: false, Payload: true };
+            return { ...state, IsFetching: false, Payload: action.payload };
         case CONFIRM_TEL_ACCOUNT_FAIL:
-            return { ...state, IsFetching: false, Error: action.payload };
+            return { ...state, IsFetching: false, Error: action.payload , Payload: false };
         default:
             return state;
     }

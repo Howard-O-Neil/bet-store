@@ -15,12 +15,13 @@ export type BottomTabParamList = {
 
 export type HomeTabParamList = {
   Home: undefined;
+  Category: undefined;
+  Product: undefined;
 };
 
 export type CategoryTabParamList = {
   Category: undefined;
 };
-
 
 export type MessageTabParamList = {
   Message: undefined;
@@ -30,7 +31,10 @@ export type AccountTabStackParamList = {
   Account: undefined;
   Login: undefined;
   Profile: undefined;
-  Signup:undefined;
-  Wallet:undefined;
-  PayWallet:undefined;
+  Signup: undefined;
+  Wallet: undefined;
+  PayWallet: undefined;
+  Sale: undefined;
+  NewProduct: undefined;
+  EditProduct: undefined;
 };

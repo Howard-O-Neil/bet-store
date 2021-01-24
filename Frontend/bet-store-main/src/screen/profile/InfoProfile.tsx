@@ -111,7 +111,7 @@ export default function InfoProfile() {
         setProfileState({
             type: FULL,
             payload: profile.Payload
-        })
+        });
         setSexuser(profile.Payload.sex);
         if (profile.Payload.sex !== "")
             $(`input[name=SelectSexForm][value=${profile.Payload.sex}]`).attr("checked", "true");

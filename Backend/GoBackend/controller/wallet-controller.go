@@ -58,6 +58,8 @@ func WebhookWalletHandle(ctx *gin.Context) {
 
 	err := ctx.BindJSON(&enti)
 
+	fmt.Println(enti.Comment)
+
 	if err != nil {
 		fmt.Println("[WebhookWalletHandle] Error:%s" + err.Error())
 		return
@@ -89,5 +91,5 @@ func WebhookWalletHandle(ctx *gin.Context) {
 		fmt.Println("[WebhookWalletHandle] Error: " + err.Error())
 		return
 	}
-	fmt.Printf("[WebhookWalletHandle] Spend success: %s|%d\n", profile.Username, enti.Amount)
+	fmt.Printf("[WebhookWalletHandle] Spend success: %s|%s\n", profile.Username, enti.Amount)
 }
