@@ -151,6 +151,8 @@ const CategoryDetailsScreen = () => {
                   ) : (
                     <SvgUri
                       style={styles.categoryImage}
+                      width={70}
+                      height={70}
                       uri={`${CDNAPI}/cdn/${category.image.link}`}
                     />
                   )}
@@ -268,6 +270,7 @@ const styles = StyleSheet.create({
   categoryImage: {
     width: 70,
     height: 70,
+    resizeMode: "contain",
     marginLeft: "auto",
     marginRight: "auto",
   },
