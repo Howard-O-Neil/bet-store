@@ -85,11 +85,7 @@ const ProductScreen = () => {
           </Text>
         </View>
         <View style={styles.section}>
-          <ChildProfile idProfile = "5fa7fb0a62083e11ace57490"/>
-
-
-
-
+          <ChildProfile idProfile = {product.user}/>
         </View>
         <View style={styles.section}>
           <Text>{product.description}</Text>
