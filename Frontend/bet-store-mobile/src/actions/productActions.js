@@ -1,5 +1,4 @@
-import axios from 'axios';
-import {userInfo} from 'os';
+import axios from "axios";
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -16,23 +15,53 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
-} from '../constants/productConstants';
+  SORT_BY_PRICE,
+  SORT_BY_ALPHABET,
+  FILTER_BY_VALUE,
+  LOAD_NEW_PAGE,
+  LOAD_EXACT_PAGE,
+  LOAD_DATA_INTO_FILTER,
+  SHUFFLE_PRODUCT,
+} from "../constants/productConstants";
+import { NodeAPI } from "../../define";
+import { uploadImage } from "../actions/imageActions";
 
-import {
-  IMAGE_UPLOAD_REQUEST,
-  IMAGE_UPLOAD_SUCCESS,
-  IMAGE_UPLOAD_FAIL,
-} from '../constants/imageConstants';
-
-import {uploadImage} from '../actions/imageActions';
-
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (body) => async (dispatch) => {
   try {
     dispatch({
       type: PRODUCT_LIST_REQUEST,
     });
 
-    const {data} = await axios.get('/node/api/products');
+    const { data } = await axios.get(`${NodeAPI}/api/products`, {
+      params: body,
+    });
+
+    dispatch({
+      type: PRODUCT_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listRandomProducts = ({ countPerPage = 10, ...body }) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_LIST_REQUEST,
+    });
+
+    const { data } = await axios.get(`${NodeAPI}/api/products/random`, {
+      params: { num: countPerPage, ...body },
+    });
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -55,7 +84,7 @@ export const listProductDetails = (id) => async (dispatch) => {
       type: PRODUCT_DETAILS_REQUEST,
     });
 
-    const {data} = await axios.get(`/node/api/products/${id}`);
+    const { data } = await axios.get(`/node/api/products/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -86,7 +115,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };*/
     //
-    await axios.delete(`/node/api/products/${id}`);
+    await axios.delete(`${NodeAPI}/api/products/${id}`);
 
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
@@ -104,36 +133,30 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 
 export const createProduct = (product, imagesToUpload) => async (
   dispatch,
-  getState,
+  getState
 ) => {
   try {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
     });
-
+    console.log("start upload");
     await dispatch(uploadImage(imagesToUpload));
-
+    console.log("end upload");
     const {
-      imageUpload: {images},
+      imageUpload: { images },
     } = getState();
-
+    let handledImage = [];
     Object.entries(images).map((filename) => {
-      product.image.push({
+      handledImage.push({
         link: filename[1],
         alt: filename[0],
       });
     });
 
-    //get user info
-    //const {userLogin: {userInfo}} = getState()
-    /*const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };*/
-    //
-    const {data} = await axios.post('/node/api/products/', product);
-
+    let tempProduct = { ...product, image: handledImage };
+    const { data } = await axios.post(`${NodeAPI}/api/products/`, tempProduct);
+    console.log("success");
+    console.log(data);
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,
@@ -151,25 +174,30 @@ export const createProduct = (product, imagesToUpload) => async (
 
 export const updateProduct = (id, product, imagesToUpload) => async (
   dispatch,
-  getState,
+  getState
 ) => {
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
     });
+    let tempProduct = { ...product };
+    if (imagesToUpload != null) {
+      await dispatch(uploadImage(imagesToUpload));
+      console.log("images");
+      const {
+        imageUpload: { images },
+      } = getState();
+      let newImage = [];
 
-    await dispatch(uploadImage(imagesToUpload));
-
-    const {
-      imageUpload: {images},
-    } = getState();
-
-    Object.entries(images).map((filename) => {
-      product.image.push({
-        link: filename[1],
-        alt: filename[0],
+      Object.entries(images).map((filename) => {
+        newImage.push({
+          link: filename[1],
+          alt: filename[0],
+        });
       });
-    });
+
+      tempProduct.image = newImage;
+    }
 
     //get user info
     //const {userLogin: {userInfo}} = getState()
@@ -179,11 +207,15 @@ export const updateProduct = (id, product, imagesToUpload) => async (
       },
     };*/
     //
-    //const { data } = await axios.put(`/node/api/products/${id}`, product);
+
+    const { data } = await axios.put(
+      `${NodeAPI}/api/products/${id}`,
+      tempProduct
+    );
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
-      //payload: data,
+      payload: data,
     });
   } catch (error) {
     dispatch({
@@ -195,3 +227,200 @@ export const updateProduct = (id, product, imagesToUpload) => async (
     });
   }
 };
+
+export const sortByPrice = ({ direction }) => async (dispatch, getState) => {
+  const { productList: state } = getState();
+  let sortedPriceArr =
+    direction === "asc"
+      ? sortAsc(state.filteredProducts, "price")
+      : sortDesc(state.filteredProducts, "price");
+
+  state.filteredProducts = sortedPriceArr;
+  state.appliedFilters = addFilterIfNotExists(
+    SORT_BY_ALPHABET,
+    state.appliedFilters
+  );
+  state.appliedFilters = removeFilter(SORT_BY_PRICE, state.appliedFilters);
+  dispatch({
+    type: SORT_BY_PRICE,
+    payload: { ...state },
+  });
+};
+
+export const filterByValue = ({ value }) => async (dispatch, getState) => {
+  const { productList: state } = getState();
+  let filteredValues = state.products.filter((product) => {
+    return (
+      product.name.toLowerCase().includes(value) ||
+      product.description.toLowerCase().includes(value)
+    );
+  });
+
+  let appliedFilters = state.appliedFilters;
+
+  if (value) {
+    appliedFilters = addFilterIfNotExists(FILTER_BY_VALUE, appliedFilters);
+
+    state.filteredProducts = filteredValues;
+    state.filteredCount = state.filteredProducts.length;
+    state.filteredPages = Math.ceil(state.filteredCount / state.countPerPage);
+  } else {
+    appliedFilters = removeFilter(FILTER_BY_VALUE, appliedFilters);
+
+    if (appliedFilters.length === 0) {
+      state.filteredProducts = state.products;
+      state.filteredCount = state.filteredProducts.length;
+      state.filteredPages = Math.ceil(state.filteredCount / state.countPerPage);
+    }
+  }
+  dispatch({
+    type: FILTER_BY_VALUE,
+    payload: { ...state },
+  });
+};
+
+export const sortByAlphabet = ({ direction }) => async (dispatch, getState) => {
+  const { productList: state } = getState();
+
+  let sortedAlphabetArr =
+    direction === "asc"
+      ? sortAsc(state.filteredProducts, "name")
+      : sortDesc(state.filteredProducts, "name");
+
+  state.filteredProducts = sortedAlphabetArr;
+  state.appliedFilters = addFilterIfNotExists(
+    SORT_BY_ALPHABET,
+    state.appliedFilters
+  );
+  state.appliedFilters = removeFilter(SORT_BY_ALPHABET, state.appliedFilters);
+  dispatch({
+    type: SORT_BY_ALPHABET,
+    payload: { ...state },
+  });
+};
+
+export const loadNewPage = ({ page }) => async (dispatch, getState) => {
+  const { productList: state } = getState();
+  state.currentPage += page;
+
+  let perPage = state.countPerPage; //20 by default
+
+  let nextProducts;
+  if (page === 1) {
+    //Moving from page 1 to 2 will cause ‘upperCount’ to be 40
+    let upperCount = state.currentCount + perPage;
+    let lowerCount = state.currentCount; //This hasn’t been changed. It will remain 20.
+
+    state.currentCount += state.countPerPage;
+    nextProducts = state.products.slice(lowerCount, upperCount);
+  }
+
+  if (page === -1) {
+    let upperCount = state.currentCount; //40
+    let lowerCount = state.currentCount - perPage; //20
+
+    state.currentCount -= state.countPerPage;
+    nextProducts = state.products.slice(
+      lowerCount - perPage,
+      upperCount - perPage
+    );
+  }
+
+  state.filteredProducts = nextProducts;
+
+  // Don't use window.history.pushState() here in production
+  // It's better to keep redirections predictable
+  //window.history.pushState({page: 1}, "title 1", `?page=${loadNewPageState.currentPage}`);
+  dispatch({
+    type: LOAD_NEW_PAGE,
+    payload: { ...state },
+  });
+};
+
+export const loadExactPage = ({ page }) => async (dispatch, getState) => {
+  const { productList: state } = getState();
+
+  let upperCountExact = state.countPerPage * page;
+  let lowerCountExact = upperCountExact - state.countPerPage;
+
+  let exactProducts = state.products.slice(lowerCountExact, upperCountExact);
+  state.filteredProducts = exactProducts;
+  state.currentCount = upperCountExact;
+  state.currentPage = page;
+  //window.history.pushState({page: 1}, "title 1", `?page=${currentPage}`);
+
+  dispatch({
+    type: LOAD_EXACT_PAGE,
+    payload: { ...state },
+  });
+};
+
+export const loadDataIntoFilter = ({ countPerPage = 10 }) => async (
+  dispatch,
+  getState
+) => {
+  const { productList: state } = getState();
+  const { products } = state;
+  let count = state.products.length;
+
+  let totalPages = Math.ceil(count / countPerPage);
+
+  dispatch({
+    type: LOAD_DATA_INTO_FILTER,
+    payload: {
+      ...state,
+      appliedFilters: [],
+      filteredProducts: products.slice(0, countPerPage),
+      currentCount: countPerPage,
+      countPerPage,
+      totalCount: count,
+      currentPage: 1,
+      totalPages: totalPages,
+      filteredPages: totalPages,
+    },
+  });
+};
+
+export const shuffleProduct = () => async (dispatch, getState) => {
+  const { productList: state } = getState();
+  const { products } = state;
+  const shuffledProducts = products.sort(() => Math.random() - 0.5);
+  state.filteredProducts = shuffledProducts;
+  dispatch({
+    type: SHUFFLE_PRODUCT,
+    payload: { ...state },
+  });
+};
+
+function sortAsc(arr, field) {
+  return arr.sort(function (a, b) {
+    if (a[field] > b[field]) return 1;
+
+    if (b[field] > a[field]) return -1;
+
+    return 0;
+  });
+}
+
+function sortDesc(arr, field) {
+  return arr.sort(function (a, b) {
+    if (a[field] > b[field]) return -1;
+
+    if (b[field] > a[field]) return 1;
+
+    return 0;
+  });
+}
+
+function addFilterIfNotExists(filter, appliedFilters) {
+  let index = appliedFilters.indexOf(filter);
+  if (index === -1) appliedFilters.push(filter);
+
+  return appliedFilters;
+}
+
+function removeFilter(filter, appliedFilters) {
+  let index = appliedFilters.indexOf(filter);
+  appliedFilters.splice(index, 1);
+  return appliedFilters;
+}

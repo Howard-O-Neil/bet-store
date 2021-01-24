@@ -1,16 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
+import { CDNAPI } from "../../define";
 import {
   IMAGE_UPLOAD_REQUEST,
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOAD_FAIL,
-} from '../constants/imageConstants';
+} from "../constants/imageConstants";
 
 export const uploadImage = (images) => async (dispatch, getState) => {
   try {
     dispatch({
       type: IMAGE_UPLOAD_REQUEST,
     });
-
+    var uploadImg = new FormData();
+    // console.log(path);
+    // fs.createReadStream(path);
+    uploadImg.append("files", images);
     //get user info
     //const {userLogin: {userInfo}} = getState()
     /*const config = {
@@ -19,8 +23,8 @@ export const uploadImage = (images) => async (dispatch, getState) => {
       },
     };*/
     //
-    const {data} = await axios.post('/cdn/upload', images);
-
+    const { data } = await axios.post(`${CDNAPI}/upload`, uploadImg);
+    console.log(data);
     dispatch({
       type: IMAGE_UPLOAD_SUCCESS,
       payload: data,

@@ -7,11 +7,14 @@ const Stack = createStackNavigator<CategoryTabParamList>();
 
 export function CategoryNavigator() {
   return (
-    <Stack.Navigator screenOptions =  {{headerShown: true}} initialRouteName = "Category">
+    <Stack.Navigator
+      screenOptions={{ headerShown: true }}
+      initialRouteName="Category"
+    >
       <Stack.Screen
         name="Category"
         component={CategoryScreen}
-        options={{ headerTitle: 'Category Screen' }}
+        options={{ headerTitle: "Category Screen" }}
       />
     </Stack.Navigator>
   );
