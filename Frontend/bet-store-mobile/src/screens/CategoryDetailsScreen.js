@@ -35,6 +35,7 @@ const LIST_MODE = "1";
 
 const CategoryDetailsScreen = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const category = route.params.category ? route.params.category : "";
   const keyword = route.params.keyword ? route.params.keyword : "";
@@ -57,7 +58,7 @@ const CategoryDetailsScreen = () => {
 
   const [currentProducts, setCurrentProducts] = useState([]);
   const [currentCategories, setCurrentCategories] = useState([]);
-
+  const [productLoad, setProductLoad] = useState(false);
   const isCloseToBottom = ({
     layoutMeasurement,
     contentOffset,
@@ -90,11 +91,13 @@ const CategoryDetailsScreen = () => {
   }, [filteredProducts]);
 
   useEffect(() => {
-    if (categories && categories.length) setCurrentCategories([...categories]);
+    if (categories && categories.length && !productLoad)
+      setCurrentCategories([...categories]);
   }, [categories]);
 
   const handleCategoryClick = (path) => {
     setCurrentProducts([]);
+    setProductLoad(false);
     dispatch(listCategories({ parent: path }));
     dispatch(listProducts({ category: path }));
   };
@@ -129,6 +132,11 @@ const CategoryDetailsScreen = () => {
     if (viewMode === GRID_MODE) setViewMode(LIST_MODE);
     else setViewMode(GRID_MODE);
   };
+  const handleProductClick = (product) => {
+    setProductLoad(true);
+    navigation.navigate("Product", { product: product });
+  };
+
   return (
     <Screen>
       <View style={styles.categoryContainer}>
@@ -202,13 +210,14 @@ const CategoryDetailsScreen = () => {
             <View style={styles.products}>
               {currentProducts &&
                 currentProducts.map((product) => (
-                  <View
+                  <TouchableOpacity
                     style={
                       viewMode === GRID_MODE
                         ? styles.productGrid
                         : styles.productList
                     }
                     key={product._id}
+                    onPress={() => handleProductClick(product)}
                   >
                     <Image
                       style={
@@ -237,7 +246,7 @@ const CategoryDetailsScreen = () => {
                         <TimeAgo date={product.updatedAt} locale="vi"></TimeAgo>
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 ))}
             </View>
           </View>
