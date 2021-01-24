@@ -28,10 +28,10 @@ public class ConversationService implements LogService {
     return this.run(
         () -> {
           if (
-            // prettier-ignore
-            this.conversationDao.getConversation(
+            !conversation.getSenderId().equals(conversation.getReceiverId())
+            && this.conversationDao.getConversation(
                 conversation.getSenderId(), conversation.getReceiverId()
-              ).size() > 0
+              ).size() > 0 
           ) {
             return new Tuple2<String, String>(null, null);
           } else {

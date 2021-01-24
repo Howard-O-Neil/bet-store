@@ -38,7 +38,7 @@ func EditProfile(ctx *gin.Context) {
 	var data, _ = ClaimJwt.(entity.JwtClaimEntity)
 	var profile entity.ProfileEntity
 	ctx.BindJSON(&profile)
-
+	fmt.Println(profile)
 	//ctx.JSON(200, gin.H{"auth": data.ID})
 
 	err := Profileservice.EditProfile(data.ID, profile)
@@ -76,3 +76,16 @@ func EditProfile(ctx *gin.Context) {
 // 	}
 // 	ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"_id": id}))
 // }
+
+func GetInfoProfilebyAccountID(ctx *gin.Context) {
+
+	id := ctx.Request.URL.Query().Get("id")
+
+	profile, err := Profileservice.GetInfoProfilebyAccountID(id)
+
+	if err != nil {
+		ctx.JSON(200, service.CreateMsgErrorJsonResponse(1012, err.Error()))
+	} else {
+		ctx.JSON(200, service.CreateMsgSuccessJsonResponse(profile))
+	}
+}

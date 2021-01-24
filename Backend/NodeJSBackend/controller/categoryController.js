@@ -19,3 +19,24 @@ export const createCategory = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+export const updateCategory = asyncHandler(async (req, res) => {
+  try {
+    const newInfo = new Category({
+      _id: req.params.id,
+      ...req.body,
+    });
+    const category = await Category.findById(req.params.id);
+
+    if (category) {
+      category.overwrite(newInfo);
+      await category.save();
+      res.status(200).json({ message: "Product updated" });
+    } else {
+      res.status(404);
+      throw new Error("Category not found");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+});

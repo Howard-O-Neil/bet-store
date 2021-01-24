@@ -1,3 +1,4 @@
+import Axios from "axios";
 import {
   ChatActionType,
   SET_ACCOUNT_INFO,
@@ -13,6 +14,7 @@ import {
   RECEIVE_MESSAGE,
   RECEIVE_CONVERSATION,
   LOAD_PREV_MESSAGE,
+  CLEAR_GIF,
 } from "../actions/chatBoxAction";
 import { ISocket } from "../components/SocketManager";
 
@@ -36,7 +38,7 @@ export interface ChatAccountInfo {
 export interface ChatViewControl {
   viewId: number;
   isOpen: boolean;
-  currentReceiver: string,
+  currentReceiver: string;
 }
 
 export interface Conversation {
@@ -68,7 +70,8 @@ export interface MessageControl {
 const initConversationControl: ConversationControl = {
   conversationList: [],
   requestIndex: 0,
-};
+}; 
+
 const initMessageControl : MessageControl = {
   messageList: [],
   requestIndex: 0,
@@ -102,6 +105,7 @@ export const conversationControlReducer: React.Reducer<ConversationControl, Chat
   switch (action.type) {
     case LOAD_CONVERSATION: {
       let list = action.value as Conversation[];
+
       return {
         conversationList: list,
         requestIndex: list.length,
@@ -109,16 +113,20 @@ export const conversationControlReducer: React.Reducer<ConversationControl, Chat
     }
     case LOAD_PREV_CONVERSATION: {
       let list = action.value as Conversation[];
-      state.conversationList.push(...list);
 
+      if (list.length == 0) {
+        return state;
+      }
+      state.conversationList.push(...list);
       return {
         conversationList: state.conversationList,
         requestIndex: state.requestIndex + list.length,
       }
     }
     case RECEIVE_CONVERSATION: {
+      alert("receive");
       state.conversationList.splice(0, 0, action.value);
-
+  
       return {
         conversationList: state.conversationList,
         requestIndex: state.requestIndex + 1,
@@ -144,6 +152,10 @@ export const messageControlReducer: React.Reducer<MessageControl, ChatActionType
     }
     case LOAD_PREV_MESSAGE: {
       let list = action.value as Message[];
+
+      if (list.length == 0) {
+        return state;
+      }
       state.messageList.push(...list);
 
       return {
@@ -185,6 +197,25 @@ export const viewControlReducer: React.Reducer<ChatViewControl, ChatActionType<a
       return state;
   }
 };
+
+export const gifControlReducer: React.Reducer<{isClearGif: boolean}, ChatActionType<any>> = (
+  state = {isClearGif: false}, action) => {
+  switch (action.type) {
+    case CLEAR_GIF: {
+      if (state.isClearGif) {
+        return {
+          ...state, isClearGif: false
+        }
+      } else {
+        return {
+          ...state, isClearGif: true
+        }
+      }
+    }
+    default: 
+      return state;
+  }
+}
 
 export const socketInfoReducer: React.Reducer<ISocket, ChatActionType<any>> = (
   state = {key:"", socketUrl:"", brockers: null}, action

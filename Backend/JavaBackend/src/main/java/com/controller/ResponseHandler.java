@@ -25,4 +25,8 @@ public class ResponseHandler {
   public static Response<Object> conversationNotExisted(Object data) {
     return new Response<Object>(1004, "conversation-not-existed", data);
   }
+
+  public static Response<Object> accountNotExisted(Object data) {
+    return new Response<Object>(1005, "account-not-existed", data);
+  }
 }

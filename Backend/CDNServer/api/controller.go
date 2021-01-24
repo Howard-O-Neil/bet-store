@@ -14,6 +14,7 @@ import (
 )
 
 const BaseURLAvatar = "https://avatars.dicebear.com/4.5/api/avataaars/"
+const ROBOT_Avatar = "https://avatars.dicebear.com/4.5/api/bottts/"
 
 type KeyPairValue struct {
 	key   string
@@ -138,6 +139,7 @@ func GetAvatarRandom(ctx *gin.Context) {
 	urlQuery, err := url.Parse(BaseURLAvatar + GUID + ".svg")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	var q url.Values = make(url.Values)
 
@@ -149,8 +151,15 @@ func GetAvatarRandom(ctx *gin.Context) {
 	//Set sex for avatar
 	if sex == "woman" {
 		q.Set("top[]", "longHair")
+	} else if sex == "men" {
+		q.Set("top[]", "shortHair")
 	} else {
 		q.Set("top[]", "shortHair")
+		// urlQuery, err = url.Parse(ROBOT_Avatar + GUID + ".svg")
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
 	}
 
 	urlQuery.RawQuery = q.Encode()

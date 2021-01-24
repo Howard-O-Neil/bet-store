@@ -25,36 +25,41 @@ public class generateData1 extends testCasePrint {
     this.messageDao = messageDao;
   }
 
-  @Test
-  public void testCase1() throws Exception {
-    this.run(
-        () -> {
-          String mingkhoi = "5fbd3a3970cb4d0161112b1d";
-          String snoop = "5fbd43bb76af190165ad3f21";
-          String ert = "5fbf6df930e7f6015fbdb1a1";
+  // @Test
+  // public void testCase1() throws Exception {
+  //   this.run(
+  //       () -> {
+  //         String mingkhoi = "5fbd3a3970cb4d0161112b1d";
+  //         String snoop = "5fbd43bb76af190165ad3f21";
+  //         String ert = "5fbf6df930e7f6015fbdb1a1";
 
-          for (int i = 0; i < 10; i++) {
-            this.messageDao.insertMessage(
-                new Message(
-                  mingkhoi,
-                  snoop,
-                  String.format("test message %d", i),
-                  null,
-                  MessageContentType.CONTENT_NONE
-                )
-              );
-              this.messageDao.insertMessage(
-                new Message(
-                  mingkhoi,
-                  ert,
-                  String.format("test message %d", i),
-                  null,
-                  MessageContentType.CONTENT_NONE
-                )
-              );
-          }
-          return null;
-        }
-      );
+  //         for (int i = 0; i < 10; i++) {
+  //           this.messageDao.insertMessage(
+  //               new Message(
+  //                 mingkhoi,
+  //                 snoop,
+  //                 String.format("test message %d", i),
+  //                 null,
+  //                 MessageContentType.CONTENT_NONE
+  //               )
+  //             );
+  //             this.messageDao.insertMessage(
+  //               new Message(
+  //                 mingkhoi,
+  //                 ert,
+  //                 String.format("test message %d", i),
+  //                 null,
+  //                 MessageContentType.CONTENT_NONE
+  //               )
+  //             );
+  //         }
+  //         return null;
+  //       }
+  //     );
+  // }
+
+  @Test
+  public void testCase2() throws Exception {
+     
   }
 }

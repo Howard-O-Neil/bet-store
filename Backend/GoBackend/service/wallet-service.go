@@ -17,6 +17,7 @@ type WalletService interface {
 	GetInfoWallet(idprofile bson.ObjectId) (entity.GetInfoWalletEntity, error)
 	SpendWallet() error
 	PayWallet(profileid bson.ObjectId, enti entity.HookEntity) error
+	GetTransDetailWallet(idprofile bson.ObjectId) ([]entity.HookEntity, error)
 }
 
 type WalletDataService struct {
@@ -89,4 +90,26 @@ func (c *WalletDataService) PayWallet(profileid bson.ObjectId, enti entity.HookE
 		return err
 	}
 	return nil
+}
+
+func (c *WalletDataService) GetTransDetailWallet(idprofile bson.ObjectId) ([]entity.HookEntity, error) {
+	var result entity.WalletEntity
+	err := c.collection.Find(bson.M{"profileid": idprofile}).One(&result)
+
+	if err != nil || result.ProfileID != idprofile {
+		return []entity.HookEntity{}, err
+	}
+
+	// var sumpaid int32 = 0
+
+	// for i := 0; i < len(result.Transfer.Trans); i++ {
+	// 	sumpaid += result.Transfer.Trans[i].Amount
+	// }
+
+	// resuftInfo := entity.GetTransWalletEntity{
+	// 	ProfileID: result.ProfileID,
+	// 	Trans:     result.Transfer.Trans,
+	// }
+
+	return result.Transfer.Trans, nil
 }

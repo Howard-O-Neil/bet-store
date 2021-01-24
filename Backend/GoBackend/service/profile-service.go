@@ -26,6 +26,7 @@ type ProfileService interface {
 	EditProfile(ID string, profile entity.ProfileEntity) error
 	DelProfile() (bson.ObjectId, error)
 	GetProfilebyUsername(user string) (entity.ProfileEntity, error)
+	GetInfoProfilebyAccountID(id string) (entity.ProfileEntity, error)
 }
 
 type ProfileDataService struct {
@@ -69,13 +70,17 @@ func (c *ProfileDataService) AddProfile(enti entity.ProfileEntity) (bson.ObjectI
 	//handle more...
 
 	//Add avatar random
-	avatarRandom, err := GetAvatarRandomFromCDNServer("men")
+	if enti.Sex == "" {
+		enti.Sex = "men"
+	}
+	avatarRandom, err := GetAvatarRandomFromCDNServer(enti.Sex)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	enti.Avatar = avatarRandom
 
+	fmt.Println(enti)
 	err = c.collection.Insert(&enti)
 	if err != nil {
 		return "", err
@@ -141,4 +146,11 @@ func (c *ProfileDataService) GetProfilebyUsername(user string) (entity.ProfileEn
 		return result, err
 	}
 	return result, nil
+}
+
+func (c *ProfileDataService) GetInfoProfilebyAccountID(id string) (entity.ProfileEntity, error) {
+	objectId := bson.ObjectIdHex(id)
+	var profile entity.ProfileEntity
+	err := c.collection.Find(bson.M{"accountID": objectId}).One(&profile)
+	return profile, err
 }

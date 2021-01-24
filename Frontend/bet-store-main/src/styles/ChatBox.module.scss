@@ -6,6 +6,7 @@
 $main-color: #1f5c85;
 $white-smoke: #E8E8E8;
 
+
 .chatBox {
   right: 30px;
   bottom: 30px;
@@ -58,10 +59,20 @@ $white-smoke: #E8E8E8;
   }
 }
 
+.gifPicker {
+  position: absolute;
+  display: none;
+  bottom: 18%;
+  left: 2%;
+  box-shadow: 5px 10px 18px 2px rgb(128, 128, 128);
+  animation: appear;
+  animation-duration: 1s;
+}
+
 .emojiPicker {
   position: absolute;
   display: none;
-  top: 28%;
+  bottom: 9%;
   left: 20%;
 }
 
@@ -70,11 +81,12 @@ $white-smoke: #E8E8E8;
   right: 15px;
   position: fixed;
   width: 450px;
-  height: 72%;
+  height: 700px;
   background-color: white;
   box-shadow: 5px 10px 18px 2px rgb(128, 128, 128);
   animation-name: slideInFromRight;
   animation-duration: 0.8s;
+  z-index: 1000;
   display: none;
 }
 
@@ -242,6 +254,25 @@ $white-smoke: #E8E8E8;
         border-radius: 10px;
         padding: 10px;
         max-width: 80%;
+        word-wrap: break-word;
+      }
+
+      .messageImgContent {
+        background-color: transparent;
+        border: 0.5px solid black;
+        max-width: 80%;
+        padding: 1px;
+        cursor: pointer;
+        img {
+          
+        }
+      }
+
+      .messageFileContent {
+        background-color: #9ADAFF;
+        border-radius: 5px;
+        max-width: 80%;
+        cursor: pointer;
       }
     }
 
@@ -256,9 +287,28 @@ $white-smoke: #E8E8E8;
 
       .messageTxtContent {
         background-color: #E3E3E3;
+        word-wrap: break-word;
         border-radius: 10px;
         padding: 10px;
         max-width: 80%;
+      }
+
+      .messageImgContent {
+        background-color: transparent;
+        border: 0.5px solid black;
+        max-width: 80%;
+        padding: 1px;
+        cursor: pointer;
+        img {
+          
+        }
+      }
+
+      .messageFileContent {
+        background-color: #E3E3E3;
+        border-radius: 5px;
+        max-width: 80%;
+        cursor: pointer;
       }
     }
   }
@@ -291,9 +341,11 @@ $white-smoke: #E8E8E8;
       animation: slideInFromBottom;  
       animation-duration: 0.5s;
       display: none;
+      height: 55px;
       margin-bottom: 10px;
 
       .tool {
+        height: 50px;
         cursor: pointer;
         display: flex;
         flex-flow: row;
@@ -307,7 +359,7 @@ $white-smoke: #E8E8E8;
     }
 
     .textEditor {
-      height: 100%;
+      height: fit-content;
       display: flex;
       align-items: flex-end;
       

@@ -1,5 +1,7 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.bson.types.ObjectId;
 
 public class Message extends MongoIdModel {
@@ -7,7 +9,10 @@ public class Message extends MongoIdModel {
   private String receiverId;
   private String textContent;
   private Object fileContent;
-  private MessageContentType fileContentType;
+  private String fileContentType;
+
+  @JsonIgnore
+  private MessageContentType setFileContentType;
 
   public Message() {}
 
@@ -23,23 +28,21 @@ public class Message extends MongoIdModel {
     this.receiverId = receiverId;
     this.textContent = textContent;
     this.fileContent = fileContent;
-    this.fileContentType = contentType;
+    this.fileContentType = contentType.toString();
   }
 
   public Message(
-    ObjectId _id,
     String senderId,
     String receiverId,
     String textContent,
     Object fileContent,
-    MessageContentType contentType
+    String fileContentType
   ) {
-    this._id = _id;
     this.senderId = senderId;
     this.receiverId = receiverId;
     this.textContent = textContent;
     this.fileContent = fileContent;
-    this.fileContentType = contentType;
+    this.fileContentType = fileContentType;
   }
 
   public String getSenderId() {
@@ -74,12 +77,16 @@ public class Message extends MongoIdModel {
     this.fileContent = fileContent;
   }
 
-  public MessageContentType getContentType() {
+  public String getFileContentType() {
     return this.fileContentType;
   }
 
+  public void setFileContentType(String fileContentType) {
+    this.fileContentType = fileContentType;
+  }
+
   public void setContentType(MessageContentType contentType) {
-    this.fileContentType = contentType;
+    this.fileContentType = contentType.toString();
   }
 
   @Override
@@ -102,7 +109,7 @@ public class Message extends MongoIdModel {
       getFileContent() +
       "'" +
       ", fileContentType='" +
-      getContentType().toString() +
+      getFileContentType() +
       "'" +
       "}"
     );

@@ -11,21 +11,40 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
-import Slider from "react-slick";
 
 import style from "../styles/ProductDetails.module.scss";
-import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
+
+import { listCategories } from "../actions/categoryActions";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import Axios from "axios";
+import {switchToMessage, repalceCurrentReceiver} from "../actions/chatBoxAction";
+
+import {openChatBox} from "../actions/chatBoxAction";
+import {GetProfilebyAccountID} from "../actions/profileAction"
+
+const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
 const ProductScreen = ({ match }) => {
+  // chat support
+  const accountState = useSelector((state) => state.chatAccountInfo);
+  const view = useSelector((state) => state.viewControl);
+
+  //
   const dispatch = useDispatch();
 
   const [properties, setProperties] = useState([]);
   const [images, setImages] = useState([]);
-  let [sliderItem, setSliderItem] = useState([]);
 
   const [propertyLabel, setPropertyLabel] = useState([]);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = categoryList;
 
   const settings = {
     dots: true,
@@ -39,55 +58,114 @@ const ProductScreen = ({ match }) => {
     arrows: true,
     centerMode: true,
   };
-
   useEffect(() => {
-    const getProductDetails = async () => {
-      return await dispatch(listProductDetails(match.params.id)).then(() =>
-        console.log(product)
-      );
-    };
-    getProductDetails();
-  }, [dispatch, match]);
-
+    dispatch(listCategories());
+    
+  }, []);
   useEffect(() => {
-    if (productDetails.loading == false) {
+    if (!product.name || product._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id));
+    } else {
+      document.title = product.name;
       setImages(product.image);
       setProperties(product.properties);
-      setPropertyLabel(product.category.properties);
     }
-  }, [dispatch, productDetails.loading]);
+  }, [dispatch, product, match]);
 
+  useEffect(() => {
+    if (product.name && categories.length) {
+      const cat = categories.find((x) => x.path === product.category);
+      if (cat) setPropertyLabel(cat.properties);
+      else dispatch(listCategories());
+    }
+  }, [product, categories]);
+
+
+
+  const profile = useSelector( state=>state);
+
+  /// minh handle
+
+  const [infoSeller, setinfoSeller] = useState({isLoadding:true});
+  const getProfileGlobal = useSelector(state => state.getProfileGlobal);
+
+  useEffect(() => {
+    if(productDetails.loading === false && productDetails.product !== { image: [], properties: [] } && productDetails.error !== null){
+      dispatch(GetProfilebyAccountID(product.user)) // dien id vao day
+    }
+    
+  }, [dispatch, product.user, productDetails.error, productDetails.loading, productDetails.product])
+  
+  useEffect(() => {
+    if(infoSeller.isLoadding === true && getProfileGlobal.IsFetching === true&&infoSeller.payload === null){
+      setinfoSeller({isLoadding:false, payload:getProfileGlobal.Payload})
+    }
+  }, [getProfileGlobal.IsFetching, getProfileGlobal.Payload, infoSeller.isLoadding, infoSeller.payload])
+  
+  
   return (
     <div className={style.body}>
       {/*<Link className="btn btn-light my-3" to="/">
         Go Back
   </Link>*/}
       {productDetails.loading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : productDetails.error ? (
-        <h3>{productDetails.error}</h3>
+        <Message variant="danger">{productDetails.error}</Message>
       ) : (
         <Container>
           <Row>
             <Col md={7}>
-              <Carousel className={style.slider}>
-                {images.map((image) => (
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={`/cdn/cdn/${image.link}`}
-                      alt={image.alt}
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Carousel className={style.slider}>
+                    {images.map((image) => (
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={`/cdn/cdn/${image.link}`}
+                          alt={image.alt}
+                        />
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </ListGroup.Item>
+              </ListGroup>
             </Col>
 
             <Col md={5} className={style.sticky_col}>
               <Card>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
-                    <Row>*Profile*</Row>
+                    <Row>
+                      {/* profile */}
+                      <div className = {style.UserInfo}>
+                        <div className = {style.img}>
+                          <img src = "/cdn/cdn/10b51ddc2fdc2b3dfc078dfbe252e0e315122020.svg"></img>                          
+                        </div>
+                        <div className = {style.info}>
+                          <p>Người bán</p>
+                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin20":"admin20"}</p>
+                        </div>
+                      </div>
+
+                      { infoSeller.isLoadding === false
+                      ?<div>
+                        <div>
+                          <img alt = "avatar" src = {`/cdn/cdn/${infoSeller.payload.avatar}`}/>
+                        </div>
+                        <div>
+                          <p>
+                            Thông tin người bán
+                          </p>
+                          <p>
+                            {infoSeller.payload.name + " " + infoSeller.payload.surname}
+                          </p>
+                        </div>
+                      </div>
+                      :<p>Đang tải ...</p>
+                      }
+                    </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
@@ -102,22 +180,22 @@ const ProductScreen = ({ match }) => {
                       className="btn-block"
                       type="button"
                       disabled={product.countInStock === 0}
+                      onClick={e => {
+                        if (sessionStorage.getItem("token") == null) {
+                          alert("Ban phải đăng nhập trước");
+                          return;
+                        }
+                        if (accountState.id == product.user) {
+                          alert("Bạn không thể chat với chính bạn")
+                        }
+                        dispatch(openChatBox(true));
+                        dispatch(repalceCurrentReceiver(product.user));
+                        dispatch(switchToMessage());
+                      }}
                     >
                       Liên lạc với người bán
                     </Button>
                   </ListGroup.Item>
-                </ListGroup>
-                <ListGroup variant="flush">
-                  {propertyLabel.map((prop) => (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>{prop.name}</Col>
-                        <Col>
-                          {properties.find((x) => x.key === prop.key).value}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
                 </ListGroup>
               </Card>
             </Col>
@@ -129,9 +207,32 @@ const ProductScreen = ({ match }) => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item className={style.price}>
-                  {product.price} ₫
+                  Giá :{" "}
+                  {new Intl.NumberFormat("vi-VI", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(product.price)}
                 </ListGroup.Item>
-                <ListGroup.Item>Mô tả: {product.description}</ListGroup.Item>
+                <ListGroup.Item className={style.description}>
+                  Mô tả:
+                  {product.description}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <h6>Chi tiết</h6>
+                </ListGroup.Item>
+                <ListGroup.Item className={style.prop_container}>
+                  {console.log(propertyLabel)}
+                  {propertyLabel.map((prop) => (
+                    <div className={style.property}>
+                      <img src={`/cdn/cdn/${prop.image.link}`}></img>
+                      <span>
+                        {prop.name} :{" "}
+                        {properties.find((x) => x._id === prop._id) &&
+                          properties.find((x) => x._id === prop._id).value}
+                      </span>
+                    </div>
+                  ))}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>

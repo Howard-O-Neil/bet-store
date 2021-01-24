@@ -33,22 +33,43 @@ const updateProduct = asyncHandler(async (req, res) => {
       res.status(200).json({ message: "Product updated" });
     } else {
       res.status(404);
+      throw new Error("Product not found");
     }
-    throw new Error("Product not found");
   } catch (error) {
     throw new Error(error);
   }
 });
 
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find(req.body).populate("category");
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const category = req.query.category
+    ? {
+        category: {
+          $regex: req.query.category,
+          $options: "i",
+        },
+      }
+    : {};
+  const user = req.query.user
+    ? {
+        user: req.query.user,
+      }
+    : {};
+
+  const products = await Product.find({ ...keyword, ...category, ...user });
 
   res.json(products);
 });
 
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id).populate("category");
-
+  const product = await Product.findById(req.params.id);
   if (product) {
     res.json(product);
   } else {
@@ -69,10 +90,23 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+const getRamdomProduct = asyncHandler(async (req, res) => {
+  const number = req.query.keyword || 20;
+  const product = await Product.aggregate([{ $sample: { size: number } }]);
+
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404);
+    throw new Error("There are no product");
+  }
+});
+
 export {
   getProducts,
   getProductById,
   deleteProduct,
   createProduct,
   updateProduct,
+  getRamdomProduct,
 };

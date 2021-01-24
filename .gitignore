@@ -1,28 +1,33 @@
-#ignore CDNServer
-Backend/CDNServer/log/*
-Backend/CDNServer/database/*
+
+#CDNServer
+Backend/CDNServer/log/
+Backend/CDNServer/database/
+Backend/CDNServer/gin-bin
+Backend/CDNServer/go.sum
 
 #golang
-gin-bin
-go.sum
-Backend/GoBackend/.idea/*
-Backend/GoBackend/log/*
-Backend/CDNServer/.idea/*
+Backend/GoBackend/gin-bin
+Backend/GoBackend/go.sum
+Backend/GoBackend/.idea/
+Backend/GoBackend/log/
+Backend/CDNServer/.idea/
+Backend/GoBackend/.env
 
 #datamongo
-Backend/Database/data/*
-Backend/Database/log/*
+Backend/Database/data/
+Backend/Database/log/
 
 #javabackend
-Backend/JavaBackend/.vscode/*
-Backend/JavaBackend/target/*
-Backend/JavaBackend/node_modules/*
-Backend/JavaBackend/logs/*
-
-#frontend
-Frontend/**/node_modules/*
+Backend/JavaBackend/.vscode/
+Backend/JavaBackend/bin/
+Backend/JavaBackend/target/
+Backend/JavaBackend/node_modules/
+Backend/JavaBackend/logs/
 
 #nodejsbackend
-node_modules/
-logs/
+Backend/NodeJSBackend/node_modules/
+Backend/NodeJSBackend/logs/
 
+#frontend
+Frontend/**/node_modules/
+Frontend/**/build/

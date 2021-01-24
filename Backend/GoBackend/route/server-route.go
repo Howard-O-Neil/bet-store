@@ -30,8 +30,7 @@ func RouteAccount(app *gin.Engine) {
 	app.POST("api/account/signup", controller.SignupHandle)
 
 	app.POST("api/account/password", middlewares.AuthorizeJWT(), controller.ChangePasswordHandle)
-	//app.POST("api/account/sendsms", controller.ConfirmTelbySMS)
-
+	app.POST("api/account/sendsms", controller.ConfirmTelbySMS)
 	//app.POST("api/account/checkkeycode", controller.CheckTelbySMS)
 }
 
@@ -63,6 +62,8 @@ func RouteTest(app *gin.Engine) {
 func RouteContentStatic(app *gin.Engine) {
 	app.GET("/slider/", controller.LoadSlider)
 	app.POST("/slider/", controller.CreateSlider)
+	app.DELETE("/slider", controller.DelSlider)
+	app.PUT("/slider", controller.EditSlider)
 }
 
 func RouteAuth(app *gin.RouterGroup) {
@@ -82,6 +83,9 @@ func RouteProfile(app *gin.Engine) {
 		"/profile/",
 		middlewares.AuthorizeJWT(),
 		controller.EditProfile)
+	app.GET(
+		"/profile/getinfo/",
+		controller.GetInfoProfilebyAccountID)
 }
 
 func RouteHookWallet(app *gin.Engine) {
@@ -95,4 +99,8 @@ func RouteWallet(app *gin.Engine) {
 		"/wallet/",
 		middlewares.AuthorizeJWT(),
 		controller.GetInfoWallet)
+	app.GET(
+		"/wallet/detailtrans/",
+		middlewares.AuthorizeJWT(),
+		controller.GetDetailTransWallet)
 }

@@ -10,6 +10,9 @@ import {
   EDIT_PROFILE_SUCCESS,
   GET_PROFILE,
   GET_PROFILE_FAIL,
+  GET_PROFILE_GLOBAL,
+  GET_PROFILE_GLOBAL_FAIL,
+  GET_PROFILE_GLOBAL_SUCCESS,
   GET_PROFILE_SUCCESS,
   REMOVE_PROFILE
 } from "../constants/profileConstants";
@@ -65,6 +68,19 @@ export const profileReducer: React.Reducer<StateType<Profile>, ActionType<any>> 
       return { ...state,IsFetching: false, Error:action.payload};
 
 
+    default:
+      return state;
+  }
+};
+
+export const getProfileGlobalReducer: React.Reducer<StateType<Profile>, ActionType<any>> = (state = initProfile, action) => {
+  switch (action.type) {
+    case GET_PROFILE_GLOBAL:
+      return { ...state, IsFetching: true };
+    case GET_PROFILE_GLOBAL_SUCCESS:
+      return { ...state, IsFetching: false, Payload: action.payload, Error: null };
+    case GET_PROFILE_GLOBAL_FAIL:
+      return { ...state, IsFetching: false, Error: "GET_PROFILE_FAIL" };
     default:
       return state;
   }

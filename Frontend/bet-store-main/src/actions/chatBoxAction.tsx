@@ -25,6 +25,7 @@ export const LOAD_PREV_MESSAGE = "LOAD_PREV_MESSAGE";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 export const GET_MESSAGE = "GET_MESSAGE";
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const CLEAR_GIF = "CLEAR_GIF";
 export const SWITCH_TO_CONVERSATION = "SWITCH_TO_CONVERSATION";
 export const SWITCH_TO_MESSAGE = "SWITCH_TO_MESSAGE";
 export const REPLACE_CURRENT_RECEIVER = "REPLACE_CURRENT_RECEIVER";
@@ -42,14 +43,19 @@ export const getAccountInfoThunk: ThunkAction<
   ChatActionType<ChatAccountInfo>
 > = async (dispatch, getState, token) => {
   //
-  let response = await Axios.get(`/java/api/account/jwt?token=${token}`);
+  let response = await Axios.get(`/go/profile/`);
+  console.log(response);
   dispatch(setAccountInfo(response.data.data));
 };
 
-export const setAccountInfo = (account: ChatAccountInfo): ChatActionType<ChatAccountInfo> => {
+export const setAccountInfo = (account: any): ChatActionType<ChatAccountInfo> => {
   return {
     type: SET_ACCOUNT_INFO,
-    value: account,
+    value: {
+      id: account.accountID,
+      avatar: account.avatar,
+      user: account.username,
+    }
   };
 };
 
@@ -69,7 +75,6 @@ export const getConversationThunk: ThunkAction<
   if (!param.loadPrev) {
     dispatch(loadConversation(result));
   } else {
-    alert("this is not good");
     dispatch(loadPrevConversation(result));
   }
 };
@@ -142,6 +147,13 @@ export const messageReceive = (message: Message): ChatActionType<Message> => {
   return {
     type: RECEIVE_MESSAGE,
     value: message
+  }
+}
+
+export const clearGif = (): ChatActionType<any> => {
+  return {
+    type: CLEAR_GIF,
+    value: null
   }
 }
 

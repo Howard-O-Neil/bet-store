@@ -45,7 +45,3 @@ type GetHistoryWalletEntity struct {
 	ProfileID bson.ObjectId         `json:"profileid" bson:"profileid"`
 	History   TransferHistoryEntity `json:"history" bson:"history"`
 }
-type GetTransWalletEntity struct {
-	ProfileID bson.ObjectId `json:"profileid" bson:"profileid"`
-	Trans     []HookEntity  `json:"trans" bson:"trans"`
-}
