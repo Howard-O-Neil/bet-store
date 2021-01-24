@@ -15,6 +15,7 @@ import "intl/locale-data/jsonp/vi";
 import TimeAgo from "../../components/TimeAgo";
 import { useNavigation } from "@react-navigation/native";
 import { PRODUCT_LIST_RESET } from "../../constants/productConstants";
+import SliderMain from "../../components/slideMain";
 
 const MainDisplay = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,9 @@ const MainDisplay = () => {
   }, [categories]);
   return (
     <ScrollView style={{ backgroundColor: "#f4f4f4" }}>
+
+      <SliderMain/>
+
       <View style={styles.categoryContainer}>
         <Text style={styles.header}>Khám phá danh mục</Text>
         <ScrollView

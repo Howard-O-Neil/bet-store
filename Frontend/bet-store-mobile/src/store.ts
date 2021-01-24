@@ -20,6 +20,7 @@ import {
   walletReducer,
 } from "./reducers/walletReducer";
 import { imagesUploadReducer } from "./reducers/imageReducer";
+import { getsliderReducer } from "./reducers/sliderReducer";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   wallet: walletReducer,
   editprofile: editprofileReducer,
   transDetailWallet: transDetailWalletReducer,
+  getSlider:getsliderReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 
