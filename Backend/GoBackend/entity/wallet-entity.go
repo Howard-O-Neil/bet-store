@@ -27,11 +27,11 @@ type TransferHistoryEntity struct {
 type HookEntity struct {
 	Signature   string `json:"signature" bson:"signature"`
 	Phone       string `json:"phone" bson:"phone"`
-	TranId      int32  `json:"tranId" bson:"tranId"`
-	AckTime     int32  `json:"ackTime" bson:"ackTime"`
+	TranId      string `json:"tranId" bson:"tranId"`
+	AckTime     string `json:"ackTime" bson:"ackTime"`
 	PartnerId   string `json:"partnerId" bson:"partnerId"`
 	PartnerName string `json:"partnerName" bson:"partnerName"`
-	Amount      int32  `json:"amount" bson:"amount"`
+	Amount      string `json:"amount" bson:"amount"`
 	Comment     string `json:"comment" bson:"comment"`
 }
 

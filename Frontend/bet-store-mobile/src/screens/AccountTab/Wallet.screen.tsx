@@ -19,9 +19,8 @@ const MaxItemPage = 5;
 interface RowTransDetail {
     index: number,
     time: string,
-    date: string,
     partnerName: string,
-    amount: number
+    amount: string
 }
 
 
@@ -43,9 +42,10 @@ export default function WalletScreen() {
             let rows: RowTransDetail[] = [];
             for (let i = transDetailWallet.Payload.length - 1; i >= 0; i--) {
                 const element = transDetailWallet.Payload[i];
-                let d = new Date(element.ackTime * 1000);
-                let date = `${d.getDay() + 1}/${d.getMonth() + 1}/${d.getFullYear()}`
-                rows.push({ index: i + 1, amount: element.amount, time: d.toLocaleTimeString(), date: date, partnerName: element.partnerName })
+                //let d = new Date(element.ackTime * 1000);
+                //     let date = element.ackTime//`${d.getDay() + 1}/${d.getMonth() + 1}/${d.getFullYear()}`
+                console.log(element.ackTime)
+                rows.push({ index: i + 1, amount: element.amount, time: element.ackTime, partnerName: element.partnerName })
             }
             settransDetail(rows);
             if (rows.length % MaxItemPage != 0) {
@@ -90,18 +90,18 @@ export default function WalletScreen() {
                         IsLoadTransDetail
                             ? <ActivityIndicator size="large" color="#0000ff" />
                             : transDetail.length == 0
-                                ? <View style = {{alignItems:'center', margin:20}}>
+                                ? <View style={{ alignItems: 'center', margin: 20 }}>
                                     <Text>Bạn chưa có giao dịch nạp tiền</Text>
-                                    <TouchableOpacity style = {{ backgroundColor:'#ff793f', padding:8, margin:10, borderRadius:10}} onPress = {()=>navigation.replace('PayWallet')}>
-                                        <Text style = {{color:'white', fontWeight:'bold'}}>
+                                    <TouchableOpacity activeOpacity={.7} style={{ backgroundColor: '#ff793f', padding: 8, margin: 10, borderRadius: 10 }} onPress={() => navigation.replace('PayWallet')}>
+                                        <Text style={{ color: 'white', fontWeight: 'bold' }}>
                                             Nạp tiền ngay
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
-                                : <DataTable >
+                                : <DataTable style={{padding:0, margin: 0}}>
                                     <DataTable.Header>
                                         <DataTable.Title style={{ flex: 0.4 }}>    </DataTable.Title>
-                                        <DataTable.Title style={{ flex: 1.5 }}>Thời gian</DataTable.Title>
+                                        <DataTable.Title style={{ flex: 1.5 }} numberOfLines={2}>Thời gian</DataTable.Title>
                                         <DataTable.Title style={{ flex: 2 }} numberOfLines={2}>Người nạp</DataTable.Title>
                                         <DataTable.Title style={{ flex: 1 }}>Số tiền (đ)</DataTable.Title>
                                     </DataTable.Header>
@@ -109,24 +109,27 @@ export default function WalletScreen() {
                                         (item, index) => {
                                             if ((index >= page * MaxItemPage && index < (page + 1) * MaxItemPage))
                                                 return (
-                                                    <DataTable.Row>
-                                                        <DataTable.Cell style={{ flex: 0.4 }}>{item.index}</DataTable.Cell>
-                                                        <DataTable.Cell style={{ flex: 1.5 }}>
-                                                            <View style={{ flexDirection: 'column' }}>
-                                                                <Text>
+                                                    <DataTable.Row >
+                                                        <DataTable.Cell style={{ flex: 0.4}}>
+                                                            
+                                                            <Text numberOfLines={2} >
+                                                            {item.index}
+                                                                </Text>
+                                                            </DataTable.Cell>
+                                                        <DataTable.Cell style={{ flex: 1.5}}>
+                                                                <Text numberOfLines={2} style={{flex:1,flexWrap:'wrap', fontSize:10, minHeight:40}}>
                                                                     {item.time}
                                                                 </Text>
-                                                                <Text>
-                                                                    {item.date}
-                                                                </Text>
-                                                            </View>
                                                         </DataTable.Cell>
                                                         <DataTable.Cell style={{ flex: 2 }}>
-                                                            {item.partnerName}
+
+                                                            <Text style={{ flexWrap: 'wrap', fontSize: 10 }}>
+                                                                {item.partnerName}
+                                                            </Text>
                                                         </DataTable.Cell>
                                                         <DataTable.Cell style={{ flex: 1 }}>
-                                                            <Text style={{ flexWrap: 'wrap' }}>
-                                                                {item.amount.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                                            <Text style={{ flexWrap: 'wrap', fontSize: 10 }}>
+                                                                {Number(item.amount).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                                                             </Text>
                                                         </DataTable.Cell>
                                                     </DataTable.Row>

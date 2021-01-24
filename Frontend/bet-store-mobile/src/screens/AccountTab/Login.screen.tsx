@@ -71,10 +71,9 @@ export default function LoginScreen() {
             });
             navigation.goBack();
           } else {
-
             dispatch(setStateErrorLogin());
             showMessage({
-              message: "Đăng nhập thất bại",
+              message: res.data["message"],
               type: "danger",
               icon: "danger",
             });
