@@ -12,6 +12,4 @@ export const CDNAPI = `${
   Platform.OS == "web" ? HOST_LOCAL : HOST_LOCAL_EMU
 }:8082`;
 export const JavaAPI = `${HOST_LOCAL}:8085`;
-export const NodeAPI = `${
-  Platform.OS == "web" ? HOST_LOCAL : HOST_LOCAL_EMU
-}:8086`;
+export const NodeAPI = "https://betstore.tk/api/node";
