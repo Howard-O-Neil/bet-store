@@ -118,19 +118,19 @@ export default function SignupScreen() {
       axios.post(`${GolangAPI}/api/account/sendsms`, AccountSignup)
         .then(
           res => {
-            // console.log(res.data)
-            if (res.data["status"] == 200) {
-            showMessage({
-              message: "Mã xác nhận đã được gửi đến số điện thoại " + AccountSignup.tel,
-              type: 'success',
-              icon: 'success',
-            });
-            SetISConfirmTel(true);
-            setIsSigning(false)
+            console.log(res.data)
+            if (res.data["msg"]!="") {
+              showMessage({
+                message: "Mã xác nhận đã được gửi đến số điện thoại " + AccountSignup.tel,
+                type: 'success',
+                icon: 'success',
+              });
+              SetISConfirmTel(true);
+              setIsSigning(false)
             }
             else {
               showMessage({
-                message: "Username đã tồn tại",
+                message: res.data["message"],
                 type: 'warning',
                 icon: 'warning',
               });
@@ -140,6 +140,7 @@ export default function SignupScreen() {
         ).catch(
           err => {
             setIsSigning(false)
+            console.log(err)
             showMessage({
               message: "Username đã tồn tại hoặc số điện thoai chưa chinh xác",
               type: "danger",
