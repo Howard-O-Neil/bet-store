@@ -9,7 +9,7 @@ services:
     env_file:
       - ./Backend/GoBackend/.env
     ports:
-      - "8181:8080"
+      - "8081:8080"
     depends_on:
       - cdnserver
       - database
@@ -25,7 +25,7 @@ services:
       context: ./Backend/CDNServer
       dockerfile: dockerfile.cdn
     ports:
-      - "8182:8888"
+      - "8082:8888"
     volumes:
       - ./Backend/CDNServer:/app/Backend/CDNServer
       - ./Backend/CDNServer/go.mod:/app/Backend/CDNServer/go.mod
@@ -41,7 +41,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
       MONGO_INITDB_DATABASE: bet_store
     ports:
-      - "8183:27017"
+      - "8083:27017"
     volumes:
       - ./Backend/Database/log:/var/log/mongodb
       - ./Backend/Database/startup/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
@@ -56,7 +56,7 @@ services:
       context: ./Backend/JavaBackend
       dockerfile: dockerfile.javadev
     ports:
-      - "8185:8081"
+      - "8085:8081"
     depends_on:
       - cdnserver
       - database
@@ -72,7 +72,7 @@ services:
       context: ./Backend/NodeJSBackend
       dockerfile: dockerfile.node
     ports:
-      - "8186:5000"
+      - "8086:5000"
     depends_on:
       - cdnserver
       - database

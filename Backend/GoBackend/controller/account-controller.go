@@ -70,7 +70,7 @@ func SignupHandle(ctx *gin.Context) {
 	var account entity.AccountEntity
 	ctx.BindJSON(&account)
 
-	fmt.Println(account.Tel)
+	fmt.Println(account.Keycode)
 
 	account.Password, _ = HashPassword(account.Password)
 	fmt.Println(account)
@@ -183,6 +183,7 @@ func ChangePasswordHandle(ctx *gin.Context) {
 
 func ConfirmTelbySMS(ctx *gin.Context) {
 	var account entity.AccountEntity
+
 	ctx.BindJSON(&account)
 
 	if account.Username == "" {
