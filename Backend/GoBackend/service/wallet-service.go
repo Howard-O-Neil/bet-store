@@ -45,9 +45,11 @@ func (c *WalletDataService) GetInfoWallet(idprofile bson.ObjectId) (entity.GetIn
 	}
 
 	var sumpaid int32 = 0
+	var amount int32
 
 	for i := 0; i < len(result.Transfer.Trans); i++ {
-		sumpaid += result.Transfer.Trans[i].Amount
+		fmt.Sscan(result.Transfer.Trans[i].Amount, &amount)
+		sumpaid += amount
 	}
 
 	resuftInfo := entity.GetInfoWalletEntity{
@@ -84,7 +86,10 @@ func (c *WalletDataService) SpendWallet() error {
 
 func (c *WalletDataService) PayWallet(profileid bson.ObjectId, enti entity.HookEntity) error {
 	pushQuery := bson.M{"transfer.trans": enti}
-	err := c.collection.Update(bson.M{"profileid": profileid}, bson.M{"$push": pushQuery, "$inc": bson.M{"currentwallet": enti.Amount}})
+
+	var amount int32
+	fmt.Sscan(enti.Amount, &amount)
+	err := c.collection.Update(bson.M{"profileid": profileid}, bson.M{"$push": pushQuery, "$inc": bson.M{"currentwallet": amount}})
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
@@ -99,17 +104,6 @@ func (c *WalletDataService) GetTransDetailWallet(idprofile bson.ObjectId) ([]ent
 	if err != nil || result.ProfileID != idprofile {
 		return []entity.HookEntity{}, err
 	}
-
-	// var sumpaid int32 = 0
-
-	// for i := 0; i < len(result.Transfer.Trans); i++ {
-	// 	sumpaid += result.Transfer.Trans[i].Amount
-	// }
-
-	// resuftInfo := entity.GetTransWalletEntity{
-	// 	ProfileID: result.ProfileID,
-	// 	Trans:     result.Transfer.Trans,
-	// }
 
 	return result.Transfer.Trans, nil
 }
