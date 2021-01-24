@@ -180,19 +180,23 @@ export const updateProduct = (id, product, imagesToUpload) => async (
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
     });
-    if (imagesToUpload.get("files")) {
+    let tempProduct = { ...product };
+    if (imagesToUpload != null) {
       await dispatch(uploadImage(imagesToUpload));
-
+      console.log("images");
       const {
         imageUpload: { images },
       } = getState();
-      console.log(images);
+      let newImage = [];
+
       Object.entries(images).map((filename) => {
-        product.image.push({
+        newImage.push({
           link: filename[1],
           alt: filename[0],
         });
       });
+
+      tempProduct.image = newImage;
     }
 
     //get user info
@@ -203,7 +207,11 @@ export const updateProduct = (id, product, imagesToUpload) => async (
       },
     };*/
     //
-    const { data } = await axios.put(`/node/api/products/${id}`, product);
+
+    const { data } = await axios.put(
+      `${NodeAPI}/api/products/${id}`,
+      tempProduct
+    );
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,

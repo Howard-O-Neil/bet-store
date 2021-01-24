@@ -25,6 +25,7 @@ import {
   LOAD_DATA_INTO_FILTER,
   SHUFFLE_PRODUCT,
   PRODUCT_LIST_RESET,
+  PRODUCT_DELETE_RESET,
 } from "../constants/productConstants";
 
 export const productListReducer = (
@@ -79,6 +80,8 @@ export const productDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCT_DELETE_RESET:
+      return {};
     default:
       return state;
   }
@@ -108,7 +111,7 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
     case PRODUCT_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_UPDATE_RESET:
-      return { product: {} };
+      return {};
     default:
       return state;
   }

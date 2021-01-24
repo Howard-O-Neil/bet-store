@@ -19,6 +19,7 @@ import {
   View,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { showMessage } from "react-native-flash-message";
 
 import { Screen } from "react-native-screens";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +36,12 @@ import {
   sortByPrice,
 } from "../../actions/productActions";
 import TimeAgo from "../../components/TimeAgo";
+import {
+  PRODUCT_CREATE_RESET,
+  PRODUCT_DELETE_RESET,
+  PRODUCT_LIST_RESET,
+  PRODUCT_UPDATE_RESET,
+} from "../../constants/productConstants";
 
 const SaleScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -60,20 +67,57 @@ const SaleScreen = ({ navigation }) => {
     success: successDelete,
   } = productDelete;
 
-  useEffect(() => {
-    dispatch(loadDataIntoFilter({ countPerPage: 10 }));
-    dispatch(shuffleProduct);
-    dispatch(loadExactPage({ page: 1 }));
-  }, [products]);
-  useEffect(() => {
-    dispatch(listProducts({ user: accountID }));
-  }, [dispatch, successDelete, accountID]);
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: createLoading,
+    error: createError,
+    success: createSuccess,
+  } = productCreate;
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: updateLoading,
+    error: updateError,
+    success: updateSuccess,
+  } = productUpdate;
 
   useEffect(() => {
     dispatch(loadDataIntoFilter({ countPerPage: 10 }));
     dispatch(shuffleProduct);
     dispatch(loadExactPage({ page: 1 }));
   }, [products]);
+  useEffect(() => {
+    dispatch({ type: PRODUCT_LIST_RESET });
+    if (createSuccess) dispatch({ type: PRODUCT_CREATE_RESET });
+    if (successDelete) dispatch({ type: PRODUCT_DELETE_RESET });
+    if (updateSuccess) dispatch({ type: PRODUCT_UPDATE_RESET });
+    dispatch(listProducts({ user: accountID }));
+  }, [dispatch, successDelete, createSuccess, updateSuccess]);
+
+  useEffect(() => {
+    dispatch(loadDataIntoFilter({ countPerPage: 10 }));
+    dispatch(shuffleProduct);
+    dispatch(loadExactPage({ page: 1 }));
+  }, [products]);
+
+  useEffect(() => {
+    if (!loadingDelete) {
+      if (!successDelete) {
+        if (errorDelete) {
+          showMessage({
+            message: "Không thành công\n" + errorDelete,
+            type: "danger",
+            icon: "danger",
+          });
+        }
+      } else {
+        showMessage({
+          message: "Thành công\n",
+          type: "success",
+          icon: "success",
+        });
+      }
+    }
+  }, [dispatch, loadingDelete]);
 
   const nextPage = () => {
     dispatch(loadNewPage({ page: 1 }));
@@ -100,8 +144,8 @@ const SaleScreen = ({ navigation }) => {
     navigation.navigate("NewProduct");
   };
 
-  const handleEditButton = () => {
-    navigation.navigate("EditProduct");
+  const handleEditButton = (product) => {
+    navigation.navigate("EditProduct", { product: product, edit: true });
   };
   const handleDelButton = (id) => {
     Alert.alert(
@@ -119,22 +163,6 @@ const SaleScreen = ({ navigation }) => {
   };
   return (
     <Screen>
-      {filteredProducts && filteredProducts.length > 0 && (
-        <View style={styles.optionsContainer}>
-          <DropDownPicker
-            items={[
-              { label: "Name - A-Z", value: "alphabet_asc" },
-              { label: "Name - Z-A", value: "alphabet_desc" },
-              { label: "Price - Lowest to Highest", value: "price_asc" },
-              { label: "Price - Highest to Lowest", value: "price_desc" },
-            ]}
-            containerStyle={styles.dropdown}
-            onChangeItem={(item) => sortByInput(item.value)}
-            defaultValue={null}
-            placeholder="Sort by"
-          ></DropDownPicker>
-        </View>
-      )}
       <View>
         <View style={styles.productList}>
           <TouchableOpacity
@@ -153,6 +181,22 @@ const SaleScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
+      {filteredProducts && filteredProducts.length > 0 && (
+        <View style={styles.optionsContainer}>
+          <DropDownPicker
+            items={[
+              { label: "Name - A-Z", value: "alphabet_asc" },
+              { label: "Name - Z-A", value: "alphabet_desc" },
+              { label: "Price - Lowest to Highest", value: "price_asc" },
+              { label: "Price - Highest to Lowest", value: "price_desc" },
+            ]}
+            containerStyle={styles.dropdown}
+            onChangeItem={(item) => sortByInput(item.value)}
+            defaultValue={null}
+            placeholder="Sort by"
+          ></DropDownPicker>
+        </View>
+      )}
       <ScrollView style={{ backgroundColor: "#f4f4f4" }}>
         <View style={styles.productContainer}>
           <View>
@@ -183,7 +227,7 @@ const SaleScreen = ({ navigation }) => {
                     <View style={styles.buttons}>
                       <TouchableOpacity
                         style={[styles.button, styles.editButton]}
-                        onPress={handleEditButton}
+                        onPress={() => handleEditButton(product)}
                       >
                         <View style={styles.center}>
                           <AntDesign name="edit" size={24} color="black" />
@@ -304,6 +348,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     width: "100%",
+    height: 50,
   },
   buttons: {
     position: "absolute",

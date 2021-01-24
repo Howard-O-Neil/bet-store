@@ -22,10 +22,12 @@ import { listCategories } from "../actions/categoryActions";
 import * as ImagePicker from "expo-image-picker";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { uploadImage } from "../actions/imageActions";
-import { createProduct } from "../actions/productActions";
+import { createProduct, updateProduct } from "../actions/productActions";
 import { create } from "yup/lib/Reference";
 import { Modal } from "react-native-paper";
 import { showMessage } from "react-native-flash-message";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { CDNAPI } from "../../define";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Ten san pham"),
@@ -35,11 +37,15 @@ const validationSchema = Yup.object().shape({
 });
 const AddProductScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const route = useRoute();
+  const edit = (route && route.params && route.params.edit) || false;
+  const product = edit ? route.params.product : {};
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectImageDialog, setSelectImageDialog] = useState(false);
   const [images, setImages] = useState(null);
-
+  const [initialCategory, setInitialCategory] = useState(null);
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
@@ -77,6 +83,13 @@ const AddProductScreen = () => {
       }
     })();
   }, []);
+  useEffect(() => {
+    const foundCat =
+      edit && categories && categories.find((x) => x.path === product.category);
+    if (foundCat) {
+      setInitialCategory(foundCat);
+    }
+  }, [categories]);
 
   const HandleCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -133,25 +146,55 @@ const AddProductScreen = () => {
     setImages(query);
     setSelectImageDialog(false);
   };
+  const getDefaultProp = (id) => {
+    const result = product.properties.find((x) => x._id === id).value;
 
+    return result ? result : "";
+  };
   const handleNewProduct = (values) => {
     let newProduct = { ...values };
     let handledProp = [];
-    Object.entries(newProduct.properties).map((prop) => {
-      handledProp.push({
-        _id: prop[0],
-        value: prop[1],
+    if (newProduct.properties) {
+      Object.entries(newProduct.properties).map((prop) => {
+        handledProp.push({
+          _id: prop[0],
+          value: prop[1],
+        });
       });
-    });
-    newProduct.properties = handledProp;
+      newProduct.properties = handledProp;
+    }
     newProduct.category = values.category.path;
     newProduct.user = accountID;
+
     dispatch(createProduct(newProduct, images));
+  };
+  const handleUpdate = (values) => {
+    let productToUpdate = { ...values };
+    if (!productToUpdate.category)
+      productToUpdate.category = initialCategory.path;
+    let props = [...product.properties];
+    if (productToUpdate.properties) {
+      Object.entries(productToUpdate.properties).map((prop) => {
+        props.find((x) => x._id === prop[0]).value = prop[1];
+      });
+    }
+    productToUpdate.properties = props;
+    productToUpdate.user = product.user;
+    productToUpdate.image = product.image;
+
+    dispatch(updateProduct(product._id, productToUpdate, images));
   };
 
   useEffect(() => {
-    if (!createLoading || !updateLoading) {
-      if (!createSuccess || !updateSuccess) {
+    if (!updateLoading && !createLoading) {
+      if (updateSuccess || createSuccess) {
+        showMessage({
+          message: "Thành công\n",
+          type: "success",
+          icon: "success",
+        });
+        navigation.goBack();
+      } else {
         if (updateError || createError) {
           showMessage({
             message: "Không thành công\n" + updateError || createError,
@@ -159,14 +202,9 @@ const AddProductScreen = () => {
             icon: "danger",
           });
         }
-      } else {
-        showMessage({
-          message: "Thành công\n",
-          type: "success",
-          icon: "success",
-        });
       }
     }
+    console.log(updateLoading);
   }, [dispatch, createLoading, updateLoading]);
 
   return (
@@ -245,34 +283,39 @@ const AddProductScreen = () => {
       >
         <Formik
           initialValues={{
-            name: "",
-            price: "",
-            countInStock: 0,
-            description: "",
-            category: "",
+            name: edit ? product.name : "",
+            price: edit ? product.price : "",
+            countInStock: edit ? product.countInStock : 0,
+            description: edit ? product.description : "",
+            category: edit && initialCategory ? initialCategory : null,
             properties: null,
           }}
-          onSubmit={(values) => handleNewProduct(values)}
+          onSubmit={(values) =>
+            edit ? handleUpdate(values) : handleNewProduct(values)
+          }
           //validationSchema={validationSchema}
         >
-          {({ handleSubmit, values }) => (
+          {({ handleSubmit, values, initialValues }) => (
             <>
               <AppFormField
                 placeholder="Tên sản phẩm"
                 clearButtonMode="while-editing"
                 name="name"
+                defaultValue={edit && product.name}
               />
 
               <AppFormField
                 placeholder="Giá"
                 keyboardType="number-pad"
                 name="price"
+                defaultValue={edit && product.price.toString()}
               ></AppFormField>
 
               <AppFormField
                 placeholder="Số lượng"
                 keyboardType="number-pad"
                 name="countInStock"
+                defaultValue={edit && product.countInStock.toString()}
               ></AppFormField>
 
               <AppFormField
@@ -280,27 +323,51 @@ const AddProductScreen = () => {
                 multiline
                 numberOfLines={10}
                 name="description"
+                defaultValue={edit && product.description}
               ></AppFormField>
+              <Text>Danh mục</Text>
               <AppFormPicker
                 items={categories}
                 name="category"
                 placeholder="Danh mục"
+                selectedItem={
+                  edit &&
+                  categories &&
+                  categories.find((x) => x.path === product.category)
+                }
               />
               <View>
-                {values.category.properties &&
-                  values.category.properties.map((prop) => (
-                    <AppFormField
-                      placeholder={prop.name}
-                      name={`properties.${prop._id}`}
-                      key={prop._id}
-                    ></AppFormField>
-                  ))}
+                {edit && initialCategory
+                  ? initialCategory.properties.map((prop) => (
+                      <AppFormField
+                        placeholder={prop.name}
+                        name={`properties.${prop._id}`}
+                        key={prop._id}
+                        defaultValue={edit && getDefaultProp(prop._id)}
+                      ></AppFormField>
+                    ))
+                  : values.category &&
+                    values.category.properties.map((prop) => (
+                      <AppFormField
+                        placeholder={prop.name}
+                        name={`properties.${prop._id}`}
+                        key={prop._id}
+                        defaultValue={edit && getDefaultProp(prop._id)}
+                      ></AppFormField>
+                    ))}
               </View>
               <View style={styles.imageContainer}>
                 {images ? (
                   <Image
                     source={{
                       uri: images.uri,
+                    }}
+                    style={styles.images}
+                  />
+                ) : product && product.image ? (
+                  <Image
+                    source={{
+                      uri: `${CDNAPI}/cdn/${product.image[0].link}`,
                     }}
                     style={styles.images}
                   />
@@ -319,16 +386,12 @@ const AddProductScreen = () => {
               ></AppButton>
 
               <AppButton title="Lưu" onPress={handleSubmit}></AppButton>
-              <AppButton
-                title="Test"
-                onPress={() => setModalVisible(true)}
-              ></AppButton>
             </>
           )}
         </Formik>
       </ScrollView>
       <Modal
-        visible={createLoading || updateLoading}
+        visible={createLoading || updateLoading ? true : false}
         animationType="slide"
         onDismiss={() => setModalVisible(false)}
       >
