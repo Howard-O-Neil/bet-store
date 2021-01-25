@@ -125,7 +125,7 @@ const ProductScreen = ({ match }) => {
                         </div>
                         <div className = {style.info}>
                           <p>Người bán</p>
-                    <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin20":"admin20"}</p>
+                          <p style = {{fontWeight: 'bold'}}>{(product.price/1000000)%2==1?"admin20":"admin20"}</p>
                         </div>
                       </div>
 

@@ -1,5 +1,8 @@
-import {CompatClient, IMessage, Stomp} from '@stomp/stompjs';
+import {IMessage} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { Client } from 'stompjs';
+
+var Stomp = require('stompjs/lib/stomp.js').Stomp;
 
 export interface ISocket {
   key: string;
@@ -13,7 +16,7 @@ export interface IBrocker {
 }
 
 class SocketManager {
-  private static stompClient: Map<string, CompatClient> = new Map();
+  private static stompClient: Map<string, Client> = new Map();
   private static clientInfo: Map<String, ISocket> = new Map();
 
   public static addSocket(key: string, socketInfo: ISocket) {
@@ -24,29 +27,30 @@ class SocketManager {
       return false;
     }
 
-    let _client = SocketManager.stompClient.get(key);
-    if (_client != null) {
-      _client.onConnect = () => {
-        for (let i = 0; i < socketInfo.brockers.length; i++) {
-          client.subscribe(
-            socketInfo.brockers[i].brocker,
-            socketInfo.brockers[i].receiveHandler,
-          );
-        }
-      };
-      return true;
-    }
+    // let _client = SocketManager.stompClient.get(key);
+    // if (_client != null) {
+    //   _client.connect({}, () => {
+    //     for (let i = 0; i < socketInfo.brockers.length; i++) {
+    //       _client.subscribe(
+    //         socketInfo.brockers[i].brocker,
+    //         socketInfo.brockers[i].receiveHandler,
+    //       );
+    //     }
+    //   });
+    //   return true;
+    // }
     let socket = new SockJS(socketInfo.socketUrl);
     let client = Stomp.over(socket);
 
-    client.onConnect = () => {
+    client.connect({}, () => {
       for (let i = 0; i < socketInfo.brockers.length; i++) {
         client.subscribe(
           socketInfo.brockers[i].brocker,
           socketInfo.brockers[i].receiveHandler,
         );
       }
-    };
+    })
+    
     SocketManager.stompClient.set(key, client);
     SocketManager.clientInfo.set(key, socketInfo);
     return true;
@@ -54,7 +58,7 @@ class SocketManager {
 
   public static connect(key: string) {
     if (!SocketManager.stompClient.get(key)?.connected) {
-      SocketManager.stompClient.get(key)?.activate();
+      // SocketManager.stompClient.get(key)?.activate();
     }
   }
 
@@ -62,11 +66,7 @@ class SocketManager {
     key: string,
     data: {destination: string; headers: any; content: string},
   ) {
-    SocketManager.stompClient.get(key)?.publish({
-      destination: data.destination,
-      headers: data.headers,
-      body: data.content,
-    });
+    SocketManager.stompClient.get(key).send(data.destination, data.headers, data.content);
   }
 }
 

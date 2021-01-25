@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import {ThunkAction} from 'redux-thunk';
+import { JavaAPI } from '../../define';
 import SocketManager, {ISocket} from '../components/SocketManager';
 import {
   ChatAccountInfo,
@@ -37,7 +38,7 @@ export const getAccountInfoThunk: ThunkAction<
   ChatActionType<ChatAccountInfo>
 > = async (dispatch, getState, token) => {
   //
-  let response = await Axios.get(`/java/api/account/jwt?token=${token}`);
+  let response = await Axios.get(`${JavaAPI}/api/account/jwt?token=${token}`);  
   dispatch(setAccountInfo(response.data.data));
 };
 
@@ -59,7 +60,7 @@ export const getConversationThunk: ThunkAction<
   let result: Conversation[] = [];
 
   let response = await Axios.get(
-    `/java/api/conversation/get?senderid=${param.senderId}&index=${param.index}`,
+    `${JavaAPI}/api/conversation/get?senderid=${param.senderId}&index=${param.index}`,
   );
   result = response.data.data;
 
@@ -106,10 +107,10 @@ export const getMessageThunk: ThunkAction<
   let result: Message[] = [];
 
   console.log(
-    `/java/api/message/get?senderid=${param.senderId}&receiverid=${param.receiverId}&index=${param.index}`,
+    `${JavaAPI}/api/message/get?senderid=${param.senderId}&receiverid=${param.receiverId}&index=${param.index}`,
   );
   let response = await Axios.get(
-    `/java/api/message/get?senderid=${param.senderId}&receiverid=${param.receiverId}&index=${param.index}`,
+    `${JavaAPI}/api/message/get?senderid=${param.senderId}&receiverid=${param.receiverId}&index=${param.index}`,
   );
   result = response.data.data;
 

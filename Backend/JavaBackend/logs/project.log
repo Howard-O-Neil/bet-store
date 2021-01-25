@@ -798,3 +798,9 @@ Caused by: java.lang.IllegalArgumentException: invalid hexadecimal representatio
 	at com.service.ProfileService.lambda$0(ProfileService.java:29)
 	at com.service.LogService.run(LogService.java:10)
 	... 43 more
+[2021-01-10 20:31:10] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+
+[2021-01-22 06:24:51] [main] INFO  com.helper.LogUtils  - 
+========== Service Restarted ==========
+

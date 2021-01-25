@@ -9,5 +9,6 @@ const Host_WIFI = "http://192.168.1.135"
 
 export const GolangAPI = `${Platform.OS =='web'?HOST_LOCAL: HOST_LOCAL_EMU}:8081`
 export const CDNAPI = `${Platform.OS =='web'?HOST_LOCAL: HOST_LOCAL_EMU}:8082`
-export const JavaAPI = `${HOST_LOCAL}:8085`
+export const JavaAPI = `${Platform.OS =='web'?HOST_LOCAL: HOST_LOCAL_EMU}:8085`
+export const JavaSOCKET = `${HOST_LOCAL_EMU}:8085`
 export const NodeAPI = `${HOST_LOCAL}:8086`

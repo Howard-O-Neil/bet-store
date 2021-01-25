@@ -11,6 +11,9 @@ import store from './src/store';
 import * as Permissions  from 'expo-permissions';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider as StoreProvider } from 'react-redux';
+import * as encoding from 'text-encoding';
+
+Object.assign(global, { WebSocket: require('websocket').w3cwebsocket });
 
 export default function App() {
   //const [statusCam, setstatusCam] = useState(false);
