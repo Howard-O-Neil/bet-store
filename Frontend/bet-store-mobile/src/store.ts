@@ -1,3 +1,5 @@
+import { accountInfoReducer, conversationControlReducer, messageControlReducer, socketInfoReducer, viewControlReducer } from './reducers/chatBoxReducer';
+
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -37,6 +39,11 @@ const reducer = combineReducers({
   wallet: walletReducer,
   editprofile: editprofileReducer,
   transDetailWallet: transDetailWalletReducer,
+  conversationControl: conversationControlReducer,
+  messageControl: messageControlReducer,
+  chatAccountInfo: accountInfoReducer,
+  viewControl: viewControlReducer,
+  socketInfo: socketInfoReducer,
   getSlider:getsliderReducer,
 });
 export type AppState = ReturnType<typeof reducer>;

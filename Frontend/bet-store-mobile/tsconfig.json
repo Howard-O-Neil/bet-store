@@ -4,9 +4,10 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true,
+    "strict": false,
     "allowJs": true,
     "esModuleInterop": true,
+    "strictNullChecks": false,
     "isolatedModules": true,
     "jsx": "react",
     "lib": [

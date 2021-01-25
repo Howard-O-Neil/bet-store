@@ -1,3 +1,4 @@
+
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import FlashMessage from "react-native-flash-message";
@@ -15,6 +16,8 @@ import TimeAgo from "javascript-time-ago";
 import vi from "javascript-time-ago/locale/vi";
 TimeAgo.addLocale(vi);
 TimeAgo.setDefaultLocale("vi");
+        
+Object.assign(global, { WebSocket: require('websocket').w3cwebsocket });
 
 export default function App() {
   //const [statusCam, setstatusCam] = useState(false);

@@ -171,7 +171,7 @@ export const viewControlReducer: Reducer<
   ChatViewControl,
   ChatActionType<any>
 > = (
-  state = {viewId: EMPTY_VIEW, isOpen: false, currentReceiver: ''},
+  state = {viewId: CONVERSATION_VIEW, isOpen: false, currentReceiver: ''},
   action,
 ) => {
   switch (action.type) {
