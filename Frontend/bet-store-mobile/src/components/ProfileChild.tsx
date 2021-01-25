@@ -1,13 +1,19 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { showMessage } from 'react-native-flash-message';
 import { SvgUri } from 'react-native-svg';
-import { useDispatch } from 'react-redux';
-import { CDNAPI, GolangAPI } from '../../define';
+import { useDispatch, useSelector } from 'react-redux';
+import { CDNAPI, GolangAPI, JavaAPI } from '../../define';
 import { repalceCurrentReceiver, switchToMessage } from '../actions/chatBoxAction';
+import { LOGIN_FAIL, LOGIN_SUCCESS } from '../constants/accountConstants';
+import { ChatAccountInfo } from '../reducers/chatBoxReducer';
+import { AppState } from '../store';
+import { BottomTabParamList } from '../types';
 import { Profile } from '../types/profile';
 import { ReponseAPI } from '../types/ReponseAPI';
 import { WalletInfoType } from '../types/walletInfoType';
@@ -26,9 +32,14 @@ const ChildProfile: React.FC<{ idProfile: String }> = ({ idProfile }) => {
   const [IsLoadingProfile, setIsLoadingProfile] = useState(true);
   const [IsAvatarSVG, setIsAvatarSVG] = useState(false);
 
-  const dispatch = useDispatch();
+  const profile = useSelector((state: { chatAccountInfo: ChatAccountInfo }) => state.chatAccountInfo);
+  const account  = useSelector((state:AppState)=> state.account)
 
-  const ChatWithSeller = ()=>{
+  const dispatch = useDispatch();
+  const navigator = useNavigation<StackNavigationProp<BottomTabParamList, "Home">>();
+
+
+  const ChatWithSeller = () => {
     // Khôi xử lý cái này nhé
     // ID user idProfile 
 
@@ -38,11 +49,33 @@ const ChildProfile: React.FC<{ idProfile: String }> = ({ idProfile }) => {
     //   icon: "success",
     // });
 
-    // chuyển qua tab chat tự động
+    if (account.Payload.IsLogin === false) {
+      showMessage({
+        message: "Bạn phải đăng nhập trước khi chat",
+        type: "success",
+        icon: "success",
+      });
+      navigator.navigate("Account");
+      return;
+    }
 
-    // ==========================
-    dispatch(repalceCurrentReceiver(idProfile.valueOf()));
-    dispatch(switchToMessage());
+    if (profile.id === idProfile) {
+      showMessage({
+        message: "Bạn không được chat với chính mình",
+        type: "success",
+        icon: "success",
+      });
+      return;
+    }
+
+    axios.post(`${JavaAPI}/api/conversation/add`, {
+      senderId: profile.id, receiverId: idProfile
+    }).then(x => {
+      navigator.navigate("Message");
+      // ==========================
+      dispatch(repalceCurrentReceiver(idProfile.valueOf()));
+      dispatch(switchToMessage());
+    });
   }
 
   useEffect(() => {

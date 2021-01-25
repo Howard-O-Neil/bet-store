@@ -242,7 +242,7 @@ export const ChatConversationBox: React.FC<Conversation> = (conversation) => {
     return <View></View>;
   }
   return (
-    <View>
+    <View style={{borderBottomWidth: 1}}>
       <TouchableOpacity
         style={styles.conversationBox}
         onPress={e => {

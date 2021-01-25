@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { JavaAPI, JavaSOCKET as JavaSocket } from "../../define";
 import { conversationReceive, getAccountInfoThunk, messageReceive, setSocketInfo } from "../actions/chatBoxAction";
 import { ChatAccountInfo, ChatViewControl, CONVERSATION_VIEW, EMPTY_VIEW, MESSAGE_VIEW } from "../reducers/chatBoxReducer";
+import { AppState } from "../store";
 import { GetItemInStorage } from "./AsyncStorageUtls";
 import { ConversationView } from "./ConversationView";
 import { MessageView } from "./MessageView";
@@ -22,6 +23,8 @@ export const ChatView: React.FC = () => {
   const [intervalId, setIntervalId] = useState<number>(-1);
   
   const accountToken = useRef<string>("");
+
+  const [reload, setReload] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   
@@ -64,29 +67,43 @@ export const ChatView: React.FC = () => {
     };
   };
 
+  const acc  = useSelector((state:AppState)=> state.account)
+
   useEffect(() => {
     console.log("Java Chat Client");
 
-    setIntervalId(
-      setInterval(() => {
-        GetItemInStorage("token").then(x => {
-          if (x != null) {
-            accountToken.current = x;
-          }
-        });
+    // setIntervalId(
+    //   setInterval(() => {
+    //     GetItemInStorage("token").then(x => {
+    //       if (x != null) {
+    //         accountToken.current = x;
+    //       }
+    //     });
         
-        if (accountToken.current != "") {
-          clearInterval(intervalId);
-          setIntervalId(null);
-        }
-      }, 500)
-    );
-  }, []);
+    //     if (accountToken.current != "") {
+    //       clearInterval(intervalId);
+    //       setIntervalId(null);
+    //     }
+    //   }, 500)
+    // );
 
-  useEffect(() => {
-    if (intervalId == null && accountToken.current != "") {
+    accountToken.current = acc.Payload.Token;
+    
+    if (accountToken.current != "") {
       getAccountInfoThunk(dispatch, () => null, accountToken.current);
     }
+
+    // if (accountToken.current != "") {
+    //   clearInterval(intervalId);
+    //   setIntervalId(null);
+    // }
+
+  }, [acc]);
+
+  useEffect(() => {
+    // if (intervalId == null && accountToken.current != "") {
+    //   getAccountInfoThunk(dispatch, () => null, accountToken.current);
+    // }
   }, [intervalId])
 
   useEffect(() => {
