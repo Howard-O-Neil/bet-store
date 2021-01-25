@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { showMessage } from 'react-native-flash-message';
 import { SvgUri } from 'react-native-svg';
+import { useDispatch } from 'react-redux';
 import { CDNAPI, GolangAPI } from '../../define';
+import { repalceCurrentReceiver, switchToMessage } from '../actions/chatBoxAction';
 import { Profile } from '../types/profile';
 import { ReponseAPI } from '../types/ReponseAPI';
 import { WalletInfoType } from '../types/walletInfoType';
@@ -24,15 +26,23 @@ const ChildProfile: React.FC<{ idProfile: String }> = ({ idProfile }) => {
   const [IsLoadingProfile, setIsLoadingProfile] = useState(true);
   const [IsAvatarSVG, setIsAvatarSVG] = useState(false);
 
+  const dispatch = useDispatch();
 
   const ChatWithSeller = ()=>{
     // Khôi xử lý cái này nhé
     // ID user idProfile 
-    showMessage({
-      message: "Khôi xử lý cái này nhé",
-      type: "success",
-      icon: "success",
-    });
+
+    // showMessage({
+    //   message: "Khôi xử lý cái này nhé",
+    //   type: "success",
+    //   icon: "success",
+    // });
+
+    // chuyển qua tab chat tự động
+
+    // ==========================
+    dispatch(repalceCurrentReceiver(idProfile.valueOf()));
+    dispatch(switchToMessage());
   }
 
   useEffect(() => {
