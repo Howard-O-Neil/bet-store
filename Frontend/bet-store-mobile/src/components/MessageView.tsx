@@ -6,12 +6,13 @@ import { CDNAPI, JavaAPI } from "../../define";
 import { getMessageThunk, switchToConversation } from "../actions/chatBoxAction";
 import { ChatAccountInfo, ChatViewControl, CHAT_HANDLER, Message, MessageControl, MESSAGE_VIEW } from "../reducers/chatBoxReducer";
 import { CDN_SERVER_PREFIX, CHAT_KEY } from "./ChatView";
-import Axios from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 import SocketManager from "./SocketManager";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft, faBackward, faFileArchive, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faBackward, faFileArchive, faFileImage, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../types";
+import { ImagePicker } from "expo";
 
 export const CONTENT_NONE = "CONTENT_NONE";
 export const CONTENT_PRODUCT_INFO = "CONTENT_PRODUCT_INFO";
@@ -56,19 +57,6 @@ const styles = StyleSheet.create({
     borderColor: "blue"
   },
   messageFromMe: {
-    // margin-bottom: 5px;
-    //   display: flex;
-    //   flex-flow: column;
-    //   align-self: flex-end;
-    //   align-items: flex-end;
-    //   text-align: right;
-    //   word-wrap: break-word;
-    // background-color: #9ADAFF;
-    //     border-radius: 10px;
-    //     padding: 10px;
-    //     max-width: 80%;
-    //     word-wrap: break-word;
-
     marginBottom: 5,
     alignSelf: "flex-end",
     textAlign: "right",
@@ -252,6 +240,42 @@ export const MessageView: React.FC = () => {
     }
   }
 
+  const sendImg = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      allowsEditing: false,
+      allowsMultipleSelection: true,
+    });
+
+    if (result.cancelled) return;
+
+    let localUri = result.uri;
+    let filename = localUri.split("/").pop();
+    if (filename == undefined) return;
+    let match = /\.(\w+)$/.exec(filename == undefined ? "" : filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    let query = {
+      uri: localUri,
+      name: filename,
+      type,
+    };
+
+    let formData = new FormData();
+    formData.append('files', localUri);
+
+    let axiosConf: AxiosRequestConfig = {
+      method: "post",
+      url:`${CDNAPI}/upload`,
+      data: formData
+    }
+    Axios(axiosConf).then(res => {
+      let fileId = res.data[filename];
+      sendMessageImage(fileId);
+    })
+  }
+
   useEffect(() => {
     if (view.currentReceiver == "")
       return;
@@ -313,7 +337,12 @@ export const MessageView: React.FC = () => {
       </ScrollView>
       <View style={styles.messageViewToolbar}>
         <View style={{ flexDirection: 'row', alignItems: 'center', height: '100%' }}>
-          <TextInput style={{ marginRight: 5, backgroundColor: '#EEEEEE', width: '90%', height: 30, fontSize: 18, borderRadius: 15, padding: 5 }} 
+          <TouchableOpacity onPress={e => {
+            sendImg();
+          }}>
+            <FontAwesomeIcon icon={faFileImage} style={{ color: '#000000', marginRight: 5 }} size={25}></FontAwesomeIcon>
+          </TouchableOpacity>
+          <TextInput style={{ marginRight: 5, backgroundColor: '#EEEEEE', width: '85%', height: 30, fontSize: 18, borderRadius: 15, padding: 5 }} 
             ref={e => {textInput.current = e}}
             onChangeText={e => {messageContent.current = e}}>
 
