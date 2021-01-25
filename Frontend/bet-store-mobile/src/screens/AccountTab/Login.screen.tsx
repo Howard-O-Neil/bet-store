@@ -16,6 +16,7 @@ import { GetItemInStorage, SetItemInStorage } from '../../components/AsyncStorag
 import { Text, View } from '../../components/Themed';
 import { AppState } from '../../store';
 import { AccountTabStackParamList } from '../../types';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface AccountEntity {
   username: string | undefined,
@@ -97,29 +98,31 @@ export default function LoginScreen() {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center' }}>
-      <Image source={require('../../../assets/images/logo.jpg')} style={styles.Logo} />
-      <View>
-        <TextInput value={username} onChangeText={(val) => { setusername(val) }} style={styles.InputStyle} placeholder="Tên đăng nhập" />
-        <TextInput value={password} onChangeText={(val) => { setpassword(val) }} style={styles.InputStyle} placeholder="Mật khẩu" secureTextEntry={true} />
-        {IsLogging ? <TouchableOpacity activeOpacity={.8} style={[styles.BtnAction, styles.disable]} onPress={HandleLogin} disabled>
-          <ActivityIndicator size="small" color="#0000ff" />
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginLeft: 10 }}>Đăng nhập</Text>
-        </TouchableOpacity> :
-          <TouchableOpacity activeOpacity={.8} style={styles.BtnAction} onPress={HandleLogin} >
-            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Đăng nhập</Text>
-          </TouchableOpacity>
-        }
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Text>
-            Chưa có tài khoản?
+    <ScrollView style={{ flex: 1, backgroundColor:'white' }}>
+      <View style={{ flex: 1, alignItems: 'center'}}>
+        <Image source={require('../../../assets/images/logo.jpg')} style={styles.Logo} />
+        <View>
+          <TextInput value={username} onChangeText={(val) => { setusername(val) }} style={styles.InputStyle} placeholder="Tên đăng nhập" />
+          <TextInput value={password} onChangeText={(val) => { setpassword(val) }} style={styles.InputStyle} placeholder="Mật khẩu" secureTextEntry={true} />
+          {IsLogging ? <TouchableOpacity activeOpacity={.8} style={[styles.BtnAction, styles.disable]} onPress={HandleLogin} disabled>
+            <ActivityIndicator size="small" color="#0000ff" />
+            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginLeft: 10 }}>Đăng nhập</Text>
+          </TouchableOpacity> :
+            <TouchableOpacity activeOpacity={.8} style={styles.BtnAction} onPress={HandleLogin} >
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Đăng nhập</Text>
+            </TouchableOpacity>
+          }
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <Text>
+              Chưa có tài khoản?
           </Text>
-          <TouchableOpacity onPress={async () => { console.log(await AsyncStorage.getItem("token")); navigation.navigate("Signup") }} >
-            <Text style={{ color: '#99c1a4' }} > Tạo tài khoản mới</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={async () => { console.log(await AsyncStorage.getItem("token")); navigation.navigate("Signup") }} >
+              <Text style={{ color: '#99c1a4' }} > Tạo tài khoản mới</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
