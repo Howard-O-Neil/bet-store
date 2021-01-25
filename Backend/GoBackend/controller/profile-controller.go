@@ -76,3 +76,16 @@ func EditProfile(ctx *gin.Context) {
 // 	}
 // 	ctx.JSON(http.StatusOK, service.CreateMsgSuccessJsonResponse(gin.H{"_id": id}))
 // }
+
+func GetInfoProfilebyAccountID(ctx *gin.Context) {
+
+	id := ctx.Request.URL.Query().Get("id")
+
+	profile, err := Profileservice.GetInfoProfilebyAccountID(id)
+
+	if err != nil {
+		ctx.JSON(200, service.CreateMsgErrorJsonResponse(1012, err.Error()))
+	} else {
+		ctx.JSON(200, service.CreateMsgSuccessJsonResponse(profile))
+	}
+}

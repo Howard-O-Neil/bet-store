@@ -83,6 +83,9 @@ func RouteProfile(app *gin.Engine) {
 		"/profile/",
 		middlewares.AuthorizeJWT(),
 		controller.EditProfile)
+	app.GET(
+		"/profile/getinfo/",
+		controller.GetInfoProfilebyAccountID)
 }
 
 func RouteHookWallet(app *gin.Engine) {

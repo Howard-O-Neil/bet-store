@@ -13,7 +13,7 @@ import {
   categoryCreateReducer,
   categoryUpdateReducer,
 } from "./reducers/categoryReducer";
-import { profileReducer } from "./reducers/profileReducer";
+import { getProfileGlobalReducer, profileReducer } from "./reducers/profileReducer";
 import { accountReducer, confirmTelAccount } from "./reducers/accountReducer";
 import { notifyReducer } from "./reducers/notifyReducer";
 import { walletReducer } from "./reducers/walletReducer";
@@ -47,7 +47,8 @@ const reducer = combineReducers({
   addSlider:addsliderReducer,
   removeSlider:removeSliderReducer,
   editSlider:editSliderReducer,
-  confirmTelAccount:confirmTelAccount
+  confirmTelAccount:confirmTelAccount,
+  getProfileGlobal:getProfileGlobalReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
 
