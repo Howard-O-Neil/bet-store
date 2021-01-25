@@ -56,11 +56,9 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "^2.16.1",
-
     "react-native-svg": "^12.1.0",
     "react-native-tcp": "^4.0.0",
     "react-native-swiper": "^1.6.0",
-
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.2",
     "react-time-ago": "^6.2.2",
@@ -70,7 +68,7 @@
     "sockjs-client": "^1.5.0",
     "stompjs": "^2.3.3",
     "text-encoding": "^0.7.0",
-    "websocket": "^1.0.33"
+    "websocket": "^1.0.33",
     "yup": "^0.32.8"
   },
   "devDependencies": {

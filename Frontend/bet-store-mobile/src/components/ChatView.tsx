@@ -13,7 +13,7 @@ import { MessageView } from "./MessageView";
 import SocketManager, { ISocket } from "./SocketManager";
 
 export const CHAT_KEY = "CHAT_BOX";
-export const CDN_SERVER_PREFIX = "http://10.0.2.2:8082/cdn/";
+export const CDN_SERVER_PREFIX = "https://betstore.tk/cdn/";
 export const CHAT_HANDLER = "/chat/handle";
 
 export const ChatView: React.FC = () => {
