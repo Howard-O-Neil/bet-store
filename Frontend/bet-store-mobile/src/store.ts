@@ -1,29 +1,35 @@
 import { accountInfoReducer, conversationControlReducer, messageControlReducer, socketInfoReducer, viewControlReducer } from './reducers/chatBoxReducer';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import {composeWithDevTools} from 'redux-devtools-extension';
+
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productListReducer,
   productDetailsReducer,
   productDeleteReducer,
   productCreateReducer,
-} from './reducers/productReducer';
+  productUpdateReducer,
+} from "./reducers/productReducer";
 import {
   categoryListReducer,
   categoryDetailsReducer,
-} from './reducers/categoryReducer';
-import {editprofileReducer, profileReducer} from './reducers/profileReducer';
-import {accountReducer} from './reducers/accountReducer';
-import {notifyReducer} from './reducers/notifyReducer';
-import {transDetailWalletReducer, walletReducer} from './reducers/walletReducer';
-import {imagesUploadReducer} from './reducers/imageReducer';
+} from "./reducers/categoryReducer";
+import { editprofileReducer, profileReducer } from "./reducers/profileReducer";
+import { accountReducer } from "./reducers/accountReducer";
+import { notifyReducer } from "./reducers/notifyReducer";
+import {
+  transDetailWalletReducer,
+  walletReducer,
+} from "./reducers/walletReducer";
+import { imagesUploadReducer } from "./reducers/imageReducer";
+import { getsliderReducer } from "./reducers/sliderReducer";
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
-  productUpdate: productCreateReducer,
+  productUpdate: productUpdateReducer,
   categoryList: categoryListReducer,
   categoryDetails: categoryDetailsReducer,
   imageUpload: imagesUploadReducer,
@@ -38,20 +44,18 @@ const reducer = combineReducers({
   chatAccountInfo: accountInfoReducer,
   viewControl: viewControlReducer,
   socketInfo: socketInfoReducer,
+  getSlider:getsliderReducer,
 });
 export type AppState = ReturnType<typeof reducer>;
-
-
 
 const initialState = {};
 
 const middleWare = [thunk];
 
-
 const store = createStore(
   reducer,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleWare)),
+  composeWithDevTools(applyMiddleware(...middleWare))
 );
 
 export default store;

@@ -42,7 +42,6 @@ services:
       MONGO_INITDB_DATABASE: bet_store
     ports:
       - "8083:27017"
-      - "8084:28017"
     volumes:
       - ./Backend/Database/log:/var/log/mongodb
       - ./Backend/Database/startup/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
@@ -93,6 +92,24 @@ services:
     networks:
       backend:
         ipv4_address: "10.1.0.6"
+  
+  webserver:
+    container_name: "webserver"
+    image: nginx:alpine
+    ports:
+      - "9000:80"
+    depends_on:
+      - cdnserver
+      - database
+      - nodebackend
+      - gobackend
+      - javabackend
+    volumes:
+      - ./Webservice/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      backend:
+        ipv4_address: "10.1.0.7"
+
 networks:
   backend:
     ipam:
