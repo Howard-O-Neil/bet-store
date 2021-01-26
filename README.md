@@ -141,8 +141,9 @@
 
 
 
-## Tác giả
+## Tác giả ứng dụng mobile
 Đoàn Công Minh - 18521092@gm.uit.edu.vn
+Nguyễn Thị Lan Phương - 16520972@gm.uit.edu.vn
 
 
 ## Giấy phép
