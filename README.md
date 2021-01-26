@@ -37,19 +37,19 @@
 ### Đăng nhập / Đăng kí
    * Đăng nhập
  
-   * Đăng kí
+   * Đăng kí: Sử dụng số điện thoại để xác nhận tài khoản
    
    <p align="center">
-   <img src="doc/Screenshot_1611636664.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636667.png" height = "480" width="270"> 
-   <img src="doc/Screenshot_1611636764.png" height = "480" width="270">
+   <img src="doc/Screenshot_1611636664.png" height = "480">
+   <img src="doc/Screenshot_1611636667.png" height = "480"> 
+   <img src="doc/Screenshot_1611636764.png" height = "480">
    </p>
    
 ### Tìm kiếm sản phẩm
    * Tìm kiếm theo tên
    
    <p align="center">
-   <img src="doc/142720100_442125336974651_1138010525790594625_n.jpg" height = "480" width="270">
+   <img src="doc/142720100_442125336974651_1138010525790594625_n.jpg" height = "480">
    </p>
 
 ### Sắp xếp sản phẩm
@@ -61,31 +61,31 @@
    * Liên lạc người bán nếu muốn
    
    <p align="center">
-   <img src="doc/142850290_119039046758283_7226204008015115058_n.jpg" height = "480" width="270">
-   <img src="doc/142800826_441757826959729_2163640143447877705_n.jpg" height = "480" width="270"> 
+   <img src="doc/142850290_119039046758283_7226204008015115058_n.jpg" height = "480">
+   <img src="doc/142800826_441757826959729_2163640143447877705_n.jpg" height = "480"> 
    </p>
 
 ### Xem danh sách danh mục
    * Danh sách các danh mục mua bán
    
    <p align="center">
-   <img src="doc/Screenshot_1611636628.png" height = "480" width="270">
+   <img src="doc/Screenshot_1611636628.png" height = "480">
    </p>
 
 ### Liên lạc với người bán
    * Liên hệ với người bán để trao đổi thông tin và mua hàng
    
    <p align="center">
-   <img src="doc/Screenshot_1611636785.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636817.png" height = "480" width="270">
+   <img src="doc/Screenshot_1611636785.png" height = "480">
+   <img src="doc/Screenshot_1611636817.png" height = "480">
    </p>
    
 ### Nạp tiền
-   * Nạp tiền qua momo
+   * Nạp tiền qua momo: Sử dụng hệ thống xác thực giao dịch để tự động cộng tiền khi khách chuyển tiền đúng cú pháp của momo(Đã sử dụng được)
    
    <p align="center">
-   <img src="doc/Screenshot_1611636755.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636751.png" height = "480" width="270">
+   <img src="doc/Screenshot_1611636755.png" height = "480">
+   <img src="doc/Screenshot_1611636751.png" height = "480">
    </p>
 
 ### Quản lý sản phẩm rao bán
@@ -96,11 +96,11 @@
    * Xóa sản phẩm
    
    <p align="center">
-   <img src="doc/Screenshot_1611636710.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636714.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636704.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636728.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636734.png" height = "480" width="270">
+   <img src="doc/Screenshot_1611636710.png" height = "480">
+   <img src="doc/Screenshot_1611636714.png" height = "480">
+   <img src="doc/Screenshot_1611636704.png" height = "480">
+   <img src="doc/Screenshot_1611636728.png" height = "480">
+   <img src="doc/Screenshot_1611636734.png" height = "480">
    </p>
 
 ### Quản lý thông tin cá nhân
@@ -109,42 +109,65 @@
    * Đổi mật khẩu
    
    <p align="center">
-   <img src="doc/Screenshot_1611636679.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636685.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636692.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636696.png" height = "480" width="270">
-   <img src="doc/Screenshot_1611636737.png" height = "480" width="270">
+   <img src="doc/Screenshot_1611636679.png" height = "480">
+   <img src="doc/Screenshot_1611636685.png" height = "480">
+   <img src="doc/Screenshot_1611636692.png" height = "480">
+   <img src="doc/Screenshot_1611636696.png" height = "480">
+   <img src="doc/Screenshot_1611636737.png" height = "480">
    </p>
 
 ### Quản lý các danh mục
-
+   * Các thuộc tính riêng biệt cho từng loại danh mục (vd: xe thì sẽ có hãng xe, nhà sẽ có diện tích, ...)
+   
+   <p align="center">
+   <img src="doc/Screenshot_1611636734.png" height = "480">
+   </p>
 
 ## Yêu cầu thiết bị
 
--Android:
+- Android:
 
-   +Android studio : 
+   + Android studio : 3.0.1
 
-   +Gradle : 
+   + Gradle : 4.1
 
-   +Min sdk : 
+   + Min sdk : 19
 
-   +Target sdk : 
+   + Target sdk : 26
+- iOS:
+
+   + iOS: 10
 
 ## Thư viện và công nghệ
 
-- Language : 
+- Language : Java, Golang, Javascript, Typescript, 
 
 - FrameWork : 
+    - Frontend: React native
+    - Backend: SpringbootJava, Nodejs Express, Go gin
 
-- Database: 
+- Database: MongoDB
 
+## Thiết kế hệ thống
+   
+   <p align="center">
+   <img src="doc/142075450_336896110780779_5764666094310486041_n.png">
+   </p>
+    
+- Backend : 
+    - Sử dụng CDNServer(tự build): để làm nơi lưu trữ file và hình ảnh
+    - Sử dụng Docker-compose để hợp nhất các microservice và database tạo nên hệ thống backend
+    - Sư dụng Nginx để làm webserver cho ứng dụng
 
-
-## Tác giả ứng dụng mobile
+## Danh sách nhóm xây dựng mobile
  - Đoàn Công Minh - 18521092@gm.uit.edu.vn
  - Nguyễn Thị Lan Phương - 16520972@gm.uit.edu.vn
+ 
 
+## Danh sách nhóm xây dựng web
+ - Đoàn Công Minh - 18521092@gm.uit.edu.vn
+ - Trần Minh Khôi - 18520947@gm.uit.edu.vn
+ - Bùi Minh Tiến - 18521481@gm.uit.edu.vn
 
 ## Giấy phép
 
