@@ -2,6 +2,8 @@
 
 Ứng dụng là nơi kết nối các bạn sinh viên có nhu cầu mua bán, trao đổi hàng hóa như quần áo, đồ ăn, ...
 
+<b>Link chplay tải ứng dụng: https://play.google.com/store/apps/details?id=com.ktm.betstore</b>
+
 ## Nội dung
 1. [Chức năng](#chức-năng)
     
