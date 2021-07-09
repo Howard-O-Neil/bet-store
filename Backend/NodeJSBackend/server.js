@@ -1,12 +1,12 @@
-import express from "express";
-import dotenv from "dotenv";
-import connectDB from "./config/db.js";
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
-import bodyParser from "body-parser";
-import productRoutes from "./routes/productRoute.js";
-import categoryRoutes from "./routes/categoryRoute.js";
-import auth from "./middleware/authMiddleware.js";
-import { serverLog, errorLog } from "./middleware/logMiddleware.js";
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db.js");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
+const bodyParser = require("body-parser");
+const productRoutes = require("./routes/productRoute.js");
+const categoryRoutes = require("./routes/categoryRoute.js");
+const auth = require("./middleware/authMiddleware.js");
+const { serverLog, errorLog } = require("./middleware/logMiddleware.js");
 
 dotenv.config();
 
@@ -32,13 +32,13 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-app.use(serverLog);
+//app.use(serverLog);
 
 app.use("/api/products", productRoutes);
 
 app.use("/api/categories", categoryRoutes);
 
-app.use(errorLog);
+//app.use(errorLog);
 app.use(notFound);
 
 app.use(errorHandler);
@@ -49,3 +49,5 @@ app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
+
+module.exports = app;

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import Product from "../models/productModel.js";
-import asyncHandler from "express-async-handler";
+const mongoose = require("mongoose");
+const Product = require("../models/productModel.js");
+const asyncHandler = require("express-async-handler");
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
@@ -26,7 +26,7 @@ const updateProduct = asyncHandler(async (req, res) => {
       ...req.body,
     });
     const product = await Product.findById(req.params.id);
-    console.log(product);
+
     if (product) {
       product.overwrite(newInfo);
       await product.save();
@@ -113,7 +113,7 @@ const getRamdomProduct = asyncHandler(async (req, res) => {
   }
 });
 
-export {
+module.exports = {
   getProducts,
   getProductById,
   deleteProduct,

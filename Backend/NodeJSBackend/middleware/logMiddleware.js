@@ -1,11 +1,8 @@
-import winston from "winston";
-import expressWinston from "express-winston";
-import path from "path";
-import { dirname } from "dirname-filename-esm";
+const winston = require("winston");
+const expressWinston = require("express-winston");
+const path = require("path");
 
-const __dirname = dirname(import.meta);
-
-console.log(__dirname);
+//const __dirname = dirname(import.meta);
 
 const serverLog = expressWinston.logger({
   transports: [
@@ -27,8 +24,7 @@ const serverLog = expressWinston.logger({
       return `[${log.timestamp}] [${log.level}] ${log.message}`;
     })
   ),
-  msg:
-    "|{{res.statusCode}}|\t{{req.method}} \t|\t{{res.responseTime}}ms \t|{{req.url}}",
+  msg: "|{{res.statusCode}}|\t{{req.method}} \t|\t{{res.responseTime}}ms \t|{{req.url}}",
   expressFormat: false,
   colorize: false,
 });
@@ -59,4 +55,4 @@ const errorLog = expressWinston.errorLogger({
   showStack: true,
 });
 
-export { serverLog, errorLog };
+module.exports = { serverLog, errorLog };

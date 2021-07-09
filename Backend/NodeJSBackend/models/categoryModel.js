@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const categorySchema = mongoose.Schema(
   {
@@ -12,15 +12,14 @@ const categorySchema = mongoose.Schema(
     },
     image: {
       link: { type: String /*required: true*/ },
-      alt: { type: String /* required: true*/ },
+      alt: { type: String /*required: true*/ },
     },
     properties: [
       {
-        
         name: { type: String /*required: true*/ },
         image: {
           link: { type: String /*required: true*/ },
-          alt: { type: String /* required: true*/ },
+          alt: { type: String /*required: true*/ },
         },
       },
     ],
@@ -34,4 +33,4 @@ const categorySchema = mongoose.Schema(
 );
 
 const Category = mongoose.model("Category", categorySchema);
-export default Category;
+module.exports = Category;

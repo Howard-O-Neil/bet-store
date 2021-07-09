@@ -1,10 +1,10 @@
-import express from "express";
-import Category from "../models/categoryModel.js";
-import asyncHandler from "express-async-handler";
-import {
+const express = require("express");
+const Category = require("../models/categoryModel.js");
+const asyncHandler = require("express-async-handler");
+const {
   createCategory,
   updateCategory,
-} from "../controller/categoryController.js";
+} = require("../controller/categoryController.js");
 
 const router = express.Router();
 
@@ -27,6 +27,7 @@ router.get(
         : {};
     const path = req.query.path ? { path: req.query.path } : {};
     const categories = await Category.find({ ...parent, ...path });
+
     res.status(200).json(categories);
   })
 );
@@ -51,4 +52,4 @@ router.get(
 router.post("/", createCategory);
 router.route("/:id").put(updateCategory);
 
-export default router;
+module.exports = router;

@@ -5,7 +5,7 @@ import Product from "../../components/Product";
 import Category from "../../components/Category";
 import { listRandomProducts } from "../../actions/productActions";
 import style from "../../styles/ProductDisplay.module.scss";
-import { listCategories } from "../../actions/categoryActions";
+import { listCategories, resetCategory } from "../../actions/categoryActions";
 import Carousel from "react-grid-carousel";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
@@ -13,23 +13,23 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-
+  const [initialCategoryLoad, setInitialCategorylLoad] = useState(false);
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
+  useEffect(() => {
+    document.title = "Bet Store";
+
+    dispatch(listCategories({ parent: "" }));
+    dispatch(listRandomProducts({}));
+    setInitialCategorylLoad(true);
+  }, []);
   const categoryList = useSelector((state) => state.categoryList);
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
   } = categoryList;
-
-  useEffect(() => {
-    document.title = "Bet Store";
-    dispatch(listRandomProducts({}));
-    dispatch(listCategories({ parent: "" }));
-  }, [dispatch]);
-
   return (
     <>
       <div className="container">
@@ -38,7 +38,7 @@ const HomeScreen = () => {
             <h4 className={style.title}>Danh mục</h4>
           </div>
 
-          {loadingCategories ? (
+          {!initialCategoryLoad || loadingCategories ? (
             <Loader />
           ) : errorCategories ? (
             <Message variant="danger">{errorCategories}</Message>

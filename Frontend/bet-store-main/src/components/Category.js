@@ -6,12 +6,20 @@ import { LinkContainer } from "react-router-bootstrap";
 const Category = ({ category }) => {
   return (
     <div>
-      <Link to={`mua-ban${category.path}`} title={category.name}>
-        <img src={`/cdn/cdn/${category.image.link}`} alt={category.image.alt} />
-      </Link>
-      <br />
-      <span>{category.name}</span>
+      {category && (
+        <>
+          <Link to={`mua-ban${category.path}`} title={category.name}>
+            <img
+              src={`/cdn/cdn/${category.image.link}`}
+              alt={category.image.alt}
+            />
+          </Link>
+          <br />
+          <span>{category.name}</span>
+        </>
+      )}
     </div>
+
     /*<Container className={style.category} fluid>
       <Link to={`/category/${category._id}`}>
         {/* <Card.Img src={`/cdn/cdn/${product.image[0].link}`} variant="top" /> 

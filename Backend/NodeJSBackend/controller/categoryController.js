@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import Category from "../models/categoryModel.js";
-import asyncHandler from "express-async-handler";
-export const createCategory = asyncHandler(async (req, res) => {
+const mongoose = require("mongoose");
+const Category = require("../models/categoryModel.js");
+const asyncHandler = require("express-async-handler");
+exports.createCategory = asyncHandler(async (req, res) => {
   try {
     const newCategory = new Category({
       _id: mongoose.Types.ObjectId(),
@@ -9,7 +9,6 @@ export const createCategory = asyncHandler(async (req, res) => {
     });
     await Category.insertMany(newCategory);
 
-    console.log("Added new category");
     res.status(201).json({
       message: "Category created successfully!",
     });
@@ -20,7 +19,7 @@ export const createCategory = asyncHandler(async (req, res) => {
   }
 });
 
-export const updateCategory = asyncHandler(async (req, res) => {
+exports.updateCategory = asyncHandler(async (req, res) => {
   try {
     const newInfo = new Category({
       _id: req.params.id,
@@ -31,7 +30,7 @@ export const updateCategory = asyncHandler(async (req, res) => {
     if (category) {
       category.overwrite(newInfo);
       await category.save();
-      res.status(200).json({ message: "Product updated" });
+      res.status(200).json({ message: "Category updated" });
     } else {
       res.status(404);
       throw new Error("Category not found");
